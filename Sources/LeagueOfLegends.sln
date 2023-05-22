@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{9AF934
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoL_Champions", "LoL_Champions\LoL_Champions.csproj", "{83C11A15-1747-49C8-B137-E339784CA5C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM", "MVVM\MVVM.csproj", "{AF2D0404-E96C-4E49-87BC-1807B9A27A85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VM", "MVVM\VM.csproj", "{AF2D0404-E96C-4E49-87BC-1807B9A27A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

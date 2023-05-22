@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MVVM.Utils
+namespace VM.Utils
 {
     public class BaseViewModel
     {
@@ -14,7 +14,7 @@ namespace MVVM.Utils
         /// <param name="propertyName"> Property name </param>
         /// <param name="onChanged"> Action </param>
         /// <returns></returns>
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
+        protected virtual bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
             {

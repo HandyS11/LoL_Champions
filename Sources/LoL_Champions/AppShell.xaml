@@ -3,12 +3,16 @@
     x:Class="LoL_Champions.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LoL_Champions"
+    xmlns:local="clr-namespace:LoL_Champions.View.Pages"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="Home" />
 
+    <ShellContent
+        Title="Champions"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="Champions" />
 </Shell>
