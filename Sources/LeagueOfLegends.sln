@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stub", "Stub", "{2C607793-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StubLib", "StubLib\StubLib.csproj", "{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{9AF93438-0B89-433A-82DB-E5A6B84AF9E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoL_Champions", "LoL_Champions\LoL_Champions.csproj", "{83C11A15-1747-49C8-B137-E339784CA5C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,12 @@ Global
 		{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C11A15-1747-49C8-B137-E339784CA5C6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1889FA6E-B7C6-416E-8628-9449FB9070B9} = {C76D0C23-1FFA-4963-93CD-E12BD643F030}
 		{B01D7EF2-2D64-409A-A29A-61FB7BB7A9DB} = {2C607793-B163-4731-A4D1-AFE8A7C4C170}
+		{83C11A15-1747-49C8-B137-E339784CA5C6} = {9AF93438-0B89-433A-82DB-E5A6B84AF9E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92F3083D-793F-4552-8A9A-0AD6534159C9}
