@@ -22,7 +22,7 @@ namespace VM
             get => model?.Bio;
             set
             {
-                if (model.Bio == value) return;
+                if (model.Bio == value || value == null) return;
                 Bio = value;
                 OnPropertyChanged();
             }
@@ -33,7 +33,7 @@ namespace VM
             get => model?.Icon;
             set
             {
-                if (model.Icon == value) return;
+                if (model.Icon == value || value == null) return;
                 Icon = value; 
                 OnPropertyChanged();
             }

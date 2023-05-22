@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using LoL_Champions.Views.Pages;
+using Microsoft.Extensions.Logging;
+using Model;
+using StubLib;
+using VM;
 
 namespace LoL_Champions
 {
@@ -7,17 +12,21 @@ namespace LoL_Champions
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+            builder.UseMauiApp<App>()
+                   .UseMauiCommunityToolkit()
+                   .ConfigureFonts(fonts =>
+                   {
+                       fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                       fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                   });
+             
+            builder.Services.AddSingleton<IDataManager, StubData>()
+                            .AddSingleton<ChampionManagerVM>()
+                            .AddSingleton<ChampionsPage>();
 
-#if DEBUG
-		builder.Logging.AddDebug();
-#endif
+        #if DEBUG
+		    builder.Logging.AddDebug();
+        #endif
 
             return builder.Build();
         }
