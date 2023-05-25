@@ -3,21 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:LoL_Champions.Converters"
              x:Class="LoL_Champions.Views.Pages.ChampionsPage"
              x:DataType="vm:ChampionManagerVM"
-             Title="ChampionsPage">
+             Title="Champions">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding LoadChampionsCommand}"/>
     </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+    </ContentPage.Resources>
     
     <Grid RowDefinitions="*, Auto">
         <ListView ItemsSource="{Binding Champions}"
                   SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
-                    <ImageCell ImageSource="{Binding Icon}"
+                    <ImageCell ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"
                                Text="{Binding Name}"
                                Detail="{Binding Class}"/>
                 </DataTemplate>
@@ -25,21 +30,39 @@
         </ListView>
         <HorizontalStackLayout Grid.Row="1" 
                                HorizontalOptions="Center">
-            <Button Text="Previous"
-                    Command="{Binding ChangePageCommand}"
-                    CommandParameter="false"/>
+            <ImageButton Source="arrow_back.png"
+                         Command="{Binding ChangePageCommand}"
+                         CommandParameter="false"
+                         BackgroundColor="{StaticResource Primary}"
+                         CornerRadius="10"
+                         Padding="5"
+                         HeightRequest="40"
+                         WidthRequest="50">
+                <ImageButton.Behaviors>
+                    <toolkit:IconTintColorBehavior TintColor="White"/>
+                </ImageButton.Behaviors>
+            </ImageButton>
             <Label VerticalOptions="Center"
                    Margin="10,0">
                 <Label.Text>
-                    <MultiBinding StringFormat="{}{0}/{1}">
+                    <MultiBinding StringFormat="{}{0} / {1}">
                         <Binding Path="Index"/>
                         <Binding Path="NbPages"/>
                     </MultiBinding>
                 </Label.Text>
             </Label>
-            <Button Text="Next"
-                    Command="{Binding ChangePageCommand}"
-                    CommandParameter="true"/>
+            <ImageButton Source="arrow_forward.png"
+                         Command="{Binding ChangePageCommand}"
+                         CommandParameter="true"
+                         BackgroundColor="{StaticResource Primary}"
+                         CornerRadius="10"
+                         Padding="5"
+                         HeightRequest="40"
+                         WidthRequest="50">
+                <ImageButton.Behaviors>
+                    <toolkit:IconTintColorBehavior TintColor="White"/>
+                </ImageButton.Behaviors>
+            </ImageButton>
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>

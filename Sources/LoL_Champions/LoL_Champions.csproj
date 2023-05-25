@@ -39,13 +39,27 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\arrow_back.svg" />
+	  <None Remove="Resources\Images\arrow_forward.svg" />
+	  <None Remove="Resources\Images\arrow_left.svg" />
+	  <None Remove="Resources\Images\assassin_icon.png" />
+	  <None Remove="Resources\Images\fighter_icon.png" />
+	  <None Remove="Resources\Images\league_icon.png" />
+	  <None Remove="Resources\Images\league_logo.png" />
+	  <None Remove="Resources\Images\mage_icon.png" />
+	  <None Remove="Resources\Images\marksman_icon.png" />
+	  <None Remove="Resources\Images\support_icon.png" />
+	  <None Remove="Resources\Images\sword.svg" />
+	  <None Remove="Resources\Images\tank_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -66,10 +80,6 @@
 	  <MauiXaml Update="Views\Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 </Project>
