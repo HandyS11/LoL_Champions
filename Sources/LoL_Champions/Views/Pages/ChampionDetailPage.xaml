@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:VM;assembly=VM"
+             x:DataType="vm:ChampionVM"
+             x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
+             Title="ChampionDetailPage">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Image Source="{Binding Image}"/>
+            <HorizontalStackLayout>
+                <Label Text="{Binding Name}"
+                       FontSize="22"
+                       HorizontalOptions="Start"/>
+                <VerticalStackLayout HorizontalOptions="End">
+                    <Image Source="{Binding Class}"
+                       Aspect="AspectFit"
+                       WidthRequest="50"/>
+                    <Label Text="{Binding Class}"/>
+                </VerticalStackLayout>   
+            </HorizontalStackLayout>
+            <Editor Text="{Binding Bio}"
+                    IsReadOnly="True"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

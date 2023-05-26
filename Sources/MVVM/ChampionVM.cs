@@ -39,6 +39,17 @@ namespace VM
             }
         }
 
+        public LargeImage Image
+        {
+            get => model?.Image;
+            set
+            {
+                if (model.Image == value || value == null) return;
+                Image = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ChampionClass? Class
         {
             get => model?.Class;

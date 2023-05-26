@@ -30,6 +30,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -38,6 +41,8 @@
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
+		<MauiImage Include="Resources\Images\league_icon.png" BaseSize="30,30" />
+		<MauiImage Include="Resources\Images\sword.svg" BaseSize="30,30" />
 		<MauiImage Include="Resources\Images\*" />
 
 		<!-- Custom Fonts -->
@@ -48,22 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\arrow_back.svg" />
-	  <None Remove="Resources\Images\arrow_forward.svg" />
-	  <None Remove="Resources\Images\arrow_left.svg" />
-	  <None Remove="Resources\Images\assassin_icon.png" />
-	  <None Remove="Resources\Images\fighter_icon.png" />
-	  <None Remove="Resources\Images\league_icon.png" />
-	  <None Remove="Resources\Images\league_logo.png" />
-	  <None Remove="Resources\Images\mage_icon.png" />
-	  <None Remove="Resources\Images\marksman_icon.png" />
-	  <None Remove="Resources\Images\support_icon.png" />
-	  <None Remove="Resources\Images\sword.svg" />
-	  <None Remove="Resources\Images\tank_icon.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 

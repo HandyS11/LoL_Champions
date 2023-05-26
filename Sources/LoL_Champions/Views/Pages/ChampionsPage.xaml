@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
@@ -19,13 +19,14 @@
 
         <Style TargetType="ImageButton">
             <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Padding" Value="15"/>
             <Setter Property="HeightRequest" Value="60"/>
-            <Setter Property="WidthRequest" Value="75"/>
+            <Setter Property="WidthRequest" Value="60"/>
         </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, Auto">
+    <Grid RowDefinitions="*, Auto"
+          Margin="0,0,0,5">
         <ListView ItemsSource="{Binding Champions}"
                   SelectionMode="None">
             <ListView.ItemTemplate>
@@ -48,7 +49,7 @@
                     </ImageButton.Behaviors>
                 </ImageButton>
                 <Label VerticalOptions="Center"
-                       Margin="5,0">
+                       Margin="8,0">
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} / {1}">
                             <Binding Path="HumanIndex"/>
