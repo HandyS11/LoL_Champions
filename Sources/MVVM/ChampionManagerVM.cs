@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using VM.Utils;
 
@@ -86,6 +87,10 @@ namespace VM
             {
                 champions.Add(new ChampionVM(champ));
             }
+
+            Debug.WriteLine("NbPages: " + NbPages);
+            Debug.WriteLine("Index: " + Index);
+            Debug.WriteLine("HumanIndex: " + HumanIndex);
         }
 
         private async Task LoadPage(bool upOrDown)

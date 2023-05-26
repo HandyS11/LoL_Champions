@@ -33,7 +33,8 @@
                     <!--ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"-->
                     <ImageCell 
                                Text="{Binding Name}"
-                               Detail="{Binding Class}"/>
+                               Detail="{Binding Class}"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
