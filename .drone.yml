@@ -44,4 +44,5 @@ steps:
     when:
       branch:
         - master
-    depends_on: [tests]
+    # depends_on: [tests]
+    depends_on: [build]
