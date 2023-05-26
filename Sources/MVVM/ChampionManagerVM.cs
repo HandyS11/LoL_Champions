@@ -20,9 +20,30 @@ namespace VM
         public int Index
         {
             get => index;
-            set => SetProperty(ref index, value);
+            set
+            {
+                SetProperty(ref index, value);
+                OnPropertyChanged(nameof(HumanIndex));
+                OnPropertyChanged(nameof(IsFirstPage));
+                OnPropertyChanged(nameof(IsLastPage));
+            }
         }
         private int index = 0;
+
+        public int HumanIndex
+        {
+            get => Index + 1;
+        }
+
+        public bool IsFirstPage
+        {
+            get => Index <= 0;
+        }
+
+        public bool IsLastPage
+        {
+            get => Index + 1 >= nbPages;
+        }
 
         public int Count
         {
@@ -36,9 +57,10 @@ namespace VM
             get => nbPages;
             set => SetProperty(ref nbPages, value);
         }
-        private int nbPages = 2;
+        private int nbPages = 99;
 
-        public ICommand ChangePageCommand { get; private set; }
+        public ICommand PreviousPageCommand { get; private set; }
+        public ICommand NextPageCommand { get; private set; }
         public ICommand LoadChampionsCommand { get; private set; }
 
         public ChampionManagerVM(IDataManager dataManager)
@@ -46,14 +68,19 @@ namespace VM
             this.dataManager = dataManager;
             Champions = new ReadOnlyObservableCollection<ChampionVM>(champions);
 
-            ChangePageCommand = new Command<bool>(async (b) => await LoadPage(b));
+            PreviousPageCommand = new Command(async () => await LoadPage(false),
+                                              () => !IsFirstPage);
+            NextPageCommand = new Command(async () => await LoadPage(true),
+                                          () => !IsLastPage);            
+
             LoadChampionsCommand = new Command(async () => await LoadChampions());
         }
 
         public async Task LoadChampions()
         {
             champions.Clear();
-            NbPages = await dataManager.ChampionsMgr.GetNbItems() / Count;
+            var c = await dataManager.ChampionsMgr.GetNbItems();
+            NbPages = c % Count != 0 ? c / Count + 1 : c / Count;
             var champs = await dataManager.ChampionsMgr.GetItems(Index, Count);
             foreach(var champ in champs)
             {
@@ -65,14 +92,16 @@ namespace VM
         {
             if (upOrDown)
             {
-                if (Index >= NbPages) return;
-                Index++;
+                if (Index + 1 >= NbPages) return;
+                Index++;             
             }
             else
             {
                 if (Index <= 0) return;
-                Index--;                
+                Index--;     
             }
+            (PreviousPageCommand as Command).ChangeCanExecute();
+            (NextPageCommand as Command).ChangeCanExecute();
             await LoadChampions();
         }
     }

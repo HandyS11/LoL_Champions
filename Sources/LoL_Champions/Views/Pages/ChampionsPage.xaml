@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
+             xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              x:Class="LoL_Champions.Views.Pages.ChampionsPage"
              x:DataType="vm:ChampionManagerVM"
              Title="Champions">
@@ -15,54 +16,54 @@
 
     <ContentPage.Resources>
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+
+        <Style TargetType="ImageButton">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HeightRequest" Value="60"/>
+            <Setter Property="WidthRequest" Value="75"/>
+        </Style>
     </ContentPage.Resources>
-    
+
     <Grid RowDefinitions="*, Auto">
         <ListView ItemsSource="{Binding Champions}"
                   SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
-                    <ImageCell ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"
+                    <!--ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"-->
+                    <ImageCell 
                                Text="{Binding Name}"
                                Detail="{Binding Class}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <HorizontalStackLayout Grid.Row="1" 
-                               HorizontalOptions="Center">
-            <ImageButton Source="arrow_back.png"
-                         Command="{Binding ChangePageCommand}"
-                         CommandParameter="false"
-                         BackgroundColor="{StaticResource Primary}"
-                         CornerRadius="10"
-                         Padding="5"
-                         HeightRequest="40"
-                         WidthRequest="50">
-                <ImageButton.Behaviors>
-                    <toolkit:IconTintColorBehavior TintColor="White"/>
-                </ImageButton.Behaviors>
-            </ImageButton>
-            <Label VerticalOptions="Center"
-                   Margin="10,0">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}{0} / {1}">
-                        <Binding Path="Index"/>
-                        <Binding Path="NbPages"/>
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
-            <ImageButton Source="arrow_forward.png"
-                         Command="{Binding ChangePageCommand}"
-                         CommandParameter="true"
-                         BackgroundColor="{StaticResource Primary}"
-                         CornerRadius="10"
-                         Padding="5"
-                         HeightRequest="40"
-                         WidthRequest="50">
-                <ImageButton.Behaviors>
-                    <toolkit:IconTintColorBehavior TintColor="White"/>
-                </ImageButton.Behaviors>
-            </ImageButton>
-        </HorizontalStackLayout>
+        <VerticalStackLayout Grid.Row="1">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <ImageButton Source="arrow_back.png"
+                             Command="{Binding PreviousPageCommand}"
+                             CommandParameter="false">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </ImageButton.Behaviors>
+                </ImageButton>
+                <Label VerticalOptions="Center"
+                       Margin="5,0">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} / {1}">
+                            <Binding Path="HumanIndex"/>
+                            <Binding Path="NbPages"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <ImageButton Source="arrow_forward.png"
+                             Command="{Binding NextPageCommand}"
+                             CommandParameter="true">
+                    <ImageButton.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White"/>
+                    </ImageButton.Behaviors>
+                </ImageButton>
+            </HorizontalStackLayout>
+            <parts:SeparatorView/>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>
