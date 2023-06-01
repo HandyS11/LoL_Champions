@@ -1,9 +1,15 @@
-﻿namespace LoL_Champions.Views.Pages;
+﻿using VM;
+
+namespace LoL_Champions.Views.Pages;
 
 public partial class ChampionDetailPage : ContentPage
 {
-	public ChampionDetailPage()
+	private readonly ChampionVM vm;
+	public ChampionDetailPage(ChampionVM championVM)
 	{
 		InitializeComponent();
+
+		vm = championVM;
+		BindingContext = vm;
 	}
 }

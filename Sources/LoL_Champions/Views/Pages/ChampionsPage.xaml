@@ -28,7 +28,8 @@
     <Grid RowDefinitions="*, Auto"
           Margin="0,0,0,5">
         <ListView ItemsSource="{Binding Champions}"
-                  SelectionMode="None">
+                  SelectionMode="None"
+                  ItemTapped="ListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
                     <!--ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"-->

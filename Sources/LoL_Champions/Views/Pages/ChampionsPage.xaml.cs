@@ -12,4 +12,10 @@ public partial class ChampionsPage : ContentPage
 		_vm = vm;
 		BindingContext = _vm;
 	}
+
+    private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+		var b = e.Item as ChampionVM;
+		await Navigation.PushAsync(new ChampionDetailPage(b));
+    }
 }
