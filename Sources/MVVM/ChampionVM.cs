@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Collections.ObjectModel;
 using VM.Utils;
 
 namespace VM
@@ -61,9 +62,21 @@ namespace VM
             }
         }
 
+        public ReadOnlyObservableCollection<Skin> Skins { get; private set; }
+        private ObservableCollection<Skin> skins { get; set; }
+
+        public ReadOnlyObservableCollection<Skill> Skills { get; private set; }
+        private ObservableCollection<Skill> skills { get; set; }
+
         public ChampionVM(Champion model)
         {
             this.model = model;
+
+            skins = new ObservableCollection<Skin>(model?.Skins);
+            skills = new ObservableCollection<Skill>(model?.Skills);
+
+            Skins = new ReadOnlyObservableCollection<Skin>(skins);
+            Skills = new ReadOnlyObservableCollection<Skill>(skills);
         }
     }
 }

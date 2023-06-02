@@ -9,6 +9,11 @@
              x:DataType="vm:ChampionManagerVM"
              Title="Champions">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ajouter"
+                     />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding LoadChampionsCommand}"/>
@@ -19,7 +24,7 @@
 
         <Style TargetType="ImageButton">
             <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="HeightRequest" Value="60"/>
             <Setter Property="WidthRequest" Value="60"/>
         </Style>
@@ -37,13 +42,17 @@
                                Detail="{Binding Class}"
                                TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>-->
                     <ViewCell>
-                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="50, *">
+                        <Grid RowDefinitions="*, *" ColumnDefinitions="50, *">
                             <Image Grid.RowSpan="2"
+                                   Margin="5"
+                                   Aspect="AspectFill"
                                    Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
                             <Label Grid.Column="1"
-                                   Text="{Binding Name}"/>
+                                   Text="{Binding Name}"
+                                   FontSize="20"/>
                             <Label Grid.Column="1" Grid.Row="1"
-                                   Text="{Binding Class}"/>
+                                   Text="{Binding Class}"
+                                   TextColor="{StaticResource Gray400}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
@@ -52,8 +61,7 @@
         <VerticalStackLayout Grid.Row="1">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <ImageButton Source="arrow_back.png"
-                             Command="{Binding PreviousPageCommand}"
-                             CommandParameter="false">
+                             Command="{Binding PreviousPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>
@@ -61,15 +69,16 @@
                 <Label VerticalOptions="Center"
                        Margin="8,0">
                     <Label.Text>
-                        <MultiBinding StringFormat="{}{0} / {1}">
+                        <MultiBinding StringFormat="{} {0} / {1}">
                             <Binding Path="HumanIndex"/>
                             <Binding Path="NbPages"/>
                         </MultiBinding>
                     </Label.Text>
                 </Label>
                 <ImageButton Source="arrow_forward.png"
-                             Command="{Binding NextPageCommand}"
-                             CommandParameter="true">
+                             HeightRequest="60"
+                             WidthRequest="60"
+                             Command="{Binding NextPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
+             xmlns:model="clr-namespace:Model;assembly=Model"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              x:DataType="vm:ChampionVM"
              x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
@@ -43,6 +44,16 @@
             <Label Text="Skins"
                    Margin="10"
                    Style="{StaticResource Title}"/>
+            <!--<ListView ItemsSource="{Binding Skins}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Skin">
+                        <Frame>
+                            <Label Text="{Binding Name}"/>
+                        </Frame>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
