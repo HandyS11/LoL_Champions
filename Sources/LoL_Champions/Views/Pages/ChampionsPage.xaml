@@ -25,18 +25,27 @@
         </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, Auto"
-          Margin="0,0,0,5">
+    <Grid RowDefinitions="*, Auto">
         <ListView ItemsSource="{Binding Champions}"
                   SelectionMode="None"
                   ItemTapped="ListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
                     <!--ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"-->
-                    <ImageCell 
+                    <!--<ImageCell 
                                Text="{Binding Name}"
                                Detail="{Binding Class}"
-                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>-->
+                    <ViewCell>
+                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="50, *">
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"/>
+                            <Label Grid.Column="1" Grid.Row="1"
+                                   Text="{Binding Class}"/>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
