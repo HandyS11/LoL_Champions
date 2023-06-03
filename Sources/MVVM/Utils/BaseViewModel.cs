@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace VM.Utils
 {
-    public class BaseViewModel
+    public class BaseViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// Update the existing data and notify the change

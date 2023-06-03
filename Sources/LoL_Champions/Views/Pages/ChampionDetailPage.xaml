@@ -3,57 +3,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:model="clr-namespace:Model;assembly=Model"
+             xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
-             x:DataType="vm:ChampionVM"
+             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
+             x:DataType="local:ChampionDetailPage"
              x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
              Title="ChampionPage">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Editer"
+                     Command="{Binding _navigation.EditChampionCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Resources>
         <converters:ClassToClassIconConverter x:Key="classToIconConverter"/>
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
     </ContentPage.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout>
-            <Image Source="{Binding Image.Base64, Converter={StaticResource imageConverter}}"/>
-            <Grid ColumnDefinitions="Auto, *, Auto" Margin="10">
-                <Label Text="{Binding Name}"
-                       Style="{StaticResource Title}"
-                       HorizontalOptions="Start"/>
-                <VerticalStackLayout Grid.Column="2">
-                    <Image Source="{Binding Class, Converter={StaticResource classToIconConverter}}"
-                           Aspect="AspectFit"
-                           WidthRequest="40"
-                           HorizontalOptions="Center"/>
-                    <Label Text="{Binding Class}"
-                           TextColor="{StaticResource Primary}"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"/>
-                </VerticalStackLayout>   
-            </Grid>
-            <Editor Text="{Binding Bio}"
-                    TextColor="{StaticResource Primary}"
-                    Margin="10"
-                    IsReadOnly="True"/>
-            <Label Text="Caractéristiques"
-                   Margin="10"
-                   Style="{StaticResource Title}"/>
-            <Label Text="Compétences"
-                   Margin="10"
-                   Style="{StaticResource Title}"/>
-            <Label Text="Skins"
-                   Margin="10"
-                   Style="{StaticResource Title}"/>
-            <!--<ListView ItemsSource="{Binding Skins}"
-                      SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Skin">
-                        <Frame>
-                            <Label Text="{Binding Name}"/>
-                        </Frame>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout>
+                <Image Source="{Binding _vm.Image.Base64, Converter={StaticResource imageConverter}}"/>
+                <Grid ColumnDefinitions="Auto, *, Auto" Margin="10">
+                    <Label Text="{Binding _vm.Name}"
+                           Style="{StaticResource Title}"
+                           HorizontalOptions="Start"/>
+                    <VerticalStackLayout Grid.Column="2">
+                        <Image Source="{Binding _vm.Class, Converter={StaticResource classToIconConverter}}"
+                               Aspect="AspectFit"
+                               WidthRequest="40"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding _vm.Class}"
+                               TextColor="{StaticResource Primary}"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <Editor Text="{Binding _vm.Bio}"
+                        TextColor="{StaticResource Primary}"
+                        Margin="10"
+                        IsReadOnly="True"/>
+                <Label Text="Caractéristiques"
+                       Margin="10"
+                       Style="{StaticResource Title}"/>
+                <Label Text="Compétences"
+                       Margin="10"
+                       Style="{StaticResource Title}"/>
+                <!--<ListView ItemsSource="{Binding Skills}"
+                          SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                        
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                <Label Text="Skins"
+                       Margin="10"
+                       Style="{StaticResource Title}"/>
+                <!--<ListView ItemsSource="{Binding Skins}"
+                        SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame>
+                                <Label Text="{Binding Name}"/>
+                            </Frame>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+            </VerticalStackLayout>
+        </ScrollView>
+        <parts:SeparatorView/>
+    </Grid>
 </ContentPage>

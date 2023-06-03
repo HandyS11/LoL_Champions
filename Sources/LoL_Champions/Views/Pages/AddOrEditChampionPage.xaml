@@ -3,6 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LoL_Champions.Views.Pages.AddOrEditChampionPage"
              Title="AddOrEditChampionPage">
-    
-    
+
+    <Grid RowDefinitions="*, 50">
+        <ScrollView>
+            <Grid ColumnDefinitions="*, 5*">
+                <Label Grid.ColumnSpan="2" 
+                       Text="Nouveau Champion"
+                       TextColor="{StaticResource Primary}"
+                       HorizontalOptions="Center"
+                       FontSize="24"/>
+            </Grid>
+        </ScrollView>
+
+        <FlexLayout Grid.Row="1" 
+                    Direction="Row"
+                    AlignContent="SpaceEvenly">
+            <Button Text="Modifier/Ajouter"/>
+            <Button Text="Annuler"/>
+        </FlexLayout>
+    </Grid>
 </ContentPage>

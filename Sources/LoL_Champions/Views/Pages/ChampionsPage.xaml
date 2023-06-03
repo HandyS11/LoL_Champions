@@ -2,21 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
+             xmlns:navigation="clr-namespace:LoL_Champions.ViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
+             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              x:Class="LoL_Champions.Views.Pages.ChampionsPage"
-             x:DataType="vm:ChampionManagerVM"
+             x:DataType="local:ChampionsPage"
              Title="Champions">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Ajouter"
-                     />
+                     Command="{Binding _navigation.AddChampionCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding LoadChampionsCommand}"/>
+                                        Command="{Binding _vm.LoadChampionsCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -31,16 +33,11 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*, Auto">
-        <ListView ItemsSource="{Binding Champions}"
+        <ListView ItemsSource="{Binding _vm.Champions}"
                   SelectionMode="None"
                   ItemTapped="ListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
-                    <!--ImageSource="{Binding Icon, Converter={StaticResource imageConverter}}"-->
-                    <!--<ImageCell 
-                               Text="{Binding Name}"
-                               Detail="{Binding Class}"
-                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>-->
                     <ViewCell>
                         <Grid RowDefinitions="*, *" ColumnDefinitions="50, *">
                             <Image Grid.RowSpan="2"
@@ -61,7 +58,7 @@
         <VerticalStackLayout Grid.Row="1">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <ImageButton Source="arrow_back.png"
-                             Command="{Binding PreviousPageCommand}">
+                             Command="{Binding _vm.PreviousPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>
@@ -69,16 +66,16 @@
                 <Label VerticalOptions="Center"
                        Margin="8,0">
                     <Label.Text>
-                        <MultiBinding StringFormat="{} {0} / {1}">
-                            <Binding Path="HumanIndex"/>
-                            <Binding Path="NbPages"/>
+                        <MultiBinding StringFormat="{}{0} / {1}">
+                            <Binding Path="_vm.HumanIndex"/>
+                            <Binding Path="_vm.NbPages"/>
                         </MultiBinding>
                     </Label.Text>
                 </Label>
                 <ImageButton Source="arrow_forward.png"
                              HeightRequest="60"
                              WidthRequest="60"
-                             Command="{Binding NextPageCommand}">
+                             Command="{Binding _vm.NextPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>
