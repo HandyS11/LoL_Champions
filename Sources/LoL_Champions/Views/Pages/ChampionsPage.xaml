@@ -24,11 +24,9 @@
     <ContentPage.Resources>
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
 
-        <Style TargetType="ImageButton">
+        <Style TargetType="ImageButton" x:Key="navigationButton">
             <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="Padding" Value="5"/>
-            <Setter Property="HeightRequest" Value="60"/>
-            <Setter Property="WidthRequest" Value="60"/>
         </Style>
     </ContentPage.Resources>
 
@@ -39,7 +37,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
                     <ViewCell>
-                        <Grid RowDefinitions="*, *" ColumnDefinitions="50, *">
+                        <Grid RowDefinitions="*, *" ColumnDefinitions="50, *, Auto">
                             <Image Grid.RowSpan="2"
                                    Margin="5"
                                    Aspect="AspectFill"
@@ -50,6 +48,24 @@
                             <Label Grid.Column="1" Grid.Row="1"
                                    Text="{Binding Class}"
                                    TextColor="{StaticResource Gray400}"/>
+
+                            <HorizontalStackLayout Grid.Column="2"
+                                                   Grid.RowSpan="2">
+                                <ImageButton Source="edit.png"
+                                             BackgroundColor="Transparent"
+                                             Padding="3">
+                                    <ImageButton.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
+                                    </ImageButton.Behaviors>
+                                </ImageButton>
+                                <ImageButton Source="delete.png"
+                                             BackgroundColor="Transparent"
+                                             Padding="3">
+                                    <ImageButton.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
+                                    </ImageButton.Behaviors>
+                                </ImageButton>
+                            </HorizontalStackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
@@ -58,6 +74,9 @@
         <VerticalStackLayout Grid.Row="1">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <ImageButton Source="arrow_back.png"
+                             HeightRequest="60"
+                             WidthRequest="60"
+                             Style="{StaticResource navigationButton}"
                              Command="{Binding _vm.PreviousPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
@@ -75,6 +94,7 @@
                 <ImageButton Source="arrow_forward.png"
                              HeightRequest="60"
                              WidthRequest="60"
+                             Style="{StaticResource navigationButton}"
                              Command="{Binding _vm.NextPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>

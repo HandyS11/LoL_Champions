@@ -1,25 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
+             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              x:Class="LoL_Champions.Views.Pages.AddOrEditChampionPage"
+             x:DataType="local:AddOrEditChampionPage"
              Title="AddOrEditChampionPage">
 
-    <Grid RowDefinitions="*, 50">
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="categLabel">
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="{StaticResource Tertiary}"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="*, 60">
         <ScrollView>
-            <Grid ColumnDefinitions="*, 5*">
+            <Grid ColumnDefinitions="100, *"
+                  ColumnSpacing="5"
+                  RowDefinitions="Auto, Auto, Auto, 150, 180, 150, 250"
+                  RowSpacing="10"
+                  Margin="10">
                 <Label Grid.ColumnSpan="2" 
-                       Text="Nouveau Champion"
-                       TextColor="{StaticResource Primary}"
+                       Text="Modifier le Champion"
+                       TextColor="{StaticResource Tertiary}"
                        HorizontalOptions="Center"
-                       FontSize="24"/>
+                       FontSize="26"/>
+
+                <Label Grid.Row="1" 
+                       Text="Nom :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="2" 
+                       Text="Icon :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="3" 
+                       Text="Image :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="4" 
+                       Text="Bio :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="5" 
+                       Text="Classe :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="6" 
+                       Text="Caractéristiques :"
+                       Style="{StaticResource categLabel}"/>
+
+                <Frame Grid.Row="1" 
+                       Grid.Column="1">
+                    <Entry Placeholder="Nom du champion"
+                           TextColor="{StaticResource Gray600}"/>
+                </Frame>
+                <Frame Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalOptions="Start"
+                       CornerRadius="3"
+                       WidthRequest="50"
+                       HeightRequest="50">
+                    <Image Source="league_icon.png"/>
+                </Frame>
+                <Frame Grid.Row="3"
+                       Grid.Column="1"
+                       CornerRadius="3">
+                    <Image Source="league_logo.png"
+                           Margin="25"
+                           Aspect="AspectFit"/>
+                </Frame>
+                <Frame Grid.Row="4"
+                       Grid.Column="1"
+                       CornerRadius="3">
+                    <Editor Placeholder="Lore.." 
+                            TextColor="{StaticResource Black}"/>
+                </Frame>
+
             </Grid>
         </ScrollView>
 
-        <FlexLayout Grid.Row="1" 
-                    Direction="Row"
-                    AlignContent="SpaceEvenly">
-            <Button Text="Modifier/Ajouter"/>
-            <Button Text="Annuler"/>
-        </FlexLayout>
+        <Grid Grid.Row="1" 
+              Margin="75,0,75,15"
+              ColumnDefinitions="*, *"
+              ColumnSpacing="50">
+            <Button Text="Edit"/>
+            <Button Grid.Column="1" 
+                    Text="Annuler"
+                    Command="{Binding _navigation.NavigateBackCommand}"/>
+        </Grid>
+        <parts:SeparatorView Grid.Row="1" VerticalOptions="End"/>
     </Grid>
 </ContentPage>
