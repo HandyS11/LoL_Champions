@@ -62,6 +62,9 @@ namespace VM
             }
         }
 
+        public ReadOnlyObservableCollection<KeyValuePair<string, int>> Stats { get; private set; }
+        private ObservableCollection<KeyValuePair<string, int>> stats { get; set; }
+
         public ReadOnlyObservableCollection<Skin> Skins { get; private set; }
         private ObservableCollection<Skin> skins { get; set; }
 
@@ -71,6 +74,9 @@ namespace VM
         public ChampionVM(Champion model)
         {
             this.model = model;
+
+            stats = new ObservableCollection<KeyValuePair<string, int>>(model?.Characteristics);
+            Stats = new ReadOnlyObservableCollection<KeyValuePair<string, int>>(stats);
 
             skins = new ObservableCollection<Skin>(model?.Skins);
             skills = new ObservableCollection<Skill>(model?.Skills);

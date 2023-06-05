@@ -18,6 +18,7 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="TextColor" Value="{StaticResource Tertiary}"/>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="LineBreakMode" Value="TailTruncation"/>
         </Style>
     </ContentPage.Resources>
     
