@@ -65,11 +65,11 @@ namespace VM
         public ReadOnlyObservableCollection<KeyValuePair<string, int>> Stats { get; private set; }
         private ObservableCollection<KeyValuePair<string, int>> stats { get; set; }
 
-        public ReadOnlyObservableCollection<Skin> Skins { get; private set; }
-        private ObservableCollection<Skin> skins { get; set; }
+        public ReadOnlyObservableCollection<SkinVM> Skins { get; private set; }
+        private ObservableCollection<SkinVM> skins { get; set; }
 
-        public ReadOnlyObservableCollection<Skill> Skills { get; private set; }
-        private ObservableCollection<Skill> skills { get; set; }
+        public ReadOnlyObservableCollection<SkillVM> Skills { get; private set; }
+        private ObservableCollection<SkillVM> skills { get; set; }
 
         public ChampionVM(Champion model)
         {
@@ -78,11 +78,11 @@ namespace VM
             stats = new ObservableCollection<KeyValuePair<string, int>>(model?.Characteristics);
             Stats = new ReadOnlyObservableCollection<KeyValuePair<string, int>>(stats);
 
-            skins = new ObservableCollection<Skin>(model?.Skins);
-            skills = new ObservableCollection<Skill>(model?.Skills);
+            skins = new ObservableCollection<SkinVM>(model?.Skins.Select(a => new SkinVM(a)));
+            skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
 
-            Skins = new ReadOnlyObservableCollection<Skin>(skins);
-            Skills = new ReadOnlyObservableCollection<Skill>(skills);
+            Skins = new ReadOnlyObservableCollection<SkinVM>(skins);
+            Skills = new ReadOnlyObservableCollection<SkillVM>(skills);
         }
     }
 }
