@@ -23,6 +23,7 @@
 
     <ContentPage.Resources>
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
 
         <Style TargetType="ImageButton" x:Key="navigationButton">
             <Setter Property="CornerRadius" Value="10"/>
@@ -32,10 +33,18 @@
 
     <Grid RowDefinitions="*, Auto">
         <ListView ItemsSource="{Binding _vm.Champions}"
-                  SelectionMode="None"
-                  ItemTapped="ListView_ItemTapped">
+                  SelectionMode="None">
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="ItemTapped"
+                                                EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                                                Command="{Binding _navigation.ChampionCommand}"/>
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="vm:ChampionVM">
+                    <!--<ImageCell Text="{Binding Name}"
+                               TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+                               Detail="{Binding Class}"
+                               DetailColor="{StaticResource Gray400}"/>-->
                     <ViewCell>
                         <Grid RowDefinitions="*, *" ColumnDefinitions="50, *, Auto">
                             <Image Grid.RowSpan="2"

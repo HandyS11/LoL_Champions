@@ -21,7 +21,7 @@
     </ContentPage.Resources>
 
     <Grid>
-        <ScrollView>
+        <ScrollView Margin="0,0,5,0">
             <VerticalStackLayout>
                 <Image Source="{Binding _vm.Image.Base64, Converter={StaticResource imageConverter}}"/>
                 <Grid ColumnDefinitions="Auto, *, Auto" Margin="10">
@@ -49,27 +49,27 @@
                 <Label Text="Compétences"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <!--<ListView ItemsSource="{Binding Skills}"
-                          SelectionMode="None">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                        
+                <CollectionView ItemsSource="{Binding _vm.Skills}"
+                                MaximumHeightRequest="400">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Skill">
+                            <Label Text="{Binding Name}"/>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Label Text="Skins"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <!--<ListView ItemsSource="{Binding Skins}"
-                        SelectionMode="None">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame>
+                <CollectionView ItemsSource="{Binding _vm.Skins}"
+                                MaximumHeightRequest="400">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Skin">
+                            <Frame BackgroundColor="Transparent">
                                 <Label Text="{Binding Name}"/>
                             </Frame>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
         <parts:SeparatorView/>
