@@ -63,6 +63,8 @@ namespace VM
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LoadChampionsCommand { get; private set; }
+        public ICommand DeleteChampionCommand { get; private set; }
+        public ICommand EditChampionCommand { get; private set; }
 
         public ChampionManagerVM(IDataManager dataManager)
         {
@@ -75,6 +77,9 @@ namespace VM
                                           () => !IsLastPage);            
 
             LoadChampionsCommand = new Command(async () => await LoadChampions());
+
+            DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
+            EditChampionCommand = new Command<ChampionVM>(async (vm) => await EditChampion(vm));
         }
 
         public async Task LoadChampions()
@@ -87,10 +92,6 @@ namespace VM
             {
                 champions.Add(new ChampionVM(champ));
             }
-
-            Debug.WriteLine("NbPages: " + NbPages);
-            Debug.WriteLine("Index: " + Index);
-            Debug.WriteLine("HumanIndex: " + HumanIndex);
         }
 
         private async Task LoadPage(bool upOrDown)
@@ -108,6 +109,17 @@ namespace VM
             (PreviousPageCommand as Command).ChangeCanExecute();
             (NextPageCommand as Command).ChangeCanExecute();
             await LoadChampions();
+        }
+
+        private async Task DeleteChampion(ChampionVM vm)
+        {
+            await dataManager.ChampionsMgr.DeleteItem(vm.Model);
+            await LoadChampions();
+        }
+
+        private async Task EditChampion(ChampionVM vm)
+        {
+
         }
     }
 }

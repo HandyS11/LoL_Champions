@@ -45,53 +45,25 @@
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
 
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems>
-                                <SwipeItem Text="Modifier"
-                                           BackgroundColor="{StaticResource Gray500}" />
-                                <SwipeItem Text="Supprimer"
-                                           BackgroundColor="Red" />
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <SwipeView.Content>
-                            <StackLayout Orientation="Vertical">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding Icon, Converter={StaticResource imageConverter}}"
-                                           WidthRequest="50"
-                                           HeightRequest="50"/>
-                                    <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding Name}"
-                                               VerticalOptions="CenterAndExpand" 
-                                               HorizontalOptions="StartAndExpand"
-                                               FontAttributes="Bold"/>
-                                        <Label Text="{Binding Class}"
-                                               VerticalOptions="CenterAndExpand" 
-                                               HorizontalOptions="StartAndExpand"
-                                               FontSize="Caption"/>
-                                    </StackLayout>
-                                </StackLayout>
-                                <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="10,10,10,0"/>
-                            </StackLayout>
-                        </SwipeView.Content>
-                    </SwipeView>
-                    
-                    <!--<ViewCell>
+                    <ViewCell>
                         <SwipeView>
-                            <SwipeView.LeftItems>
+                            <SwipeView.RightItems>
                                 <SwipeItems>
-                                    <SwipeItem Text="Editer"
-                                               BackgroundColor="LightGreen"
-                                               Invoked="SwipeItem_OnInvoked"/>
                                     <SwipeItem Text="Supprimer"
-                                               BackgroundColor="LightPink"
-                                               Invoked="SwipeItem_OnInvoked"/>
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ChampionManagerVM}}, Path=DeleteChampionCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                    <SwipeItem Text="Editer"
+                                               BackgroundColor="{StaticResource Gray500}"
+                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ChampionManagerVM}}, Path=EditChampionCommand}"
+                                               CommandParameter="{Binding .}"/>
                                 </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <Grid RowDefinitions="Auto, Auto"
+                            </SwipeView.RightItems>
+                            <Grid RowDefinitions="*, *"
+                                  ColumnSpacing="5"
                                   ColumnDefinitions="Auto, *">
                                 <Image Grid.RowSpan="2"
-                                       Margin="5"
+                                       HeightRequest="50"
                                        Aspect="AspectFill"
                                        Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
                                 <Label Grid.Column="1"
@@ -102,40 +74,7 @@
                                        TextColor="{StaticResource Gray400}"/>
                             </Grid>
                         </SwipeView>
-                    </ViewCell>-->
-
-                    <!--<ViewCell>
-                        <Grid RowDefinitions="*, *" ColumnDefinitions="50, *, Auto">
-                            <Image Grid.RowSpan="2"
-                                   Margin="5"
-                                   Aspect="AspectFill"
-                                   Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
-                            <Label Grid.Column="1"
-                                   Text="{Binding Name}"
-                                   FontSize="20"/>
-                            <Label Grid.Column="1" Grid.Row="1"
-                                   Text="{Binding Class}"
-                                   TextColor="{StaticResource Gray400}"/>
-
-                            <HorizontalStackLayout Grid.Column="2"
-                                                   Grid.RowSpan="2">
-                                <ImageButton Source="edit.png"
-                                             BackgroundColor="Transparent"
-                                             Padding="3">
-                                    <ImageButton.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
-                                    </ImageButton.Behaviors>
-                                </ImageButton>
-                                <ImageButton Source="delete.png"
-                                             BackgroundColor="Transparent"
-                                             Padding="3">
-                                    <ImageButton.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
-                                    </ImageButton.Behaviors>
-                                </ImageButton>
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </ViewCell>-->
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

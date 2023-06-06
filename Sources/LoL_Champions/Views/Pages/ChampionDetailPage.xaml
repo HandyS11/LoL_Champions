@@ -22,8 +22,11 @@
     <Grid>
         <ScrollView Margin="0,0,0,0">
             <VerticalStackLayout>
-                <Image Source="{Binding _vm.Image.Base64, Converter={StaticResource imageConverter}}"/>
-                <Grid ColumnDefinitions="Auto, *, Auto" Margin="10">
+                <Image WidthRequest="-1" 
+                       HeightRequest="-1"
+                       Source="{Binding _vm.Image.Base64, Converter={StaticResource imageConverter}}"/>
+                <Grid ColumnDefinitions="Auto, *, Auto" 
+                      Margin="10">
                     <Label Text="{Binding _vm.Name}"
                            Style="{StaticResource Title}"
                            HorizontalOptions="Start"/>
