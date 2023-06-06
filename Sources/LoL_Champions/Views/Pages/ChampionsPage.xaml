@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:VM;assembly=VM"
-             xmlns:navigation="clr-namespace:LoL_Champions.ViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
@@ -45,7 +44,67 @@
                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
-                    <ViewCell>
+
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Modifier"
+                                           BackgroundColor="{StaticResource Gray500}" />
+                                <SwipeItem Text="Supprimer"
+                                           BackgroundColor="Red" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <SwipeView.Content>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Icon, Converter={StaticResource imageConverter}}"
+                                           WidthRequest="50"
+                                           HeightRequest="50"/>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Name}"
+                                               VerticalOptions="CenterAndExpand" 
+                                               HorizontalOptions="StartAndExpand"
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Class}"
+                                               VerticalOptions="CenterAndExpand" 
+                                               HorizontalOptions="StartAndExpand"
+                                               FontSize="Caption"/>
+                                    </StackLayout>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="10,10,10,0"/>
+                            </StackLayout>
+                        </SwipeView.Content>
+                    </SwipeView>
+                    
+                    <!--<ViewCell>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Editer"
+                                               BackgroundColor="LightGreen"
+                                               Invoked="SwipeItem_OnInvoked"/>
+                                    <SwipeItem Text="Supprimer"
+                                               BackgroundColor="LightPink"
+                                               Invoked="SwipeItem_OnInvoked"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid RowDefinitions="Auto, Auto"
+                                  ColumnDefinitions="Auto, *">
+                                <Image Grid.RowSpan="2"
+                                       Margin="5"
+                                       Aspect="AspectFill"
+                                       Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="20"/>
+                                <Label Grid.Column="1" Grid.Row="1"
+                                       Text="{Binding Class}"
+                                       TextColor="{StaticResource Gray400}"/>
+                            </Grid>
+                        </SwipeView>
+                    </ViewCell>-->
+
+                    <!--<ViewCell>
                         <Grid RowDefinitions="*, *" ColumnDefinitions="50, *, Auto">
                             <Image Grid.RowSpan="2"
                                    Margin="5"
@@ -76,7 +135,7 @@
                                 </ImageButton>
                             </HorizontalStackLayout>
                         </Grid>
-                    </ViewCell>
+                    </ViewCell>-->
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
