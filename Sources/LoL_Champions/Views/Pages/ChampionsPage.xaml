@@ -45,36 +45,7 @@
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
 
-                    <ViewCell>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Supprimer"
-                                               BackgroundColor="Red"
-                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ChampionManagerVM}}, Path=DeleteChampionCommand}"
-                                               CommandParameter="{Binding .}"/>
-                                    <SwipeItem Text="Editer"
-                                               BackgroundColor="{StaticResource Gray500}"
-                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ChampionManagerVM}}, Path=EditChampionCommand}"
-                                               CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Grid RowDefinitions="*, *"
-                                  ColumnSpacing="5"
-                                  ColumnDefinitions="Auto, *">
-                                <Image Grid.RowSpan="2"
-                                       HeightRequest="50"
-                                       Aspect="AspectFill"
-                                       Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
-                                <Label Grid.Column="1"
-                                       Text="{Binding Name}"
-                                       FontSize="20"/>
-                                <Label Grid.Column="1" Grid.Row="1"
-                                       Text="{Binding Class}"
-                                       TextColor="{StaticResource Gray400}"/>
-                            </Grid>
-                        </SwipeView>
-                    </ViewCell>
+                    <parts:ChampionItemList/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
