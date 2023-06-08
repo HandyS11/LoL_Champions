@@ -77,6 +77,9 @@
 	  <MauiXaml Update="Views\Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Parts\RadioButtonClassView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Parts\StatItemView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

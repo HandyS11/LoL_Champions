@@ -7,4 +7,36 @@
         <Setter Property="FontSize" Value="26"/>
         <Setter Property="TextColor" Value="{StaticResource Primary}"/>
     </Style>
+
+    <ControlTemplate x:Key="RadioButtonTemplate">
+        <Border StrokeThickness="0"
+                    StrokeShape="RoundRectangle 30,30,0,30"
+                    BackgroundColor="{StaticResource Primary}"
+                    HeightRequest="90"
+                    WidthRequest="90"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                            Value="{StaticResource Tertiary}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                            Value="{StaticResource Primary}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+            <Grid>
+                <ContentPresenter />
+            </Grid>
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>
