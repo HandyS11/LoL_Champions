@@ -80,7 +80,46 @@
                     <Editor Placeholder="Lore.." 
                             TextColor="{StaticResource Black}"/>
                 </Frame>
-
+                <Grid Grid.Row="5"
+                      Grid.Column="1"
+                      RowDefinitions="*, *"
+                      ColumnDefinitions="*, *, *"
+                      RadioButtonGroup.GroupName="classButtons">
+                    <RadioButton Content="A"/>
+                    <RadioButton Grid.Column="1" 
+                                 Content="B"/>
+                    <RadioButton Grid.Column="2" 
+                                 Content="C"/>
+                    <RadioButton Grid.Row="1" 
+                                 Content="D"/>
+                    <RadioButton Grid.Row="1" 
+                                 Grid.Column="1" 
+                                 Content="E"/>
+                    <RadioButton Grid.Row="1" 
+                                 Grid.Column="2" 
+                                 Content="F"/>
+                </Grid>
+                <Frame Grid.Row="6"
+                       Grid.Column="1"
+                       CornerRadius="0"
+                       BorderColor="{StaticResource Primary}"
+                       BackgroundColor="Transparent">
+                    <CollectionView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="{StaticResource Primary}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0,20,20,20"/>
+                                    </Border.StrokeShape>
+                                    <HorizontalStackLayout>
+                                        <Label Text="AA"/>
+                                        <Label Text="10"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
             </Grid>
         </ScrollView>
 
