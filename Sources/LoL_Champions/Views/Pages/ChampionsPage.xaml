@@ -8,7 +8,8 @@
              xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              x:Class="LoL_Champions.Views.Pages.ChampionsPage"
              x:DataType="local:ChampionsPage"
-             Title="Champions">
+             Title="Champions"
+             x:Name="Page">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Ajouter"
@@ -39,13 +40,14 @@
                                                 Command="{Binding _navigation.ChampionCommand}"/>
             </ListView.Behaviors>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:ChampionVM">
+                <DataTemplate>
                     <!--<ImageCell Text="{Binding Name}"
                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
 
-                    <parts:ChampionItemList/>
+                    <parts:ChampionItemList DeleteCommand="{Binding _vm.DeleteChampionCommand, Source={x:Reference Page}}"
+                                            EditCommand="{Binding _vm.EditChampionCommand, Source={x:Reference Page}}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
