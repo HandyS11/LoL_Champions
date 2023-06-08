@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           xmlns:vm="clr-namespace:VM;assembly=VM"
+          xmlns:converters="clr-namespace:LoL_Champions.Converters"
           x:DataType="vm:ChampionVM"
           x:Class="LoL_Champions.Views.Parts.ChampionItemList"
           x:Name="View">
+ 
     <SwipeView>
+        <SwipeView.Resources>
+            <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        </SwipeView.Resources>
         <SwipeView.RightItems>
             <SwipeItems>
                 <SwipeItem Text="Supprimer"
@@ -22,10 +26,10 @@
         <Grid RowDefinitions="*, *"
               ColumnSpacing="5"
               ColumnDefinitions="Auto, *">
-            <!--<Image Grid.RowSpan="2"
+            <Image Grid.RowSpan="2"
                    HeightRequest="50"
                    Aspect="AspectFill"
-                   Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>-->
+                   Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
             <Label Grid.Column="1"
                    Text="{Binding Name}"
                    FontSize="20"/>
