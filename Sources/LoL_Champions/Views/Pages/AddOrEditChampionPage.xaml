@@ -28,7 +28,7 @@
         </Style>
     </ContentPage.Resources>
     
-    <Grid RowDefinitions="*, 60">
+    <Grid RowDefinitions="*, 75">
         <ScrollView>
             <Grid ColumnDefinitions="100, *"
                   ColumnSpacing="5"
@@ -71,14 +71,14 @@
                        CornerRadius="3"
                        WidthRequest="50"
                        HeightRequest="50">
-                    <Image Source="league_icon.png"/>
+                    <ImageButton Source="league_icon.png"/>
                 </Frame>
                 <Frame Grid.Row="3"
                        Grid.Column="1"
                        CornerRadius="3">
-                    <Image Source="league_logo.png"
-                           Margin="25"
-                           Aspect="AspectFit"/>
+                    <ImageButton Source="league_logo.png"
+                                 Margin="25"
+                                 Aspect="AspectFit"/>
                 </Frame>
                 <Frame Grid.Row="4"
                        Grid.Column="1"
@@ -169,7 +169,7 @@
         </ScrollView>
 
         <Grid Grid.Row="1" 
-              Margin="75,0,75,15"
+              Margin="75,10,75,15"
               ColumnDefinitions="*, *"
               ColumnSpacing="50">
             <Button Text="Edit"/>

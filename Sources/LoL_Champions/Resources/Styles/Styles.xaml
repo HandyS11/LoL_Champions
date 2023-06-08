@@ -22,7 +22,7 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
-    <Style TargetType="Button" x:Name="buttonBased">
+    <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource White}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
