@@ -5,13 +5,15 @@
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
-             x:DataType="local:ChampionDetailPage"
+             x:DataType="vm:ChampionVM"
              x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
-             Title="ChampionPage">
+             Title="ChampionPage"
+             x:Name="Page">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Editer"
-                     Command="{Binding _navigation.EditChampionCommand}"/>
+                     Command="{Binding Source={x:Reference Page}, Path=AppVM.EditChampionCommand}"
+                     CommandParameter="{Binding .}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -24,30 +26,30 @@
             <VerticalStackLayout>
                 <Image WidthRequest="-1" 
                        HeightRequest="-1"
-                       Source="{Binding _vm.Image.Base64, Converter={StaticResource imageConverter}}"/>
+                       Source="{Binding Image.Base64, Converter={StaticResource imageConverter}}"/>
                 <Grid ColumnDefinitions="Auto, *, Auto" 
                       Margin="10">
-                    <Label Text="{Binding _vm.Name}"
+                    <Label Text="{Binding Name}"
                            Style="{StaticResource Title}"
                            HorizontalOptions="Start"/>
                     <VerticalStackLayout Grid.Column="2">
-                        <Image Source="{Binding _vm.Class, Converter={StaticResource classToIconConverter}}"
+                        <Image Source="{Binding Class, Converter={StaticResource classToIconConverter}}"
                                Aspect="AspectFit"
                                WidthRequest="40"
                                HorizontalOptions="Center"/>
-                        <Label Text="{Binding _vm.Class}"
+                        <Label Text="{Binding Class}"
                                TextColor="{StaticResource Primary}"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
                 </Grid>
-                <Label Text="{Binding _vm.Bio}"
+                <Label Text="{Binding Bio}"
                        TextColor="{StaticResource Primary}"
                        Margin="10"/>
                 <Label Text="Caractéristiques"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <CollectionView ItemsSource="{Binding _vm.Stats}"
+                <CollectionView ItemsSource="{Binding Stats}"
                                 ItemsLayout="VerticalGrid, 3">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -58,7 +60,7 @@
                 <Label Text="Compétences"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <CollectionView ItemsSource="{Binding _vm.Skills}">
+                <CollectionView ItemsSource="{Binding Skills}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:SkillVM">
                             <VerticalStackLayout>
@@ -87,7 +89,7 @@
                 <Label Text="Skins"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <CollectionView ItemsSource="{Binding _vm.Skins}"
+                <CollectionView ItemsSource="{Binding Skins}"
                                 MaximumHeightRequest="400">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:SkinVM">

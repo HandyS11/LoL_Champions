@@ -5,16 +5,14 @@ namespace LoL_Champions.Views.Pages;
 
 public partial class ChampionDetailPage : ContentPage
 {
-	public ChampionVM _vm { get; private set; }
-	public ChampionNavigationVM _navigation { get ; private set; }
+	public ChampionVM ChampionVM { get; private set; }
+	public AppVM AppVM => (Application.Current as App).AppVM;
 
 	public ChampionDetailPage(ChampionVM championVM)
 	{
 		InitializeComponent();
 
-		_vm = championVM;
-		_navigation = new ChampionNavigationVM(Navigation);
-
-		BindingContext = this;
+		ChampionVM = championVM;
+		BindingContext = ChampionVM;
 	}
 }

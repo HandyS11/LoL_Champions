@@ -5,20 +5,19 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
-             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
+             xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
              x:Class="LoL_Champions.Views.Pages.ChampionsPage"
-             x:DataType="local:ChampionsPage"
-             Title="Champions"
-             x:Name="Page">
+             x:DataType="vmlocal:AppVM"
+             Title="Champions">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Ajouter"
-                     Command="{Binding _navigation.AddChampionCommand}"/>
+                     Command="{Binding AddChampionCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding _vm.LoadChampionsCommand}"/>
+                                        Command="{Binding ChampionManagerVM.LoadChampionsCommand}"/>
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -31,13 +30,14 @@
         </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, Auto">
-        <ListView ItemsSource="{Binding _vm.Champions}"
+    <Grid RowDefinitions="*, Auto"
+          x:DataType="vmlocal:AppVM">
+        <ListView ItemsSource="{Binding ChampionManagerVM.Champions}"
                   SelectionMode="None">
             <ListView.Behaviors>
                 <toolkit:EventToCommandBehavior EventName="ItemTapped"
                                                 EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
-                                                Command="{Binding _navigation.ChampionCommand}"/>
+                                                Command="{Binding ChampionDetailCommand}"/>
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -46,8 +46,8 @@
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
 
-                    <parts:ChampionItemList DeleteCommand="{Binding _vm.DeleteChampionCommand, Source={x:Reference Page}}"
-                                            EditCommand="{Binding _vm.EditChampionCommand, Source={x:Reference Page}}"/>
+                    <parts:ChampionItemList DeleteCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=DeleteChampionCommand}"
+                                            EditCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=EditChampionCommand}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -57,7 +57,7 @@
                              HeightRequest="60"
                              WidthRequest="60"
                              Style="{StaticResource navigationButton}"
-                             Command="{Binding _vm.PreviousPageCommand}">
+                             Command="{Binding ChampionManagerVM.PreviousPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>
@@ -66,8 +66,8 @@
                        Margin="8,0">
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0} / {1}">
-                            <Binding Path="_vm.HumanIndex"/>
-                            <Binding Path="_vm.NbPages"/>
+                            <Binding Path="ChampionManagerVM.HumanIndex"/>
+                            <Binding Path="ChampionManagerVM.NbPages"/>
                         </MultiBinding>
                     </Label.Text>
                 </Label>
@@ -75,7 +75,7 @@
                              HeightRequest="60"
                              WidthRequest="60"
                              Style="{StaticResource navigationButton}"
-                             Command="{Binding _vm.NextPageCommand}">
+                             Command="{Binding ChampionManagerVM.NextPageCommand}">
                     <ImageButton.Behaviors>
                         <toolkit:IconTintColorBehavior TintColor="White"/>
                     </ImageButton.Behaviors>

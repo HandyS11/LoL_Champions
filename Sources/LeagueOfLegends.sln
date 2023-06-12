@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StubLib", "StubLib\StubLib.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{9AF93438-0B89-433A-82DB-E5A6B84AF9E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoL_Champions", "LoL_Champions\LoL_Champions.csproj", "{83C11A15-1747-49C8-B137-E339784CA5C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoL_Champions", "LoL_Champions\LoL_Champions.csproj", "{83C11A15-1747-49C8-B137-E339784CA5C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VM", "MVVM\VM.csproj", "{AF2D0404-E96C-4E49-87BC-1807B9A27A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VM", "MVVM\VM.csproj", "{AF2D0404-E96C-4E49-87BC-1807B9A27A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

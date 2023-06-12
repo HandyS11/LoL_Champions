@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using LoL_Champions.ViewModels;
 using LoL_Champions.Views.Pages;
 using Microsoft.Extensions.Logging;
 using Model;
@@ -19,11 +20,13 @@ namespace LoL_Champions
                        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                    });
-             
+
             builder.Services.AddSingleton<IDataManager, StubData>()
                             .AddSingleton<ChampionManagerVM>()
                             .AddSingleton<ChampionsPage>();
 
+            builder.Services.AddSingleton<AddOrEditChampionVM>();
+            
         #if DEBUG
 		    builder.Logging.AddDebug();
         #endif
