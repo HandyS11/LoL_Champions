@@ -67,8 +67,8 @@
                 <Frame Grid.Row="1" 
                        Grid.Column="1">
                     <Entry Text="{Binding AddOrEditChampionVM.Name}" 
-                           Placeholder="Nom du champion"
-                           TextColor="{StaticResource Gray600}"/>
+                               Placeholder="Nom du champion"
+                               TextColor="{StaticResource Gray600}"/>
                 </Frame>
                 <Frame Grid.Row="2"
                        Grid.Column="1"
@@ -76,21 +76,34 @@
                        CornerRadius="3"
                        WidthRequest="50"
                        HeightRequest="50">
-                    <ImageButton Source="{Binding AddOrEditChampionVM.Icon, Converter={StaticResource imageConverter}}"/>
+                    <Grid>
+                        <Image Source="league_icon.png"/>
+                        <ImageButton Source="{Binding AddOrEditChampionVM.Icon, Converter={StaticResource imageConverter}}"
+                                     Padding="0"/>
+                    </Grid>
                 </Frame>
                 <Frame Grid.Row="3"
                        Grid.Column="1"
-                       CornerRadius="3">
-                    <ImageButton Source="{Binding AddOrEditChampionVM.Image.Base64, Converter={StaticResource imageConverter}}"
-                                 Margin="25"
-                                 Aspect="AspectFit"/>
+                       CornerRadius="3"
+                       BackgroundColor="White">
+                    <Grid>
+                        <Image Source="league_logo.png"
+                               Margin="25"
+                               Aspect="AspectFit"/>
+                        <ImageButton Source="{Binding AddOrEditChampionVM.Image.Base64, Converter={StaticResource imageConverter}}"
+                                     Aspect="AspectFit"
+                                     Padding="0"/>
+                    </Grid>
                 </Frame>
                 <Frame Grid.Row="4"
                        Grid.Column="1"
                        CornerRadius="3">
-                    <Editor Text="{Binding AddOrEditChampionVM.Bio}" 
-                            Placeholder="Lore.." 
-                            TextColor="{StaticResource Black}"/>
+                    <ScrollView>
+                        <Editor Text="{Binding AddOrEditChampionVM.Bio}" 
+                                Placeholder="Lore.." 
+                                TextColor="{StaticResource Black}"/>
+                    </ScrollView>
+                    
                 </Frame>
                 <Grid Grid.Row="5"
                       Grid.Column="1"

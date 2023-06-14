@@ -5,6 +5,8 @@ namespace VM
 {
     public class AddOrEditChampionVM : BaseViewModel
     {
+        public bool isNewChamp { get; set; } = false;
+
         public ChampionVM VM
         {
             get => championVM;
@@ -46,5 +48,5 @@ namespace VM
             set => SetProperty(ref bio, value);
         }
         private string bio;
-    }
+    } 
 }

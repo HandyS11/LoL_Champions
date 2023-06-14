@@ -1,5 +1,4 @@
 ﻿using LoL_Champions.Views.Pages;
-using Model;
 using System.Windows.Input;
 using VM;
 
@@ -43,11 +42,13 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToAddChampion()
         {
+            AddOrEditChampionVM.isNewChamp = true;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
         private async Task GoToEditChampion(ChampionVM vm)
         {
+            AddOrEditChampionVM.isNewChamp = false;
             AddOrEditChampionVM.VM = vm;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }

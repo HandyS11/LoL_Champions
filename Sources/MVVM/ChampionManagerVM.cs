@@ -66,6 +66,7 @@ namespace VM
         public ICommand LoadChampionsCommand { get; private set; }
         public ICommand DeleteChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
+        public ICommand AddChampionCommand { get; private set; }
 
         public ChampionManagerVM(IDataManager dataManager)
         {
@@ -81,6 +82,7 @@ namespace VM
 
             DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
             EditChampionCommand = new Command<ChampionVM>(async (vm) => await EditChampion(vm));
+            AddChampionCommand = new Command<ChampionVM>(async (vm) => await AddChampion(vm));
         }
 
         public async Task LoadChampions()
@@ -120,7 +122,14 @@ namespace VM
 
         private async Task EditChampion(ChampionVM vm)
         {
-            
+            await dataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model);
+            await LoadChampions();
+        }
+
+        private async Task AddChampion(ChampionVM vm)
+        {
+            await dataManager.ChampionsMgr.AddItem(vm.Model);
+            await LoadChampions();
         }
     }
 }

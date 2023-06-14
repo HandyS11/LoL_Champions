@@ -88,4 +88,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionLoL_ChampionsHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>
