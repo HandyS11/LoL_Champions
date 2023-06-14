@@ -17,7 +17,7 @@ public partial class ChampionItemList : ViewCell
     
     public ICommand EditCommand
     {
-        get => (ICommand)GetValue(DeleteCommandProperty);
+        get => (ICommand)GetValue(EditCommandProperty);
         set => SetValue(EditCommandProperty, value);
     }
     

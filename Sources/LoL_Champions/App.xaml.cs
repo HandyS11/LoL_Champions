@@ -6,12 +6,12 @@ namespace LoL_Champions
     {
         public AppVM AppVM { get; private set; }
 
-        public App(IServiceProvider service)
+        public App(AppVM appVM)
         {
             InitializeComponent();
             MainPage = new AppShell();
 
-            AppVM = new AppVM(MainPage.Navigation, service);
+            AppVM = appVM;
         }
     }
 }

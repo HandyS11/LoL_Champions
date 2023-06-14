@@ -10,6 +10,8 @@ namespace VM
         public ReadOnlyObservableCollection<ChampionVM> Champions { get; private set; }
         private ObservableCollection<ChampionVM> champions { get; set; } = new ObservableCollection<ChampionVM>();
 
+        public ChampionVM SelectedChampion { get; set; } = null;
+
         public IDataManager DataManager
         {
             get => dataManager;

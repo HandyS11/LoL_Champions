@@ -23,9 +23,9 @@ namespace LoL_Champions
 
             builder.Services.AddSingleton<IDataManager, StubData>()
                             .AddSingleton<ChampionManagerVM>()
-                            .AddSingleton<ChampionsPage>();
-
-            builder.Services.AddSingleton<AddOrEditChampionVM>();
+                            .AddSingleton<AddOrEditChampionVM>()
+                            .AddSingleton<AppVM>()
+                            .AddSingleton<App>();
             
         #if DEBUG
 		    builder.Logging.AddDebug();

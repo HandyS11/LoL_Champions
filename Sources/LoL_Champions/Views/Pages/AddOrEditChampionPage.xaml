@@ -4,6 +4,7 @@
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+             xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LoL_Champions.Views.Pages.AddOrEditChampionPage"
              x:DataType="vmlocal:AppVM"
@@ -27,6 +28,8 @@
             <Setter Property="ControlTemplate"
                     Value="{StaticResource RadioButtonTemplate}" />
         </Style>
+
+        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
     </ContentPage.Resources>
     
     <Grid RowDefinitions="*, 75">
@@ -63,7 +66,8 @@
 
                 <Frame Grid.Row="1" 
                        Grid.Column="1">
-                    <Entry Placeholder="Nom du champion"
+                    <Entry Text="{Binding AddOrEditChampionVM.Name}" 
+                           Placeholder="Nom du champion"
                            TextColor="{StaticResource Gray600}"/>
                 </Frame>
                 <Frame Grid.Row="2"
@@ -72,19 +76,20 @@
                        CornerRadius="3"
                        WidthRequest="50"
                        HeightRequest="50">
-                    <ImageButton Source="league_icon.png"/>
+                    <ImageButton Source="{Binding AddOrEditChampionVM.Icon, Converter={StaticResource imageConverter}}"/>
                 </Frame>
                 <Frame Grid.Row="3"
                        Grid.Column="1"
                        CornerRadius="3">
-                    <ImageButton Source="league_logo.png"
+                    <ImageButton Source="{Binding AddOrEditChampionVM.Image.Base64, Converter={StaticResource imageConverter}}"
                                  Margin="25"
                                  Aspect="AspectFit"/>
                 </Frame>
                 <Frame Grid.Row="4"
                        Grid.Column="1"
                        CornerRadius="3">
-                    <Editor Placeholder="Lore.." 
+                    <Editor Text="{Binding AddOrEditChampionVM.Bio}" 
+                            Placeholder="Lore.." 
                             TextColor="{StaticResource Black}"/>
                 </Frame>
                 <Grid Grid.Row="5"

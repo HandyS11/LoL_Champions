@@ -1,4 +1,5 @@
 ﻿using LoL_Champions.Views.Pages;
+using Model;
 using System.Windows.Input;
 using VM;
 
@@ -6,7 +7,8 @@ namespace LoL_Champions.ViewModels
 {
     public class AppVM
     {
-        public INavigation Navigation { get; set; }
+        public INavigation Navigation => Application.Current.MainPage.Navigation;
+
         public ChampionManagerVM ChampionManagerVM { get; private set; }
         public AddOrEditChampionVM AddOrEditChampionVM { get; private set; }
 
@@ -16,17 +18,16 @@ namespace LoL_Champions.ViewModels
         public ICommand EditChampionCommand { get; private set; }
         public ICommand DeleteChampionCommand { get; private set; }
 
-        public AppVM(INavigation navigation, IServiceProvider service)
+        public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM)
         {
-            Navigation = navigation;
-
             NavigateBackCommand = new Command(async () => await NavigateBack());
             ChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
             AddChampionCommand = new Command(async () => await GoToAddChampion());
             EditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
             DeleteChampionCommand = new Command<ChampionVM>(DeleteChampion);
 
-            ChampionManagerVM = service.GetService<ChampionManagerVM>();
+            ChampionManagerVM = championManagerVM;
+            AddOrEditChampionVM = addOrEditChampionVM;
         }
 
         private async Task NavigateBack()
@@ -36,7 +37,8 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToChampionDetail(ChampionVM vm)
         {
-            await Navigation.PushAsync(new ChampionDetailPage(vm));
+            ChampionManagerVM.SelectedChampion = vm;
+            await Navigation.PushAsync(new ChampionDetailPage());
         }
 
         private async Task GoToAddChampion()
@@ -46,6 +48,7 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToEditChampion(ChampionVM vm)
         {
+            AddOrEditChampionVM.VM = vm;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 

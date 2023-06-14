@@ -8,11 +8,10 @@ public partial class ChampionDetailPage : ContentPage
 	public ChampionVM ChampionVM { get; private set; }
 	public AppVM AppVM => (Application.Current as App).AppVM;
 
-	public ChampionDetailPage(ChampionVM championVM)
+	public ChampionDetailPage()
 	{
 		InitializeComponent();
 
-		ChampionVM = championVM;
-		BindingContext = ChampionVM;
+		BindingContext = AppVM;
 	}
 }
