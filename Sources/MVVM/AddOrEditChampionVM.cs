@@ -1,11 +1,17 @@
 ﻿using Model;
+using System.Diagnostics;
 using VM.Utils;
 
 namespace VM
 {
     public class AddOrEditChampionVM : BaseViewModel
     {
-        public bool isNewChamp { get; set; } = false;
+        public bool IsNewChamp
+        {
+            get => isNewChamp;
+            set => SetProperty(ref isNewChamp, value);
+        }
+        private bool isNewChamp = false;
 
         public ChampionVM VM
         {
@@ -15,8 +21,9 @@ namespace VM
                 SetProperty(ref championVM, value);
                 Name = championVM.Name;
                 Icon = championVM.Icon;
-                Image = championVM.Image;
+                Image = championVM.Image.Base64;
                 Bio = championVM.Bio;
+                ChampionClass = championVM.Class;
             }
         }
         private ChampionVM championVM;
@@ -35,12 +42,12 @@ namespace VM
         }
         private string icon = "";
 
-        public LargeImage Image
+        public string Image
         {
             get => image;
             set => SetProperty(ref image, value);
         }
-        private LargeImage image;
+        private string image;
 
         public string Bio
         {
@@ -48,5 +55,23 @@ namespace VM
             set => SetProperty(ref bio, value);
         }
         private string bio;
+
+        public string SelectedRadio
+        {
+            get => selectedRadio;
+            set
+            {
+                SetProperty(ref selectedRadio, value);
+                Debug.WriteLine("SELECTION: " + selectedRadio);
+            }
+        }
+        private string selectedRadio = null;
+
+        public ChampionClass? ChampionClass
+        {
+            get => championClass;
+            set => SetProperty(ref championClass, value);
+        }
+        private ChampionClass? championClass;
     } 
 }

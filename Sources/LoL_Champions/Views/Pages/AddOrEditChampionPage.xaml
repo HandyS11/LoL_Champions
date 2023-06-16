@@ -8,7 +8,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="LoL_Champions.Views.Pages.AddOrEditChampionPage"
              x:DataType="vmlocal:AppVM"
-             Title="AddOrEditChampionPage">
+             Title="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource navigationText}}">
 
     <ContentPage.Resources>
         <Style TargetType="Frame">
@@ -30,6 +30,13 @@
         </Style>
 
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+
+        <toolkit:BoolToObjectConverter x:Key="titleText" 
+                                       TrueObject="Nouveau Champion" 
+                                       FalseObject="Modifier le Champion"/>
+        <toolkit:BoolToObjectConverter x:Key="buttonText" 
+                                       TrueObject="Ajouter" 
+                                       FalseObject="Modifier"/>
     </ContentPage.Resources>
     
     <Grid RowDefinitions="*, 75">
@@ -40,7 +47,7 @@
                   RowSpacing="10"
                   Margin="10">
                 <Label Grid.ColumnSpan="2" 
-                       Text="Modifier le Champion"
+                       Text="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource titleText}}"
                        TextColor="{StaticResource Tertiary}"
                        HorizontalOptions="Center"
                        FontSize="26"/>
@@ -79,6 +86,7 @@
                     <Grid>
                         <Image Source="league_icon.png"/>
                         <ImageButton Source="{Binding AddOrEditChampionVM.Icon, Converter={StaticResource imageConverter}}"
+                                     Command="{Binding ChooseIconCommand}"
                                      Padding="0"/>
                     </Grid>
                 </Frame>
@@ -90,7 +98,8 @@
                         <Image Source="league_logo.png"
                                Margin="25"
                                Aspect="AspectFit"/>
-                        <ImageButton Source="{Binding AddOrEditChampionVM.Image.Base64, Converter={StaticResource imageConverter}}"
+                        <ImageButton Source="{Binding AddOrEditChampionVM.Image, Converter={StaticResource imageConverter}}"
+                                     Command="{Binding ChooseImageCommand}"
                                      Aspect="AspectFit"
                                      Padding="0"/>
                     </Grid>
@@ -110,18 +119,21 @@
                       RowDefinitions="*, *"
                       RowSpacing="5"
                       ColumnDefinitions="*, *, *"
-                      ColumnSpacing="5">
+                      ColumnSpacing="5"
+                      RadioButtonGroup.SelectedValue="{Binding AddOrEditChampionVM.SelectedRadio}">
                     <RadioButton Value="Assassin">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="assassin_icon.png" Text="Assassin"/>
                         </RadioButton.Content>
                     </RadioButton>
-                    <RadioButton Grid.Column="1">
+                    <RadioButton Grid.Column="1"
+                                 Value="Fighter">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="fighter_icon.png" Text="Fighter"/>
                         </RadioButton.Content>
                     </RadioButton>
-                    <RadioButton Grid.Column="2">
+                    <RadioButton Grid.Column="2"
+                                 Value="Mage">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="mage_icon.png" Text="Mage"/>
                         </RadioButton.Content>
@@ -132,13 +144,15 @@
                         </RadioButton.Content>
                     </RadioButton>
                     <RadioButton Grid.Row="1" 
-                                 Grid.Column="1">
+                                 Grid.Column="1"
+                                 Value="Support">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="support_icon.png" Text="Support"/>
                         </RadioButton.Content>
                     </RadioButton>
                     <RadioButton Grid.Row="1" 
-                                 Grid.Column="2">
+                                 Grid.Column="2"
+                                 Value="Tank">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="tank_icon.png" Text="Tank"/>
                         </RadioButton.Content>
@@ -191,7 +205,7 @@
               Margin="75,10,75,15"
               ColumnDefinitions="*, *"
               ColumnSpacing="50">
-            <Button Text="Edit"/>
+            <Button Text="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource buttonText}}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>

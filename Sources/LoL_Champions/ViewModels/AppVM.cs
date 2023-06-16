@@ -1,4 +1,5 @@
-﻿using LoL_Champions.Views.Pages;
+﻿using LoL_Champions.Utils;
+using LoL_Champions.Views.Pages;
 using System.Windows.Input;
 using VM;
 
@@ -17,6 +18,9 @@ namespace LoL_Champions.ViewModels
         public ICommand EditChampionCommand { get; private set; }
         public ICommand DeleteChampionCommand { get; private set; }
 
+        public ICommand ChooseImageCommand { get; private set; }
+        public ICommand ChooseIconCommand { get; private set; }
+
         public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM)
         {
             NavigateBackCommand = new Command(async () => await NavigateBack());
@@ -24,6 +28,9 @@ namespace LoL_Champions.ViewModels
             AddChampionCommand = new Command(async () => await GoToAddChampion());
             EditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
             DeleteChampionCommand = new Command<ChampionVM>(DeleteChampion);
+
+            ChooseIconCommand = new Command(async () => await ChooseIcon());
+            ChooseImageCommand = new Command(async () => await ChooseImage());
 
             ChampionManagerVM = championManagerVM;
             AddOrEditChampionVM = addOrEditChampionVM;
@@ -42,13 +49,14 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToAddChampion()
         {
-            AddOrEditChampionVM.isNewChamp = true;
+            AddOrEditChampionVM.IsNewChamp = true;
+            ChampionManagerVM.SelectedChampion = null;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
         private async Task GoToEditChampion(ChampionVM vm)
         {
-            AddOrEditChampionVM.isNewChamp = false;
+            AddOrEditChampionVM.IsNewChamp = false;
             AddOrEditChampionVM.VM = vm;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
@@ -56,6 +64,16 @@ namespace LoL_Champions.ViewModels
         private void DeleteChampion(ChampionVM champion)
         {
             ChampionManagerVM.DeleteChampionCommand.Execute(champion);
+        }
+
+        private async Task ChooseImage()
+        {
+            AddOrEditChampionVM.Image = await ImagePickerUtils.ChooseImageB64();
+        }
+
+        private async Task ChooseIcon()
+        {
+            AddOrEditChampionVM.Icon = await ImagePickerUtils.ChooseImageB64();
         }
     }
 }
