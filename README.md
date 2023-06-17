@@ -22,13 +22,34 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 > Please note that the screenshots from the original app were taken with an Iphone.
 > Thoses of the "Clone-app" were taken with an Android with a different resolution.
 
+<details><summary> Main Pages </summary>
+
 | OriginalApp | CloneApp |
 | --- | --- |
-| | |
+| <img src="./Documentation/screens/HomePage.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/ChampionsPage.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/SwipeView.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail1.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail2.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail3.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+</details>
+
+<details><summary> Other Pages </summary>
+
+| OriginalApp | CloneApp |
+| --- | --- |
+| <img src="./Documentation/screens/AddChampion.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/AddSkin.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/EditChampion1.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/EditChampion2.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+| <img src="./Documentation/screens/NewSkill.PNG" height="750"/> | <img src="./Documentation/screens/thepage.PNG" height="750"/> |
+</details>
 
 ## ⚙️ Architecture
 
-### Modele
+> Theses diagrams are not fully accurate and only gave the global idea of the conception.
+
+<details><summary> Models </summary>
 
 ```mermaid
 classDiagram
@@ -83,6 +104,94 @@ class SkillType{
 Skill --> "1" SkillType : Type
 Champion --> "*" Skill
 ```
+
+---
+</details>
+
+<details><summary> ViewModels </summary>
+
+```mermaid
+classDiagram
+
+class AppVM {
+    +-/NavigateBackCommand : ICommand
+    +-/ChampionDetailCommand : ICommand
+    +-/AddChampionCommand : ICommand
+    +-/EditChampionCommand : ICommand
+    +-/DeleteChampionCommand : ICommand
+    +-/ChooseImageCommand : ICommand
+    +-/ChooseIconCommand : ICommand
+    - NavigateBack() Task
+    - GoToChampionDetail(ChampionVM vm) Task
+    - GoToAddChampion() Task
+    - GoToEditChampion(ChampionVM vm) Task
+    - DeleteChampion(ChampionVM vm) Task
+    - ChooseImage() Task
+    - ChooseIcon() Task
+}
+AppVM --> "1" ChampionManagerVM : ChampionManagerVM
+AppVM --> "1" AddOrEditChampionVM : AddOrEditChampionVM
+
+class ChampionManagerVM {
+    +/Datamanager : IDataManager
+    +/Index : int
+    +_/HumanIndex : int
+    +_/IsFirstPage : int
+    +_/IsLastPage : int
+    +/Count : int
+    +/NbPages : int
+    +-/PreviousPageCommand : ICommand
+    +-/NextPageCommand : ICommand
+    +-/LoadChampionsCommand : ICommand
+    +-/DeleteChampionCommand : ICommand
+    +-/EditChampionCommand : ICommand
+    +-/AddChampionCommand : ICommand
+    - LoadChampions() Task
+    - LoadPage(bool) Task
+    - DeleteChampion(ChampionVM vm) Task
+    - EditChampion(ChampionVM vm) Task
+    - AddChampion(ChampionVM vm) Task
+}
+ChampionManagerVM --> "1" ChampionVM : SelectedChampion
+ChampionManagerVM --> "*" ChampionVM : Champions
+
+class ChampionVM {
+    +/Model : Champion
+    +/Name : string
+    +/Bio : string
+    +/Icon : string
+    +/Image : LargeImage
+    +/Class : ChampionClass?
+}
+ChampionVM --> "*" SkillVM : Skills
+ChampionVM --> "*" SkinVM : Skins
+
+class SkillVM {
+    +/Model : Skill
+    +/Name : string
+    +/Description : string
+    +_/Type : string
+}
+
+class SkinVM {
+    +/Model : Skin
+    +/Name : string
+    +/Icon : string
+}
+
+class AddOrEditChampionVM {
+    +/IsNewChamp : bool
+    +/Name : string
+    +/Bio : string
+    +/Icon : string
+    +/Image : LargeImage
+    +/Class : ChampionClass?
+}
+AddOrEditChampionVM --> "1" ChampionVM : VM
+AddOrEditChampionVM --> "*" SkillVM : Skills
+AddOrEditChampionVM --> "*" SkinVM : Skins
+```
+</details>
 
 ## ✍️ Credits 
 

@@ -85,7 +85,7 @@ namespace VM
             AddChampionCommand = new Command<ChampionVM>(async (vm) => await AddChampion(vm));
         }
 
-        public async Task LoadChampions()
+        private async Task LoadChampions()
         {
             champions.Clear();
             var c = await dataManager.ChampionsMgr.GetNbItems();
