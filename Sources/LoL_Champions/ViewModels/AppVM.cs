@@ -1,5 +1,6 @@
 ﻿using LoL_Champions.Utils;
 using LoL_Champions.Views.Pages;
+using Model;
 using System.Windows.Input;
 using VM;
 
@@ -18,6 +19,9 @@ namespace LoL_Champions.ViewModels
         public ICommand EditChampionCommand { get; private set; }
         public ICommand DeleteChampionCommand { get; private set; }
 
+        public ICommand InsertAddChampionCommand { get; private set; }
+        public ICommand InsertUpdateChampionCommand { get; private set; }
+
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
 
@@ -28,6 +32,9 @@ namespace LoL_Champions.ViewModels
             AddChampionCommand = new Command(async () => await GoToAddChampion());
             EditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
             DeleteChampionCommand = new Command<ChampionVM>(DeleteChampion);
+
+            InsertAddChampionCommand = new Command<Champion>(async (m) => await AddChampion(m));
+            InsertUpdateChampionCommand = new Command<Champion>(async (m) => await EditChampion(m));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -74,6 +81,18 @@ namespace LoL_Champions.ViewModels
         private async Task ChooseIcon()
         {
             AddOrEditChampionVM.Icon = await ImagePickerUtils.ChooseImageB64();
+        }
+
+        private async Task AddChampion(Champion m)
+        {
+            ChampionManagerVM.AddChampionCommand.Execute(new ChampionVM(m));
+            await NavigateBack();
+        }
+
+        private async Task EditChampion(Champion m)
+        {
+            ChampionManagerVM.EditChampionCommand.Execute(new ChampionVM(m));
+            await NavigateBack();
         }
     }
 }

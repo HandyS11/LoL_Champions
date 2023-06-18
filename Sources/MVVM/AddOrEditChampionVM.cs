@@ -28,6 +28,15 @@ namespace VM
         }
         private ChampionVM championVM;
 
+        public Champion Champion
+        {
+            get
+            {
+                var c = new Champion(Name, (ChampionClass)ChampionClass, Icon, Image, Bio);
+                return c;
+            }
+        }
+
         public string Name
         {
             get => name;
@@ -47,14 +56,14 @@ namespace VM
             get => image;
             set => SetProperty(ref image, value);
         }
-        private string image;
+        private string image = "";
 
         public string Bio
         {
             get => bio; 
             set => SetProperty(ref bio, value);
         }
-        private string bio;
+        private string bio = "";
 
         public string SelectedRadio
         {
@@ -72,6 +81,6 @@ namespace VM
             get => championClass;
             set => SetProperty(ref championClass, value);
         }
-        private ChampionClass? championClass;
+        private ChampionClass? championClass = Model.ChampionClass.Unknown;
     } 
 }

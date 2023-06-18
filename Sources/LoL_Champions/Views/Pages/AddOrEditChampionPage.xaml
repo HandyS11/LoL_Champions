@@ -30,13 +30,11 @@
         </Style>
 
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
 
         <toolkit:BoolToObjectConverter x:Key="titleText" 
                                        TrueObject="Nouveau Champion" 
                                        FalseObject="Modifier le Champion"/>
-        <toolkit:BoolToObjectConverter x:Key="buttonText" 
-                                       TrueObject="Ajouter" 
-                                       FalseObject="Modifier"/>
     </ContentPage.Resources>
     
     <Grid RowDefinitions="*, 75">
@@ -205,7 +203,14 @@
               Margin="75,10,75,15"
               ColumnDefinitions="*, *"
               ColumnSpacing="50">
-            <Button Text="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource buttonText}}"/>
+            <Button Text="Ajouter"
+                    IsVisible="{Binding AddOrEditChampionVM.IsNewChamp}"
+                    Command="{Binding InsertAddChampionCommand}"
+                    CommandParameter="{Binding AddOrEditChampionVM.Champion}"/>
+            <Button Text="Modifier"
+                    IsVisible="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
+                    Command="{Binding InsertUpdateChampionCommand}"
+                    CommandParameter="{Binding AddOrEditChampionVM.Champion}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>
