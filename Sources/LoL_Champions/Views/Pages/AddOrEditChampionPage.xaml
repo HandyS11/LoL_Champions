@@ -119,7 +119,8 @@
                       RowSpacing="5"
                       ColumnDefinitions="*, *, *"
                       ColumnSpacing="5"
-                      RadioButtonGroup.SelectedValue="{Binding AddOrEditChampionVM.SelectedRadio}">
+                      RadioButtonGroup.GroupName="championClass"
+                      RadioButtonGroup.SelectedValue="{Binding AddOrEditChampionVM.RadioButton}">
                     <RadioButton Value="Assassin">
                         <RadioButton.Content>
                             <parts:RadioButtonClassView Image="assassin_icon.png" Text="Assassin"/>
@@ -206,10 +207,10 @@
               ColumnSpacing="50">
             <Button Text="Ajouter"
                     IsVisible="{Binding AddOrEditChampionVM.IsNewChamp}"
-                    Command="{Binding AddNewChampionCommand}"/>
+                    Command="{Binding AddChampionCommand}"/>
             <Button Text="Modifier"
                     IsVisible="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
-                    Command="{Binding AddOldChampionCommand}"/>
+                    Command="{Binding EditChampionCommand}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>

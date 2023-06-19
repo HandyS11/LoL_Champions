@@ -12,7 +12,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Ajouter"
-                     Command="{Binding AddChampionCommand}"/>
+                     Command="{Binding GoToAddChampionCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Behaviors>
@@ -37,7 +37,7 @@
             <ListView.Behaviors>
                 <toolkit:EventToCommandBehavior EventName="ItemTapped"
                                                 EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
-                                                Command="{Binding ChampionDetailCommand}"/>
+                                                Command="{Binding GoToChampionDetailCommand}"/>
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>

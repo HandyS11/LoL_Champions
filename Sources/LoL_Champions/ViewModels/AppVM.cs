@@ -13,13 +13,14 @@ namespace LoL_Champions.ViewModels
         public AddOrEditChampionVM AddOrEditChampionVM { get; private set; }
 
         public ICommand NavigateBackCommand { get; private set; }
-        public ICommand ChampionDetailCommand { get; private set; }
+
+        public ICommand GoToChampionDetailCommand { get; private set; }
+        public ICommand GoToAddChampionCommand { get; private set; }
+        public ICommand GoToEditChampionCommand { get; private set; }
+
+        public ICommand DeleteChampionCommand { get; private set; }
         public ICommand AddChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
-        public ICommand DeleteChampionCommand { get; private set; }
-
-        public ICommand AddNewChampionCommand { get; private set; }
-        public ICommand AddOldChampionCommand { get; private set; }
 
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
@@ -27,14 +28,14 @@ namespace LoL_Champions.ViewModels
         public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM)
         {
             NavigateBackCommand = new Command(async () => await NavigateBack());
-            ChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
 
-            AddChampionCommand = new Command(async () => await GoToAddChampion());
-            EditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
+            GoToChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
+            GoToAddChampionCommand = new Command(async () => await GoToAddChampion());
+            GoToEditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
+
             DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
-
-            AddNewChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
-            AddOldChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
+            AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
+            EditChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -64,7 +65,7 @@ namespace LoL_Champions.ViewModels
         private async Task GoToEditChampion(ChampionVM vm)
         {
             AddOrEditChampionVM.IsNewChamp = false;
-            AddOrEditChampionVM.VM = vm;
+            AddOrEditChampionVM.Model = vm.Model;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 

@@ -13,7 +13,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Editer"
-                     Command="{Binding EditChampionCommand}"
+                     Command="{Binding GoToEditChampionCommand}"
                      CommandParameter="{Binding ChampionManagerVM.SelectedChampion}"/>
     </ContentPage.ToolbarItems>
     
