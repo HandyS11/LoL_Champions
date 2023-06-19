@@ -21,6 +21,13 @@ namespace VM
         }
         private Champion model;
 
+        public SkinVM SelectedSkin
+        {
+            get => selectedSkin;
+            set => SetProperty(ref selectedSkin, value);
+        }
+        private SkinVM selectedSkin;
+
         public string Name
         {
             get => model?.Name;

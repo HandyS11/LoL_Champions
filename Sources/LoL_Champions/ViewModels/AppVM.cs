@@ -17,6 +17,7 @@ namespace LoL_Champions.ViewModels
         public ICommand GoToChampionDetailCommand { get; private set; }
         public ICommand GoToAddChampionCommand { get; private set; }
         public ICommand GoToEditChampionCommand { get; private set; }
+        public ICommand GoToChampionSkinCommand { get; private set; }
 
         public ICommand DeleteChampionCommand { get; private set; }
         public ICommand AddChampionCommand { get; private set; }
@@ -32,6 +33,7 @@ namespace LoL_Champions.ViewModels
             GoToChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
             GoToAddChampionCommand = new Command(async () => await GoToAddChampion());
             GoToEditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
+            GoToChampionSkinCommand = new Command<SkinVM>(async (vm) => await GoToChampionSkin(vm));
 
             DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
             AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
@@ -67,6 +69,12 @@ namespace LoL_Champions.ViewModels
             AddOrEditChampionVM.IsNewChamp = false;
             AddOrEditChampionVM.Model = vm.Model;
             await Navigation.PushAsync(new AddOrEditChampionPage());
+        }
+
+        private async Task GoToChampionSkin(SkinVM vm)
+        {
+            ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
+            await Navigation.PushAsync(new ChampionSkinPage());
         }
 
         private async Task DeleteChampion(ChampionVM vm)

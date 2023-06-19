@@ -4,15 +4,15 @@
              xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
              x:DataType="vmlocal:AppVM"
              x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
-             Title="ChampionPage"
-             x:Name="Page">
+             Title="ChampionPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Editer"
+        <ToolbarItem Text="Modifier"
                      Command="{Binding GoToEditChampionCommand}"
                      CommandParameter="{Binding ChampionManagerVM.SelectedChampion}"/>
     </ContentPage.ToolbarItems>
@@ -20,6 +20,8 @@
     <ContentPage.Resources>
         <converters:ClassToClassIconConverter x:Key="classToIconConverter"/>
         <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+
+        <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
     </ContentPage.Resources>
 
     <Grid>
@@ -27,6 +29,7 @@
             <VerticalStackLayout>
                 <Image WidthRequest="-1" 
                        HeightRequest="-1"
+                       MaximumHeightRequest="350"
                        Source="{Binding ChampionManagerVM.SelectedChampion.Image, Converter={StaticResource imageConverter}}"/>
                 <Grid ColumnDefinitions="Auto, *, Auto" 
                       Margin="10">
@@ -90,27 +93,35 @@
                 <Label Text="Skins"
                        Margin="10"
                        Style="{StaticResource Title}"/>
-                <CollectionView ItemsSource="{Binding ChampionManagerVM.SelectedChampion.Skins}"
-                                MaximumHeightRequest="400">
-                    <CollectionView.ItemTemplate>
+                <ListView ItemsSource="{Binding ChampionManagerVM.SelectedChampion.Skins}"
+                          RowHeight="75"
+                          SelectionMode="None">
+                    <ListView.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="ItemTapped"
+                                                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                                                        Command="{Binding GoToChampionSkinCommand}"/>
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
                         <DataTemplate x:DataType="vm:SkinVM">
-                            <Border Margin="10,2"
-                                    Stroke="{StaticResource Primary}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="0,20,20,20"/>
-                                </Border.StrokeShape>
-                                <HorizontalStackLayout Padding="12,5">
-                                    <Image Source="{Binding Icon, Converter={StaticResource imageConverter}}"
-                                           HeightRequest="50"/>
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{StaticResource Primary}"
-                                           Margin="10,0"
-                                           VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
-                            </Border>
+                            <ViewCell>
+                                <Border Stroke="{StaticResource Primary}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="0,20,20,20"/>
+                                    </Border.StrokeShape>
+                                    <HorizontalStackLayout Padding="12,5">
+                                        <Image Source="{Binding Icon, Converter={StaticResource imageConverter}}"
+                                               HeightRequest="50"
+                                               WidthRequest="50"/>
+                                        <Label Text="{Binding Name}"
+                                               TextColor="{StaticResource Primary}"
+                                               Margin="10,0"
+                                               VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </ViewCell>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </ListView.ItemTemplate>
+                </ListView>
             </VerticalStackLayout>
         </ScrollView>
         <parts:SeparatorView/>

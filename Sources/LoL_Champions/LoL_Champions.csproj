@@ -54,6 +54,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\delete.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\riotpoint.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,6 +70,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Pages\AddOrEditChampionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Pages\ChampionSkinPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Pages\ChampionsPage.xaml">

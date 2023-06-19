@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:LoL_Champions.Converters"
+             xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+             x:DataType="vmlocal:AppVM"
+             x:Class="LoL_Champions.Views.Pages.ChampionSkinPage"
+             Title="SkinPage">
+
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="Modifier"/>
+    </ContentPage.ToolbarItems>-->
+
+    <ContentPage.Resources>
+        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+    </ContentPage.Resources>
+
+    <Grid>
+        <ScrollView Margin="0,0,0,0">
+            <VerticalStackLayout>
+                <Image WidthRequest="-1" 
+                       HeightRequest="-1"
+                       MaximumHeightRequest="350"
+                       Source="{Binding ChampionManagerVM.SelectedChampion.SelectedSkin.Image, Converter={StaticResource imageConverter}}"/>
+                <FlexLayout Grid.Column="2"
+                            Margin="10,5"
+                            Direction="Row" 
+                            JustifyContent="SpaceBetween">
+                    <Label Text="{Binding ChampionManagerVM.SelectedChampion.SelectedSkin.Name}"
+                           Style="{StaticResource Title}"
+                           HorizontalOptions="Start"
+                           LineBreakMode="TailTruncation"/>
+                    <HorizontalStackLayout HorizontalOptions="End"
+                                           VerticalOptions="Center"
+                                           Spacing="10">
+                        <Image Source="riotpoint.png"
+                               Aspect="AspectFit"
+                               HeightRequest="20"/>
+                        <Label Text="{Binding ChampionManagerVM.SelectedChampion.SelectedSkin.Price}"
+                               VerticalOptions="Center"
+                               FontSize="18"
+                               TextColor="{StaticResource Primary}"/>
+                    </HorizontalStackLayout>
+                </FlexLayout>
+                <Label Text="{Binding ChampionManagerVM.SelectedChampion.SelectedSkin.Description}"
+                       TextColor="{StaticResource Primary}"
+                       Margin="10,15"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
