@@ -8,17 +8,30 @@ namespace VM
         public Skin Model
         {
             get => model;
-            set => SetProperty(ref model, value);
+            set
+            {
+                SetProperty(ref model, value);
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Description));
+                OnPropertyChanged(nameof(Icon));
+                OnPropertyChanged(nameof(Image));
+                OnPropertyChanged(nameof(Price));
+            }
         }
         private Skin model;
 
         public string Name
         {
             get => model?.Name;
+        }
+
+        public string Description
+        {
+            get => model?.Description;
             set
             {
-                if (model?.Name == value || value == null) return;
-                Name = value;
+                if (model?.Description == value || value == null) return;
+                Model.Description = value;
                 OnPropertyChanged();
             }
         }
@@ -28,7 +41,29 @@ namespace VM
             get => model?.Icon;
             set {
                 if (model?.Icon == value || value == null) return;
-                Icon = value;
+                Model.Icon = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Image
+        {
+            get => model?.Image.Base64;
+            set
+            {
+                if (model?.Image.Base64 == value || value == null) return;
+                Model.Image.Base64 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public float Price
+        {
+            get => model.Price;
+            set
+            {
+                if (model.Price == value) return;
+                Model.Price = value;
                 OnPropertyChanged();
             }
         }

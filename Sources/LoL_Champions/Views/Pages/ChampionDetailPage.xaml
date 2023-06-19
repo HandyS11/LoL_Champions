@@ -27,7 +27,7 @@
             <VerticalStackLayout>
                 <Image WidthRequest="-1" 
                        HeightRequest="-1"
-                       Source="{Binding ChampionManagerVM.SelectedChampion.Image.Base64, Converter={StaticResource imageConverter}}"/>
+                       Source="{Binding ChampionManagerVM.SelectedChampion.Image, Converter={StaticResource imageConverter}}"/>
                 <Grid ColumnDefinitions="Auto, *, Auto" 
                       Margin="10">
                     <Label Text="{Binding ChampionManagerVM.SelectedChampion.Name}"

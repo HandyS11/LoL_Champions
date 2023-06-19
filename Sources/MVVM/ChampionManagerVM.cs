@@ -119,6 +119,7 @@ namespace VM
         {
             if (await dataManager.ChampionsMgr.DeleteItem(vm.Model))
             {
+                SelectedChampion = null;
                 await LoadChampions();
             } 
         }

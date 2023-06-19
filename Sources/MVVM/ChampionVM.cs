@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Collections.ObjectModel;
+using System.Data;
 using VM.Utils;
 
 namespace VM
@@ -12,13 +13,10 @@ namespace VM
             set
             {
                 SetProperty(ref model, value);
-                Bio = model.Bio;
-                Icon = model.Icon;
-                Image = model.Image;
-                Class = model.Class;
-                stats = new ObservableCollection<KeyValuePair<string, int>>(model?.Characteristics);
-                skins = new ObservableCollection<SkinVM>(model?.Skins.Select(a => new SkinVM(a)));
-                skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Bio));
+                OnPropertyChanged(nameof(Icon));
+                OnPropertyChanged(nameof(Image));
             }
         }
         private Champion model;
@@ -34,7 +32,7 @@ namespace VM
             set
             {
                 if (model.Bio == value || value == null) return;
-                Bio = value;
+                Model.Bio = value;
                 OnPropertyChanged();
             }
         }
@@ -45,18 +43,18 @@ namespace VM
             set
             {
                 if (model.Icon == value || value == null) return;
-                Icon = value; 
+                Model.Icon = value; 
                 OnPropertyChanged();
             }
         }
 
-        public LargeImage Image
+        public string Image
         {
-            get => model?.Image;
+            get => model?.Image.Base64;
             set
             {
-                if (model.Image == value || value == null) return;
-                Image = value;
+                if (model.Image.Base64 == value || value == null) return;
+                Model.Image.Base64 = value;
                 OnPropertyChanged();
             }
         }
@@ -66,8 +64,8 @@ namespace VM
             get => model?.Class;
             set
             {
-                if (model.Class == value) return;
-                Class = value;
+                if (model.Class == value || value == null) return;
+                Model.Class = (ChampionClass)value;
                 OnPropertyChanged();
             }
         }
@@ -89,10 +87,90 @@ namespace VM
             Stats = new ReadOnlyObservableCollection<KeyValuePair<string, int>>(stats);
 
             skins = new ObservableCollection<SkinVM>(model?.Skins.Select(a => new SkinVM(a)));
-            skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
-
             Skins = new ReadOnlyObservableCollection<SkinVM>(skins);
+
+            skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
             Skills = new ReadOnlyObservableCollection<SkillVM>(skills);
+        }
+
+        private void LoadStats()
+        {
+            stats.Clear();
+            foreach(KeyValuePair<string, int> kvp in Stats)
+            {
+                stats.Add(kvp);
+            }
+            OnPropertyChanged(nameof(Stats));
+        }
+
+        private void AddStat(StatVM stat)
+        {
+            if (stats == null) return;
+            model.AddCharacteristics(new Tuple<string, int>[]
+            {
+                new Tuple<string, int>(stat.Key, stat.Value)
+            });
+        }
+
+        private void RemoveStat(StatVM stat)
+        {
+            if (stat == null) return;
+            if (model.RemoveCharacteristics(stat.Key))
+            {
+                LoadStats();
+            }
+        }
+
+        private void LoadSkins()
+        {
+            skins.Clear();
+            foreach (Skin skin in Model.Skins)
+            {
+                skins.Add(new SkinVM(skin));
+            }
+            OnPropertyChanged(nameof(Skins));
+        }
+
+        private void AddSkin(Skin skin)
+        {
+            if (skin == null) return;
+            model.AddSkin(skin);
+            LoadSkins();
+        }
+
+        private void RemoveSkin(Skin skin)
+        {
+            if (skin == null) return;
+            if (model.RemoveSkin(skin))
+            {
+                LoadSkins();
+            }
+        }
+
+        private void LoadSkills()
+        {
+            skills.Clear();
+            foreach (Skill skill in Model.Skills)
+            {
+                skills.Add(new SkillVM(skill));
+            }
+            OnPropertyChanged(nameof(Skills));
+        }
+
+        private void AddSkill(Skill skill)
+        {
+            if (skill == null) return;
+            model.AddSkill(skill);
+            LoadSkills();
+        }
+
+        private void RemoveSkill(Skill skill)
+        {
+            if (skill == null) return;
+            if(model.RemoveSkill(skill))
+            {
+                LoadSkills();
+            }
         }
     }
 }

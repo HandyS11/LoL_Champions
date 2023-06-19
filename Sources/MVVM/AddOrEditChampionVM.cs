@@ -21,7 +21,7 @@ namespace VM
                 SetProperty(ref championVM, value);
                 Name = championVM.Name;
                 Icon = championVM.Icon;
-                Image = championVM.Image.Base64;
+                Image = championVM.Image;
                 Bio = championVM.Bio;
                 ChampionClass = championVM.Class;
             }

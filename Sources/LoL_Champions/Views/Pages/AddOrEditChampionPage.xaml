@@ -72,8 +72,9 @@
                 <Frame Grid.Row="1" 
                        Grid.Column="1">
                     <Entry Text="{Binding AddOrEditChampionVM.Name}" 
-                               Placeholder="Nom du champion"
-                               TextColor="{StaticResource Gray600}"/>
+                           IsReadOnly="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
+                           Placeholder="Nom du champion"
+                           TextColor="{StaticResource Gray600}"/>
                 </Frame>
                 <Frame Grid.Row="2"
                        Grid.Column="1"

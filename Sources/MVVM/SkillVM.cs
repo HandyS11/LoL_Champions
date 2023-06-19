@@ -8,19 +8,19 @@ namespace VM
         public Skill Model
         {
             get => model;
-            set => SetProperty(ref model, value);
+            set
+            {
+                SetProperty(ref model, value);
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Description));
+                OnPropertyChanged(nameof(Type));
+            }
         }
         private Skill model;
 
         public string Name
         {
             get => model?.Name;
-            set
-            {
-                if (model?.Name == value || value == null) return;
-                Name = value;
-                OnPropertyChanged();
-            }
         }
 
         public string Description
@@ -29,7 +29,7 @@ namespace VM
             set
             {
                 if (model?.Description == value || value == null) return;
-                Description = value;
+                Model.Description = value;
                 OnPropertyChanged();
             }
         }
