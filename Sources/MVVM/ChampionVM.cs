@@ -17,6 +17,10 @@ namespace VM
                 OnPropertyChanged(nameof(Bio));
                 OnPropertyChanged(nameof(Icon));
                 OnPropertyChanged(nameof(Image));
+                OnPropertyChanged(nameof(Class));
+                OnPropertyChanged(nameof(Stats));
+                OnPropertyChanged(nameof(Skills));
+                OnPropertyChanged(nameof(Skins));
             }
         }
         private Champion model;
