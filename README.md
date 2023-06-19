@@ -193,6 +193,19 @@ AddOrEditChampionVM --> "*" SkinVM : Skins
 ```
 </details>
 
+## 🖊️ Features
+
+**Done:**
+- Display the champions list
+- Navigate through the champions list
+- Display the champion details
+
+**GoingOn:**
+- Add/edit a champion
+    * Add/edit/delete a caracteristic
+    * Add/edit/delete a skill
+    * Add/edit/delete a skin
+
 ## ✍️ Credits 
 
 * Author: [**Valetin Clergue**](https://github.com/HandyS11)
