@@ -64,6 +64,7 @@ namespace VM
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
         public ICommand LoadChampionsCommand { get; private set; }
+
         public ICommand DeleteChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
         public ICommand AddChampionCommand { get; private set; }
@@ -114,22 +115,29 @@ namespace VM
             await LoadChampions();
         }
 
-        private async Task DeleteChampion(ChampionVM vm)
+        public async Task DeleteChampion(ChampionVM vm)
         {
-            await dataManager.ChampionsMgr.DeleteItem(vm.Model);
-            await LoadChampions();
+            if (await dataManager.ChampionsMgr.DeleteItem(vm.Model))
+            {
+                await LoadChampions();
+            } 
         }
 
-        private async Task EditChampion(ChampionVM vm)
+        public async Task EditChampion(ChampionVM vm)
         {
-            await dataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model);
-            await LoadChampions();
+            if (await dataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model) != null)
+            {
+                SelectedChampion = vm;
+                await LoadChampions();
+            } 
         }
 
-        private async Task AddChampion(ChampionVM vm)
+        public async Task AddChampion(ChampionVM vm)
         {
-            await dataManager.ChampionsMgr.AddItem(vm.Model);
-            await LoadChampions();
+            if (await dataManager.ChampionsMgr.AddItem(vm.Model) != null)
+            {
+                await LoadChampions();
+            }     
         }
     }
 }

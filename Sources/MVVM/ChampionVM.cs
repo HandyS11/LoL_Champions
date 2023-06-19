@@ -9,7 +9,17 @@ namespace VM
         public Champion Model
         {
             get => model;
-            set => SetProperty(ref model, value);
+            set
+            {
+                SetProperty(ref model, value);
+                Bio = model.Bio;
+                Icon = model.Icon;
+                Image = model.Image;
+                Class = model.Class;
+                stats = new ObservableCollection<KeyValuePair<string, int>>(model?.Characteristics);
+                skins = new ObservableCollection<SkinVM>(model?.Skins.Select(a => new SkinVM(a)));
+                skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
+            }
         }
         private Champion model;
 

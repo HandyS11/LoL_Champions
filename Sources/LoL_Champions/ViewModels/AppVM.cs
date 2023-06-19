@@ -1,6 +1,5 @@
 ﻿using LoL_Champions.Utils;
 using LoL_Champions.Views.Pages;
-using Model;
 using System.Windows.Input;
 using VM;
 
@@ -19,8 +18,8 @@ namespace LoL_Champions.ViewModels
         public ICommand EditChampionCommand { get; private set; }
         public ICommand DeleteChampionCommand { get; private set; }
 
-        public ICommand InsertAddChampionCommand { get; private set; }
-        public ICommand InsertUpdateChampionCommand { get; private set; }
+        public ICommand AddNewChampionCommand { get; private set; }
+        public ICommand AddOldChampionCommand { get; private set; }
 
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
@@ -29,12 +28,13 @@ namespace LoL_Champions.ViewModels
         {
             NavigateBackCommand = new Command(async () => await NavigateBack());
             ChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
+
             AddChampionCommand = new Command(async () => await GoToAddChampion());
             EditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
-            DeleteChampionCommand = new Command<ChampionVM>(DeleteChampion);
+            DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
 
-            InsertAddChampionCommand = new Command<Champion>(async (m) => await AddChampion(m));
-            InsertUpdateChampionCommand = new Command<Champion>(async (m) => await EditChampion(m));
+            AddNewChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
+            AddOldChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -68,9 +68,9 @@ namespace LoL_Champions.ViewModels
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
-        private void DeleteChampion(ChampionVM champion)
+        private async Task DeleteChampion(ChampionVM vm)
         {
-            ChampionManagerVM.DeleteChampionCommand.Execute(champion);
+            await ChampionManagerVM.DeleteChampion(vm);
         }
 
         private async Task ChooseImage()
@@ -83,15 +83,17 @@ namespace LoL_Champions.ViewModels
             AddOrEditChampionVM.Icon = await ImagePickerUtils.ChooseImageB64();
         }
 
-        private async Task AddChampion(Champion m)
+        private async Task AddChampion(ChampionVM vm)
         {
-            ChampionManagerVM.AddChampionCommand.Execute(new ChampionVM(m));
+            if (vm == null) return;
+            await ChampionManagerVM.AddChampion(vm);
             await NavigateBack();
         }
 
-        private async Task EditChampion(Champion m)
+        private async Task EditChampion(ChampionVM vm)
         {
-            ChampionManagerVM.EditChampionCommand.Execute(new ChampionVM(m));
+            if (vm == null) return;
+            await ChampionManagerVM.EditChampion(vm);
             await NavigateBack();
         }
     }

@@ -28,40 +28,56 @@ namespace VM
         }
         private ChampionVM championVM;
 
-        public Champion Champion
+        public ChampionVM ChampionVM
         {
             get
             {
-                var c = new Champion(Name, (ChampionClass)ChampionClass, Icon, Image, Bio);
-                return c;
+                Champion c = new(Name, (ChampionClass)ChampionClass, Icon, Image, Bio);
+                return new ChampionVM(c);
             }
         }
 
         public string Name
         {
             get => name;
-            set => SetProperty(ref name, value);
+            set
+            {
+                SetProperty(ref name, value);
+                OnPropertyChanged(nameof(Champion));
+            }
         }
         private string name = "Nom";
 
         public string Icon
         {
             get => icon;
-            set => SetProperty(ref icon, value);
+            set
+            {
+                SetProperty(ref icon, value);
+                OnPropertyChanged(nameof(Champion));
+            }
         }
         private string icon = "";
 
         public string Image
         {
             get => image;
-            set => SetProperty(ref image, value);
+            set
+            {
+                SetProperty(ref image, value);
+                OnPropertyChanged(nameof(Champion));
+            }
         }
         private string image = "";
 
         public string Bio
         {
             get => bio; 
-            set => SetProperty(ref bio, value);
+            set
+            {
+                SetProperty(ref bio, value);
+                OnPropertyChanged(nameof(Champion));
+            }
         }
         private string bio = "";
 

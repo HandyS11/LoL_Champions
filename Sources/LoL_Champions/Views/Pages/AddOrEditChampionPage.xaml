@@ -205,12 +205,10 @@
               ColumnSpacing="50">
             <Button Text="Ajouter"
                     IsVisible="{Binding AddOrEditChampionVM.IsNewChamp}"
-                    Command="{Binding InsertAddChampionCommand}"
-                    CommandParameter="{Binding AddOrEditChampionVM.Champion}"/>
+                    Command="{Binding AddNewChampionCommand}"/>
             <Button Text="Modifier"
                     IsVisible="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
-                    Command="{Binding InsertUpdateChampionCommand}"
-                    CommandParameter="{Binding AddOrEditChampionVM.Champion}"/>
+                    Command="{Binding AddOldChampionCommand}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>
