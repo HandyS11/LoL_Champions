@@ -161,6 +161,7 @@ namespace VM
         public void UpdateSkin(Skin skin)
         {
             if (skin == null) return;
+            SelectedSkin = new SkinVM(skin);
             RemoveSkin(skin);
             AddSkin(skin);
         }

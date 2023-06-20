@@ -105,12 +105,14 @@ namespace LoL_Champions.ViewModels
         private async Task GoToAddSkin()
         {
             AddOrEditSkinVM.IsNewSkin = true;
+            ChampionManagerVM.SelectedChampion.SelectedSkin = null;
             await Navigation.PushAsync(new AddOrEditSkinPage());
         }
 
         private async Task GoToEditSkin(SkinVM vm)
         {
             AddOrEditSkinVM.IsNewSkin = false;
+            AddOrEditSkinVM.Model = vm.Model; 
             ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
             await Navigation.PushAsync (new AddOrEditSkinPage());
         }

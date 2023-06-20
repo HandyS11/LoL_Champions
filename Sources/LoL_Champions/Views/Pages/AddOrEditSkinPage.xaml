@@ -26,7 +26,7 @@
         <ScrollView>
             <Grid ColumnDefinitions="100, *"
                   ColumnSpacing="5"
-                  RowDefinitions="Auto, Auto, Auto, 150, Auto, 180"
+                  RowDefinitions="Auto, Auto, Auto, 150, Auto, 220"
                   RowSpacing="10"
                   Margin="10">
 
@@ -104,7 +104,7 @@
                        Grid.Column="1"
                        CornerRadius="3">
                     <ScrollView>
-                        <Editor Text="{Binding AddOrEditChampionVM.Bio}" 
+                        <Editor Text="{Binding AddOrEditSkinVM.Description}" 
                                 Placeholder="Lore.." 
                                 TextColor="{StaticResource Black}"/>
                     </ScrollView>

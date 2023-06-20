@@ -9,5 +9,7 @@ public partial class AddOrEditSkinPage : ContentPage
     public AddOrEditSkinPage()
 	{
 		InitializeComponent();
-	}
+
+        BindingContext = AppVM;
+    }
 }
