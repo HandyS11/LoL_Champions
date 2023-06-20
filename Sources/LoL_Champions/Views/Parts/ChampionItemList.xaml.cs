@@ -1,5 +1,3 @@
-using System.Windows.Input;
-
 namespace LoL_Champions.Views.Parts;
 
 public partial class ChampionItemList : ViewCell
@@ -9,7 +7,7 @@ public partial class ChampionItemList : ViewCell
         InitializeComponent();
     }
 
-    public ICommand DeleteCommand
+    /*public ICommand DeleteCommand
     {
         get => (ICommand)GetValue(DeleteCommandProperty);
         set => SetValue(DeleteCommandProperty, value);
@@ -25,5 +23,5 @@ public partial class ChampionItemList : ViewCell
         BindableProperty.Create(nameof(DeleteCommand), typeof(ICommand), typeof(ChampionItemList));
     
     public static readonly BindableProperty EditCommandProperty =
-        BindableProperty.Create(nameof(EditCommand), typeof(ICommand), typeof(ChampionItemList));
+        BindableProperty.Create(nameof(EditCommand), typeof(ICommand), typeof(ChampionItemList));*/
 }

@@ -66,6 +66,7 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToEditChampion(ChampionVM vm)
         {
+            ChampionManagerVM.SelectedChampion = vm;
             AddOrEditChampionVM.IsNewChamp = false;
             AddOrEditChampionVM.Model = vm.Model;
             await Navigation.PushAsync(new AddOrEditChampionPage());

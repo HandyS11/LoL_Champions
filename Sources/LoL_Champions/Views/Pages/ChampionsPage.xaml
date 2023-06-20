@@ -46,8 +46,9 @@
                                Detail="{Binding Class}"
                                DetailColor="{StaticResource Gray400}"/>-->
 
-                    <parts:ChampionItemList DeleteCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=DeleteChampionCommand}"
-                                            EditCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=EditChampionCommand}"/>
+                    <!--<parts:ChampionItemList DeleteCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=DeleteChampionCommand}"
+                                            EditCommand="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=EditChampionCommand}"/>-->
+                    <parts:ChampionItemList/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
