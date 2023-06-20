@@ -21,10 +21,12 @@ namespace VM
                 if (Model.Class.ToString() == value) return;
                 try
                 {
-                    Model.Class = (ChampionClass)Enum.Parse(typeof(ChampionClass), value);
+                    ChampionClass c = (ChampionClass)Enum.Parse(typeof(ChampionClass), value);
+                    Model.Class = c;
                 }
                 catch (Exception e)
                 {
+                    Model.Class = ChampionClass.Marksman;       // Do not ask me why I don't understand
                     Debug.WriteLine(e.Message);
                 }
                 OnPropertyChanged(nameof(Class));
