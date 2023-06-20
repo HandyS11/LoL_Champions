@@ -2,6 +2,7 @@
 using LoL_Champions.Views.Pages;
 using System.Windows.Input;
 using VM;
+using VM.Utils;
 
 namespace LoL_Champions.ViewModels
 {
@@ -49,8 +50,8 @@ namespace LoL_Champions.ViewModels
             GoToAddSkinCommand = new Command(async () => await GoToAddSkin());
             GoToEditSkinCommand = new Command<SkinVM>(async (vm) => await GoToEditSkin(vm));
 
-            AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
-            EditChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
+            AddChampionCommand = new Command(async () => await AddChampion());
+            EditChampionCommand = new Command(async () => await EditChampion());
 
             AddSkinCommand = new Command(async () => await AddSkin(AddOrEditSkinVM.SkinVM));
             EditSkinCommand = new Command(async () => await EditSkin(AddOrEditSkinVM.SkinVM));
@@ -93,6 +94,10 @@ namespace LoL_Champions.ViewModels
             AddOrEditChampionVM.Stat = "";
             AddOrEditChampionVM.StatValue = 0;
             AddOrEditChampionVM.Model = vm.Model;
+            AddOrEditChampionVM.LoadStats();
+            AddOrEditChampionVM.LoadSkills();
+            AddOrEditChampionVM.LoadSkins();
+            AddOrEditChampionVM.EditName = vm.Name;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
@@ -113,21 +118,20 @@ namespace LoL_Champions.ViewModels
         {
             AddOrEditSkinVM.IsNewSkin = false;
             AddOrEditSkinVM.Model = vm.Model; 
+            AddOrEditSkinVM.EditName = vm.Name;
             ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
             await Navigation.PushAsync (new AddOrEditSkinPage());
         }
 
-        private async Task AddChampion(ChampionVM vm)
+        private async Task AddChampion()
         {
-            if (vm == null) return;
-            await ChampionManagerVM.AddChampion(vm);
+            await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ToChampionVM());
             await NavigateBack();
         }
 
-        private async Task EditChampion(ChampionVM vm)
+        private async Task EditChampion()
         {
-            if (vm == null) return;
-            await ChampionManagerVM.EditChampion(vm);
+            await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ToChampionVM());
             await NavigateBack();
         }
 

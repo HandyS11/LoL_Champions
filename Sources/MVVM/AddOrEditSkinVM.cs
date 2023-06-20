@@ -7,14 +7,7 @@ namespace VM
         public bool IsNewSkin
         {
             get => isNewSkin;
-            set
-            {
-                SetProperty(ref isNewSkin, value);
-                if (value)
-                {
-                    EditName = Name;
-                }
-            }
+            set => SetProperty(ref isNewSkin, value);
         }
         private bool isNewSkin = false;
 

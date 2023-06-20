@@ -157,11 +157,11 @@
                            BorderColor="{StaticResource Primary}"
                            BackgroundColor="Transparent">
                         <ListView ItemsSource="{Binding AddOrEditChampionVM.Stats}">
-                            <ListView.ItemTemplate>
+                            <!--<ListView.ItemTemplate>
                                 <DataTemplate>
                                     <parts:StatInLineItemView/>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
+                            </ListView.ItemTemplate>-->
                         </ListView>
                     </Frame>
                     <Grid Grid.Row="1"
@@ -185,7 +185,9 @@
                                 Command="{Binding AddOrEditChampionVM.AddStatEditCommand}"/>
                     </Grid>
                 </Grid>
-                <CollectionView ItemsSource="{Binding AddOrEditChampionVM.Stats}"
+                <!--<CollectionView Grid.Row="6"
+                                Grid.Column="1"
+                                ItemsSource="{Binding AddOrEditChampionVM.Stats}"
                                 ItemsLayout="VerticalGrid, 3"
                                 MaximumHeightRequest="430">
                     <CollectionView.ItemTemplate>
@@ -193,7 +195,7 @@
                             <parts:StatItemView/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                </CollectionView>
+                </CollectionView>-->
             </Grid>
         </ScrollView>
 

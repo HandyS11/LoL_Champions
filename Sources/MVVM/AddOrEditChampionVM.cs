@@ -11,14 +11,7 @@ namespace VM
         public bool IsNewChamp
         {
             get => isNewChamp;
-            set
-            {
-                SetProperty(ref isNewChamp, value);
-                if (value)
-                {
-                    EditName = Name;
-                }
-            }
+            set => SetProperty(ref isNewChamp, value);
         }
         private bool isNewChamp = false;
 
@@ -70,18 +63,6 @@ namespace VM
             }
         }
         private int statValue = 0;
-
-        public ChampionVM ChampionVM
-        {
-            get
-            {
-                var champ = new Champion(EditName, (ChampionClass)Class, Icon, Image, Bio);
-                _ = Skills.Select(s => champ.AddSkill(s.Model));
-                _ = Skins.Select(s => champ.AddSkin(s.Model));
-                Stats.ToList().ForEach(s => champ.AddCharacteristics(new Tuple<string, int>(s.Key, s.Value)));
-                return new(champ);
-            }
-        }
 
         public AddOrEditChampionVM() : base(new Champion(""))
         {

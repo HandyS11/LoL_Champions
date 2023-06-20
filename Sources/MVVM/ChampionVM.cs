@@ -104,10 +104,10 @@ namespace VM
             Skills = new ReadOnlyObservableCollection<SkillVM>(skills);
         }
 
-        protected void LoadStats()
+        public void LoadStats()
         {
             stats.Clear();
-            foreach(KeyValuePair<string, int> kvp in Stats)
+            foreach(KeyValuePair<string, int> kvp in Model.Characteristics)
             {
                 stats.Add(kvp);
             }
@@ -132,7 +132,7 @@ namespace VM
             }
         }
 
-        protected void LoadSkins()
+        public void LoadSkins()
         {
             skins.Clear();
             foreach (Skin skin in Model.Skins)
@@ -166,7 +166,7 @@ namespace VM
             AddSkin(skin);
         }
 
-        protected void LoadSkills()
+        public void LoadSkills()
         {
             skills.Clear();
             foreach (Skill skill in Model.Skills)
