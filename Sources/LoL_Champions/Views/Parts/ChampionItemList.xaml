@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           xmlns:vm="clr-namespace:VM;assembly=VM"
@@ -9,7 +9,7 @@
  
     <SwipeView>
         <SwipeView.Resources>
-            <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+            <converters:Base64ToImageConverter x:Key="imageConverter"/>
         </SwipeView.Resources>
         <SwipeView.RightItems>
             <SwipeItems>

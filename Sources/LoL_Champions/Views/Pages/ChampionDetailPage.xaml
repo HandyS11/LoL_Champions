@@ -5,7 +5,6 @@
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
              x:DataType="vmlocal:AppVM"
              x:Class="LoL_Champions.Views.Pages.ChampionDetailPage"
@@ -19,17 +18,18 @@
     
     <ContentPage.Resources>
         <converters:ClassToClassIconConverter x:Key="classToIconConverter"/>
-        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        <converters:Base64ToImageConverter x:Key="imageConverter"/>
 
         <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
     </ContentPage.Resources>
 
-    <Grid>
+    <!--<Grid>-->
         <ScrollView Margin="0,0,0,0">
-            <VerticalStackLayout>
-                <Image WidthRequest="-1" 
-                       HeightRequest="-1"
-                       MaximumHeightRequest="350"
+            <VerticalStackLayout Padding="0"
+                                 Margin="0">
+                <Image Aspect="AspectFit"
+                       WidthRequest="-1"
+                       MaximumWidthRequest="350"
                        Source="{Binding ChampionManagerVM.SelectedChampion.Image, Converter={StaticResource imageConverter}}"/>
                 <Grid ColumnDefinitions="Auto, *, Auto" 
                       Margin="10">
@@ -40,6 +40,7 @@
                         <Image Source="{Binding ChampionManagerVM.SelectedChampion.Class, Converter={StaticResource classToIconConverter}}"
                                Aspect="AspectFit"
                                WidthRequest="40"
+                               HeightRequest="40"
                                HorizontalOptions="Center"/>
                         <Label Text="{Binding ChampionManagerVM.SelectedChampion.Class}"
                                TextColor="{StaticResource Primary}"
@@ -124,6 +125,6 @@
                 </ListView>
             </VerticalStackLayout>
         </ScrollView>
-        <parts:SeparatorView/>
-    </Grid>
+        <!--<parts:SeparatorView/>
+    </Grid>-->
 </ContentPage>

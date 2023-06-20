@@ -21,7 +21,7 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
-        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        <converters:Base64ToImageConverter x:Key="imageConverter"/>
         <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
 
         <Style TargetType="ImageButton" x:Key="navigationButton">
