@@ -11,10 +11,24 @@ namespace VM
         public bool IsNewChamp
         {
             get => isNewChamp;
-            set => SetProperty(ref isNewChamp, value);
+            set
+            {
+                SetProperty(ref isNewChamp, value);
+                if (value)
+                {
+                    EditName = Name;
+                }
+            }
         }
         private bool isNewChamp = false;
 
+
+        public string EditName
+        {
+            get => editName;
+            set => SetProperty(ref editName, value);
+        }
+        private string editName;
 
         public string RadioButton
         {
@@ -57,7 +71,17 @@ namespace VM
         }
         private int statValue = 0;
 
-        public ChampionVM ChampionVM => new(Model);
+        public ChampionVM ChampionVM
+        {
+            get
+            {
+                var champ = new Champion(EditName, (ChampionClass)Class, Icon, Image, Bio);
+                _ = Skills.Select(s => champ.AddSkill(s.Model));
+                _ = Skins.Select(s => champ.AddSkin(s.Model));
+                Stats.ToList().ForEach(s => champ.AddCharacteristics(new Tuple<string, int>(s.Key, s.Value)));
+                return new(champ);
+            }
+        }
 
         public AddOrEditChampionVM() : base(new Champion(""))
         {

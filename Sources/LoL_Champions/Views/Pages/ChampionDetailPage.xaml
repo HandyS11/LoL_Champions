@@ -26,31 +26,32 @@
     <ScrollView Margin="0,0,0,0">
         <VerticalStackLayout>
             <Image WidthRequest="-1"
-                    HeightRequest="{OnPlatform -1, iOS=260}"
-                    Source="{Binding ChampionManagerVM.SelectedChampion.Image, Converter={StaticResource imageConverter}}"/>
+                   HeightRequest="{OnPlatform -1, iOS=260}"
+                   MaximumHeightRequest="350"
+                   Source="{Binding ChampionManagerVM.SelectedChampion.Image, Converter={StaticResource imageConverter}}"/>
             <Grid ColumnDefinitions="Auto, *, Auto" 
                     Margin="10">
                 <Label Text="{Binding ChampionManagerVM.SelectedChampion.Name}"
-                        Style="{StaticResource Title}"
-                        HorizontalOptions="Start"/>
+                       Style="{StaticResource Title}"
+                       HorizontalOptions="Start"/>
                 <VerticalStackLayout Grid.Column="2">
                     <Image Source="{Binding ChampionManagerVM.SelectedChampion.Class, Converter={StaticResource classToIconConverter}}"
-                            Aspect="AspectFit"
-                            WidthRequest="40"
-                            HeightRequest="40"
-                            HorizontalOptions="Center"/>
+                           Aspect="AspectFit"
+                           WidthRequest="40"
+                           HeightRequest="40"
+                           HorizontalOptions="Center"/>
                     <Label Text="{Binding ChampionManagerVM.SelectedChampion.Class}"
-                            TextColor="{StaticResource Primary}"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"/>
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </Grid>
             <Label Text="{Binding ChampionManagerVM.SelectedChampion.Bio}"
-                    TextColor="{StaticResource Primary}"
-                    Margin="10"/>
+                   TextColor="{StaticResource Primary}"
+                   Margin="10"/>
             <Label Text="Caractéristiques"
-                    Margin="10"
-                    Style="{StaticResource Title}"/>
+                   Margin="10"
+                   Style="{StaticResource Title}"/>
             <!-- It shall be a way but I'm bored of iOS -->
             <CollectionView ItemsSource="{Binding ChampionManagerVM.SelectedChampion.Stats}"
                             ItemsLayout="VerticalGrid, 3"
@@ -62,26 +63,26 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Label Text="Compétences"
-                    Margin="10"
-                    Style="{StaticResource Title}"/>
+                   Margin="10"
+                   Style="{StaticResource Title}"/>
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding ChampionManagerVM.SelectedChampion.Skills}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:SkillVM">
                         <VerticalStackLayout>
                             <Grid ColumnDefinitions="3*, *"
-                                    RowDefinitions="Auto, Auto"
-                                    Margin="10">
+                                  RowDefinitions="Auto, Auto"
+                                  Margin="10">
                                 <Label Text="{Binding Name}"
-                                        FontSize="19"
-                                        TextColor="{StaticResource Primary}"/>
+                                       FontSize="19"
+                                       TextColor="{StaticResource Primary}"/>
                                 <Label Grid.Column="1" 
-                                        Text="{Binding Type}"
-                                        FontSize="15"
-                                        TextColor="{StaticResource Primary}"/>
+                                       Text="{Binding Type}"
+                                       FontSize="15"
+                                       TextColor="{StaticResource Primary}"/>
                                 <Label Grid.Row="1"
-                                        Grid.ColumnSpan="2" 
-                                        Text="{Binding Description}"
-                                        TextColor="{StaticResource Primary}"/>
+                                       Grid.ColumnSpan="2" 
+                                       Text="{Binding Description}"
+                                       TextColor="{StaticResource Primary}"/>
                             </Grid>
                             <Border HeightRequest="0.5"
                                     Margin="20,0"
@@ -118,7 +119,7 @@
             </CollectionView>-->
             <Grid Margin="10">
                 <Label Text="Skins"
-                        Style="{StaticResource Title}"/>
+                       Style="{StaticResource Title}"/>
                 <Button HeightRequest="40"
                         WidthRequest="40"
                         CornerRadius="100"
@@ -133,18 +134,18 @@
                     <DataTemplate x:DataType="vm:SkinVM">
                         <StackLayout>
                             <Border Stroke="{StaticResource Primary}"
-                                Margin="5">
+                                    Margin="5">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="0,20,20,20"/>
                                 </Border.StrokeShape>
                                 <HorizontalStackLayout Padding="12,5">
                                     <Image Source="{Binding Icon, Converter={StaticResource imageConverter}}"
-                                            HeightRequest="50"
-                                            WidthRequest="50"/>
+                                           HeightRequest="50"
+                                           WidthRequest="50"/>
                                     <Label Text="{Binding Name}"
-                                            TextColor="{StaticResource Primary}"
-                                            Margin="10,0"
-                                            VerticalOptions="Center"/>
+                                           TextColor="{StaticResource Primary}"
+                                           Margin="10,0"
+                                           VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
                                 <Border.GestureRecognizers>
 
@@ -152,7 +153,7 @@
                             </Border>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=GoToChampionSkinCommand}"
-                                                        CommandParameter="{Binding .}"/>
+                                                      CommandParameter="{Binding .}"/>
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </DataTemplate>

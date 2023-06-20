@@ -54,7 +54,7 @@
 
                 <Frame Grid.Row="1" 
                        Grid.Column="1">
-                    <Entry Text="{Binding AddOrEditSkinVM.Name}" 
+                    <Entry Text="{Binding AddOrEditSkinVM.EditName}" 
                            IsReadOnly="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource invertedBoolConverter}}"
                            Placeholder="Nom du skin"
                            TextColor="{StaticResource Gray600}"/>

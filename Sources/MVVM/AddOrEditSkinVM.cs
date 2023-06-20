@@ -7,11 +7,25 @@ namespace VM
         public bool IsNewSkin
         {
             get => isNewSkin;
-            set => SetProperty(ref isNewSkin, value);
+            set
+            {
+                SetProperty(ref isNewSkin, value);
+                if (value)
+                {
+                    EditName = Name;
+                }
+            }
         }
         private bool isNewSkin = false;
 
-        public SkinVM SkinVM => new(Model);
+        public string EditName
+        {
+            get => editName;
+            set => SetProperty(ref editName, value);
+        }
+        private string editName;
+
+        public SkinVM SkinVM => new(new Skin(EditName, Model.Champion, Price, Icon, Image, Description));
 
         public AddOrEditSkinVM() : base(new Skin("skin", new Champion("")))
         {

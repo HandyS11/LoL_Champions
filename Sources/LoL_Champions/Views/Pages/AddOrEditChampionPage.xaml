@@ -64,7 +64,7 @@
 
                 <Frame Grid.Row="1" 
                        Grid.Column="1">
-                    <Entry Text="{Binding AddOrEditChampionVM.Name}" 
+                    <Entry Text="{Binding AddOrEditChampionVM.EditName}" 
                            IsReadOnly="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
                            Placeholder="Nom du champion"
                            TextColor="{StaticResource Gray600}"/>

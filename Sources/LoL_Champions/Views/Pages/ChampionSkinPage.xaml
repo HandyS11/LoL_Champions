@@ -23,6 +23,7 @@
                 <Image Aspect="AspectFit"
                        WidthRequest="-1"
                        HeightRequest="{OnPlatform -1, iOS=260}"
+                       MaximumHeightRequest="350"
                        Source="{Binding ChampionManagerVM.SelectedChampion.SelectedSkin.Image, Converter={StaticResource imageConverter}}"/>
                 <FlexLayout Grid.Column="2"
                             Margin="10,5"
