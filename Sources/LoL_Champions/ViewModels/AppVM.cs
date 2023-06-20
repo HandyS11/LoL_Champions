@@ -21,8 +21,8 @@ namespace LoL_Champions.ViewModels
         public ICommand GoToAddChampionCommand { get; private set; }
         public ICommand GoToEditChampionCommand { get; private set; }
 
-        public ICommand GoToAddChampionSkinCommand { get ; private set; }
-        public ICommand GoToEditChampionSkinCommand { get; private set; }
+        public ICommand GoToAddSkinCommand { get ; private set; }
+        public ICommand GoToEditSkinCommand { get; private set; }
 
         public ICommand AddChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
@@ -46,11 +46,14 @@ namespace LoL_Champions.ViewModels
             GoToAddChampionCommand = new Command(async () => await GoToAddChampion());
             GoToEditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
             
-            GoToAddChampionSkinCommand = new Command(async () => await GoToAddChampionSkin());
-            GoToEditChampionSkinCommand = new Command<SkinVM>(async (vm) => await GoToEditChampionSkin(vm));
+            GoToAddSkinCommand = new Command(async () => await GoToAddSkin());
+            GoToEditSkinCommand = new Command<SkinVM>(async (vm) => await GoToEditSkin(vm));
 
             AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
             EditChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
+
+            AddSkinCommand = new Command(async () => await AddSkin(AddOrEditSkinVM.SkinVM));
+            EditSkinCommand = new Command(async () => await EditSkin(AddOrEditSkinVM.SkinVM));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -99,13 +102,13 @@ namespace LoL_Champions.ViewModels
             await Navigation.PushAsync(new ChampionSkinPage());
         }
 
-        private async Task GoToAddChampionSkin()
+        private async Task GoToAddSkin()
         {
             AddOrEditSkinVM.IsNewSkin = true;
             await Navigation.PushAsync(new AddOrEditSkinPage());
         }
 
-        private async Task GoToEditChampionSkin(SkinVM vm)
+        private async Task GoToEditSkin(SkinVM vm)
         {
             AddOrEditSkinVM.IsNewSkin = false;
             ChampionManagerVM.SelectedChampion.SelectedSkin = vm;

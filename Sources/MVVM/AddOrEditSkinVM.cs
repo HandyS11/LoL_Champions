@@ -11,6 +11,8 @@ namespace VM
         }
         private bool isNewSkin = false;
 
+        public SkinVM SkinVM => new(Model);
+
         public AddOrEditSkinVM() : base(new Skin("skin", new Champion("")))
         {
         }
