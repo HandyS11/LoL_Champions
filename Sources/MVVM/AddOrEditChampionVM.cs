@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using System.Diagnostics;
+using Model;
 
 namespace VM
 {
@@ -18,7 +19,14 @@ namespace VM
             set
             {
                 if (Model.Class.ToString() == value) return;
-                Model.Class = (ChampionClass)Enum.Parse(typeof(ChampionClass), value);
+                try
+                {
+                    Model.Class = (ChampionClass)Enum.Parse(typeof(ChampionClass), value);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
                 OnPropertyChanged(nameof(Class));
                 OnPropertyChanged(nameof(RadioButton));
             }
