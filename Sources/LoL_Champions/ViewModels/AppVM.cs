@@ -11,13 +11,18 @@ namespace LoL_Champions.ViewModels
 
         public ChampionManagerVM ChampionManagerVM { get; private set; }
         public AddOrEditChampionVM AddOrEditChampionVM { get; private set; }
+        public AddOrEditSkinVM AddOrEditSkinVM { get; private set; }
 
         public ICommand NavigateBackCommand { get; private set; }
 
         public ICommand GoToChampionDetailCommand { get; private set; }
+        public ICommand GoToChampionSkinCommand { get; private set; }
+
         public ICommand GoToAddChampionCommand { get; private set; }
         public ICommand GoToEditChampionCommand { get; private set; }
-        public ICommand GoToChampionSkinCommand { get; private set; }
+
+        public ICommand GoToAddChampionSkinCommand { get ; private set; }
+        public ICommand GoToEditChampionSkinCommand { get; private set; }
 
         public ICommand DeleteChampionCommand { get; private set; }
         public ICommand AddChampionCommand { get; private set; }
@@ -26,14 +31,18 @@ namespace LoL_Champions.ViewModels
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
 
-        public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM)
+        public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM, AddOrEditSkinVM addOrEditSkinVM)
         {
             NavigateBackCommand = new Command(async () => await NavigateBack());
 
             GoToChampionDetailCommand = new Command<ChampionVM>(async (vm) => await GoToChampionDetail(vm));
+            GoToChampionSkinCommand = new Command<SkinVM>(async (vm) => await GoToChampionSkin(vm));
+
             GoToAddChampionCommand = new Command(async () => await GoToAddChampion());
             GoToEditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
-            GoToChampionSkinCommand = new Command<SkinVM>(async (vm) => await GoToChampionSkin(vm));
+            
+            GoToAddChampionSkinCommand = new Command(async () => await GoToAddChampionSkin());
+            GoToEditChampionSkinCommand = 
 
             DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
             AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
@@ -44,6 +53,7 @@ namespace LoL_Champions.ViewModels
 
             ChampionManagerVM = championManagerVM;
             AddOrEditChampionVM = addOrEditChampionVM;
+            AddOrEditSkinVM = addOrEditSkinVM;
         }
 
         private async Task NavigateBack()
@@ -60,6 +70,8 @@ namespace LoL_Champions.ViewModels
         private async Task GoToAddChampion()
         {
             AddOrEditChampionVM.IsNewChamp = true;
+            AddOrEditChampionVM.Stat = "";
+            AddOrEditChampionVM.StatValue = 0;
             ChampionManagerVM.SelectedChampion = null;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
@@ -68,6 +80,8 @@ namespace LoL_Champions.ViewModels
         {
             ChampionManagerVM.SelectedChampion = vm;
             AddOrEditChampionVM.IsNewChamp = false;
+            AddOrEditChampionVM.Stat = "";
+            AddOrEditChampionVM.StatValue = 0;
             AddOrEditChampionVM.Model = vm.Model;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
@@ -76,6 +90,19 @@ namespace LoL_Champions.ViewModels
         {
             ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
             await Navigation.PushAsync(new ChampionSkinPage());
+        }
+
+        private async Task GoToAddChampionSkin()
+        {
+            AddOrEditSkinVM.IsNewSkin = true;
+            await Navigation.PushAsync(new AddOrEditSkinPage());
+        }
+
+        private async Task GoToEditChampionSkin(SkinVM vm)
+        {
+            AddOrEditSkinVM.IsNewSkin = false;
+            ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
+            await Navigation.PushAsync (new AddOrEditSkinPage());
         }
 
         private async Task DeleteChampion(ChampionVM vm)

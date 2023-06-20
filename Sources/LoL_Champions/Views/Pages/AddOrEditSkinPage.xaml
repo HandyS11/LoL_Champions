@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoL_Champions.Views.Pages.AddOrEditSkinPage"
+             xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+             xmlns:converters="clr-namespace:LoL_Champions.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="vmlocal:AppVM"
+             Title="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource navigationText}}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        
+        <converters:Base64ToImageSourceConverter x:Key="imageConverter"/>
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
+
+        <toolkit:BoolToObjectConverter x:Key="titleText" 
+                                       TrueObject="Nouveau Skin" 
+                                       FalseObject="Modifier le Skin"/>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="*, 75">
+        <ScrollView>
+            <Grid ColumnDefinitions="100, *"
+                  ColumnSpacing="5"
+                  RowDefinitions="Auto, Auto, Auto, 150, Auto, 180"
+                  RowSpacing="10"
+                  Margin="10">
+
+                <Label Grid.ColumnSpan="2" 
+                       Text="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource titleText}}"
+                       TextColor="{StaticResource Tertiary}"
+                       HorizontalOptions="Center"
+                       FontSize="26"/>
+
+                <Label Grid.Row="1" 
+                       Text="Nom :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="2" 
+                       Text="Icon :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="3" 
+                       Text="Image :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="4" 
+                       Text="Prix :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="5" 
+                       Text="Description :"
+                       Style="{StaticResource categLabel}"/>
+            </Grid>
+        </ScrollView>
+
+        <Grid Grid.Row="1" 
+              Margin="75,10,75,15"
+              ColumnDefinitions="*, *"
+              ColumnSpacing="50">
+            <Button Text="Ajouter"
+                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin}"/>
+            <Button Text="Modifier"
+                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource invertedBoolConverter}}"/>
+            <Button Grid.Column="1" 
+                    Text="Annuler"
+                    Command="{Binding NavigateBackCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -104,7 +104,7 @@ namespace VM
             Skills = new ReadOnlyObservableCollection<SkillVM>(skills);
         }
 
-        private void LoadStats()
+        protected void LoadStats()
         {
             stats.Clear();
             foreach(KeyValuePair<string, int> kvp in Stats)
@@ -114,25 +114,25 @@ namespace VM
             OnPropertyChanged(nameof(Stats));
         }
 
-        private void AddStat(StatVM stat)
+        protected void AddStat(string key, int value)
         {
             if (stats == null) return;
             model.AddCharacteristics(new Tuple<string, int>[]
             {
-                new Tuple<string, int>(stat.Key, stat.Value)
+                new Tuple<string, int>(key, value)
             });
         }
 
-        private void RemoveStat(StatVM stat)
+        protected void RemoveStat(string key)
         {
-            if (stat == null) return;
-            if (model.RemoveCharacteristics(stat.Key))
+            if (key == "") return;
+            if (model.RemoveCharacteristics(key))
             {
                 LoadStats();
             }
         }
 
-        private void LoadSkins()
+        protected void LoadSkins()
         {
             skins.Clear();
             foreach (Skin skin in Model.Skins)
@@ -142,14 +142,14 @@ namespace VM
             OnPropertyChanged(nameof(Skins));
         }
 
-        private void AddSkin(Skin skin)
+        protected void AddSkin(Skin skin)
         {
             if (skin == null) return;
             model.AddSkin(skin);
             LoadSkins();
         }
 
-        private void RemoveSkin(Skin skin)
+        protected void RemoveSkin(Skin skin)
         {
             if (skin == null) return;
             if (model.RemoveSkin(skin))
@@ -158,7 +158,7 @@ namespace VM
             }
         }
 
-        private void LoadSkills()
+        protected void LoadSkills()
         {
             skills.Clear();
             foreach (Skill skill in Model.Skills)
@@ -168,14 +168,14 @@ namespace VM
             OnPropertyChanged(nameof(Skills));
         }
 
-        private void AddSkill(Skill skill)
+        protected void AddSkill(Skill skill)
         {
             if (skill == null) return;
             model.AddSkill(skill);
             LoadSkills();
         }
 
-        private void RemoveSkill(Skill skill)
+        protected void RemoveSkill(Skill skill)
         {
             if (skill == null) return;
             if(model.RemoveSkill(skill))

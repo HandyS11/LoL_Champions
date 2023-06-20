@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using LoL_Champions.ViewModels;
-using LoL_Champions.Views.Pages;
 using Microsoft.Extensions.Logging;
 using Model;
 using StubLib;
@@ -24,6 +23,7 @@ namespace LoL_Champions
             builder.Services.AddSingleton<IDataManager, StubData>()
                             .AddSingleton<ChampionManagerVM>()
                             .AddSingleton<AddOrEditChampionVM>()
+                            .AddSingleton<AddOrEditSkinVM>()
                             .AddSingleton<AppVM>()
                             .AddSingleton<App>();
             

@@ -14,6 +14,9 @@
             <toolkit:BoolToObjectConverter x:Key="navigationText"
                                            TrueObject="AddChampionPage"
                                            FalseObject="EditChampionPage"/>
+            <toolkit:BoolToObjectConverter x:Key="navigationText2"
+                                           TrueObject="AddSkinPage"
+                                           FalseObject="EditSkinPage"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

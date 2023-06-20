@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
              xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
+             xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -14,14 +15,6 @@
         <Style TargetType="Frame">
             <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
             <Setter Property="Padding" Value="0"/>
-        </Style>
-
-        <Style TargetType="Label" x:Key="categLabel">
-            <Setter Property="HorizontalOptions" Value="End"/>
-            <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="TextColor" Value="{StaticResource Tertiary}"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="LineBreakMode" Value="TailTruncation"/>
         </Style>
 
         <Style TargetType="RadioButton">
@@ -164,40 +157,44 @@
                     <Frame CornerRadius="0"
                            BorderColor="{StaticResource Primary}"
                            BackgroundColor="Transparent">
-                        <CollectionView>
-                            <CollectionView.ItemTemplate>
+                        <ListView ItemsSource="{Binding AddOrEditChampionVM.Stats}">
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BackgroundColor="{StaticResource Primary}">
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="0,20,20,20"/>
-                                        </Border.StrokeShape>
-                                        <HorizontalStackLayout>
-                                            <Label Text="AA"/>
-                                            <Label Text="10"/>
-                                        </HorizontalStackLayout>
-                                    </Border>
+                                    <parts:StatInLineItemView/>
                                 </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Frame>
                     <Grid Grid.Row="1"
                           ColumnDefinitions="*, 50, 40"
                           ColumnSpacing="5"
                           Margin="5">
                         <Frame>
-                            <Entry Placeholder="Caractéristique"
+                            <Entry Text="{Binding AddOrEditChampionVM.Stat}"
+                                   Placeholder="Caractéristique"
                                    TextColor="{StaticResource Black}"/>
                         </Frame>
                         <Frame Grid.Column="1">
-                            <Entry Text="0"
+                            <Entry Text="{Binding AddOrEditChampionVM.StatValue}"
+                                   Keyboard="Numeric"
                                    TextColor="{StaticResource Black}"/>
                         </Frame>
                         <Button Grid.Column="2"
                                 CornerRadius="100"
                                 Text="+"
-                                TextColor="{StaticResource White}"/>
+                                TextColor="{StaticResource White}"
+                                Command="{Binding AddOrEditChampionVM.AddStatEditCommand}"/>
                     </Grid>
                 </Grid>
+                <CollectionView ItemsSource="{Binding AddOrEditChampionVM.Stats}"
+                                ItemsLayout="VerticalGrid, 3"
+                                MaximumHeightRequest="430">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <parts:StatItemView/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </ScrollView>
 
