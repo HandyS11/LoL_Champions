@@ -11,10 +11,10 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/CustomStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <toolkit:BoolToObjectConverter x:Key="navigationText"
+            <toolkit:BoolToObjectConverter x:Key="navigationTextAddOrEditChampion"
                                            TrueObject="AddChampionPage"
                                            FalseObject="EditChampionPage"/>
-            <toolkit:BoolToObjectConverter x:Key="navigationText2"
+            <toolkit:BoolToObjectConverter x:Key="navigationTextAddOrEditSkin"
                                            TrueObject="AddSkinPage"
                                            FalseObject="EditSkinPage"/>
         </ResourceDictionary>

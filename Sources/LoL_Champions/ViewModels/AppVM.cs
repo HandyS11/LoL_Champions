@@ -24,12 +24,17 @@ namespace LoL_Champions.ViewModels
         public ICommand GoToAddChampionSkinCommand { get ; private set; }
         public ICommand GoToEditChampionSkinCommand { get; private set; }
 
-        public ICommand DeleteChampionCommand { get; private set; }
         public ICommand AddChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
 
+        public ICommand AddSkinCommand { get; private set; }
+        public ICommand EditSkinCommand { get; private set; }
+
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
+
+        public ICommand ChooseSkinImageCommand { get; private set; }
+        public ICommand ChooseSkinIconCommand { get; private set; }
 
         public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM, AddOrEditSkinVM addOrEditSkinVM)
         {
@@ -42,14 +47,16 @@ namespace LoL_Champions.ViewModels
             GoToEditChampionCommand = new Command<ChampionVM>(async (vm) => await GoToEditChampion(vm));
             
             GoToAddChampionSkinCommand = new Command(async () => await GoToAddChampionSkin());
-            GoToEditChampionSkinCommand = 
+            GoToEditChampionSkinCommand = new Command<SkinVM>(async (vm) => await GoToEditChampionSkin(vm));
 
-            DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
             AddChampionCommand = new Command(async () => await AddChampion(AddOrEditChampionVM.ChampionVM));
             EditChampionCommand = new Command(async () => await EditChampion(AddOrEditChampionVM.ChampionVM));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
+
+            ChooseSkinIconCommand = new Command(async () => await ChooseSkinIcon());
+            ChooseSkinImageCommand = new Command(async () => await ChooseSkinImage());
 
             ChampionManagerVM = championManagerVM;
             AddOrEditChampionVM = addOrEditChampionVM;
@@ -105,21 +112,6 @@ namespace LoL_Champions.ViewModels
             await Navigation.PushAsync (new AddOrEditSkinPage());
         }
 
-        private async Task DeleteChampion(ChampionVM vm)
-        {
-            await ChampionManagerVM.DeleteChampion(vm);
-        }
-
-        private async Task ChooseImage()
-        {
-            AddOrEditChampionVM.Image = await ImagePickerUtils.ChooseImageB64();
-        }
-
-        private async Task ChooseIcon()
-        {
-            AddOrEditChampionVM.Icon = await ImagePickerUtils.ChooseImageB64();
-        }
-
         private async Task AddChampion(ChampionVM vm)
         {
             if (vm == null) return;
@@ -132,6 +124,40 @@ namespace LoL_Champions.ViewModels
             if (vm == null) return;
             await ChampionManagerVM.EditChampion(vm);
             await NavigateBack();
+        }
+
+        private async Task AddSkin(SkinVM vm)
+        {
+            if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.AddSkin(vm.Model);
+            await NavigateBack();
+        }
+
+        private async Task EditSkin(SkinVM vm)
+        {
+            if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.UpdateSkin(vm.Model);
+            await NavigateBack();
+        }
+
+        private async Task ChooseImage()
+        {
+            AddOrEditChampionVM.Image = await ImagePickerUtils.ChooseImageB64();
+        }
+
+        private async Task ChooseIcon()
+        {
+            AddOrEditChampionVM.Icon = await ImagePickerUtils.ChooseImageB64();
+        }
+
+        private async Task ChooseSkinImage()
+        {
+            AddOrEditSkinVM.Image = await ImagePickerUtils.ChooseImageB64();
+        }
+
+        private async Task ChooseSkinIcon()
+        {
+            AddOrEditSkinVM.Icon = await ImagePickerUtils.ChooseImageB64();
         }
     }
 }

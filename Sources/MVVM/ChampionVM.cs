@@ -114,7 +114,7 @@ namespace VM
             OnPropertyChanged(nameof(Stats));
         }
 
-        protected void AddStat(string key, int value)
+        public void AddStat(string key, int value)
         {
             if (stats == null) return;
             model.AddCharacteristics(new Tuple<string, int>[]
@@ -123,7 +123,7 @@ namespace VM
             });
         }
 
-        protected void RemoveStat(string key)
+        public void RemoveStat(string key)
         {
             if (key == "") return;
             if (model.RemoveCharacteristics(key))
@@ -142,20 +142,27 @@ namespace VM
             OnPropertyChanged(nameof(Skins));
         }
 
-        protected void AddSkin(Skin skin)
+        public void AddSkin(Skin skin)
         {
             if (skin == null) return;
             model.AddSkin(skin);
             LoadSkins();
         }
 
-        protected void RemoveSkin(Skin skin)
+        public void RemoveSkin(Skin skin)
         {
             if (skin == null) return;
             if (model.RemoveSkin(skin))
             {
                 LoadSkins();
             }
+        }
+
+        public void UpdateSkin(Skin skin)
+        {
+            if (skin == null) return;
+            RemoveSkin(skin);
+            AddSkin(skin);
         }
 
         protected void LoadSkills()
@@ -168,14 +175,14 @@ namespace VM
             OnPropertyChanged(nameof(Skills));
         }
 
-        protected void AddSkill(Skill skill)
+        public void AddSkill(Skill skill)
         {
             if (skill == null) return;
             model.AddSkill(skill);
             LoadSkills();
         }
 
-        protected void RemoveSkill(Skill skill)
+        public void RemoveSkill(Skill skill)
         {
             if (skill == null) return;
             if(model.RemoveSkill(skill))

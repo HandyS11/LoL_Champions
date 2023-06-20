@@ -24,7 +24,7 @@
                            CommandParameter="{Binding .}"/>-->
                 <SwipeItem Text="Supprimer"
                            BackgroundColor="Red"
-                           Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=DeleteChampionCommand}"
+                           Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=ChampionManagerVM.DeleteChampionCommand}"
                            CommandParameter="{Binding .}"/>
                 <SwipeItem Text="Editer"
                            BackgroundColor="{StaticResource Gray500}"

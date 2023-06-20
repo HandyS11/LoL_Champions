@@ -6,7 +6,7 @@
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="vmlocal:AppVM"
-             Title="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource navigationText}}">
+             Title="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource navigationTextAddOrEditSkin}}">
 
     <ContentPage.Resources>
         <Style TargetType="Frame">
@@ -51,6 +51,62 @@
                 <Label Grid.Row="5" 
                        Text="Description :"
                        Style="{StaticResource categLabel}"/>
+
+                <Frame Grid.Row="1" 
+                       Grid.Column="1">
+                    <Entry Text="{Binding AddOrEditSkinVM.Name}" 
+                           IsReadOnly="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource invertedBoolConverter}}"
+                           Placeholder="Nom du champion"
+                           TextColor="{StaticResource Gray600}"/>
+                </Frame>
+                <Frame Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalOptions="Start"
+                       CornerRadius="3"
+                       WidthRequest="50"
+                       HeightRequest="50">
+                    <Grid>
+                        <Image Source="league_icon.png"/>
+                        <ImageButton Source="{Binding AddOrEditSkinVM.Icon, Converter={StaticResource imageConverter}}"
+                                     Command="{Binding ChooseIconCommand}"
+                                     Padding="0"/>
+                    </Grid>
+                </Frame>
+                <Frame Grid.Row="3"
+                       Grid.Column="1"
+                       CornerRadius="3"
+                       BackgroundColor="White">
+                    <Grid>
+                        <Image Source="league_logo.png"
+                               Margin="25"
+                               Aspect="AspectFit"/>
+                        <ImageButton Source="{Binding AddOrEditSkinVM.Image, Converter={StaticResource imageConverter}}"
+                                     Command="{Binding ChooseImageCommand}"
+                                     Aspect="AspectFit"
+                                     Padding="0"/>
+                    </Grid>
+                </Frame>
+                <HorizontalStackLayout Grid.Row="4"
+                                       Grid.Column="1">
+                    <Image Source="riotpoint.png"
+                           HeightRequest="10"
+                           WidthRequest="10"/>
+                    <Frame CornerRadius="3">
+                        <Entry Text="{Binding AddOrEditSkinVM.Price}" 
+                               Placeholder="0"
+                               Keyboard="Numeric"
+                               WidthRequest="100"/>
+                    </Frame>
+                </HorizontalStackLayout>
+                <Frame Grid.Row="5"
+                       Grid.Column="1"
+                       CornerRadius="3">
+                    <ScrollView>
+                        <Editor Text="{Binding AddOrEditChampionVM.Bio}" 
+                                Placeholder="Lore.." 
+                                TextColor="{StaticResource Black}"/>
+                    </ScrollView>
+                </Frame>
             </Grid>
         </ScrollView>
 
@@ -59,9 +115,11 @@
               ColumnDefinitions="*, *"
               ColumnSpacing="50">
             <Button Text="Ajouter"
-                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin}"/>
+                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin}"
+                    Command="{Binding AddSkinCommand}"/>
             <Button Text="Modifier"
-                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource invertedBoolConverter}}"/>
+                    IsVisible="{Binding AddOrEditSkinVM.IsNewSkin, Converter={StaticResource invertedBoolConverter}}"
+                    Command="{Binding EditSkinCommand}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>
