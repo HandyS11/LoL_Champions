@@ -41,24 +41,24 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 
 | OriginalApp | CloneApp |
 | --- | --- |
-| <img src="./Documentation/screens/HomePage.PNG" height="750"/> | <img src="./Documentation/screens/HomePage.jpg" height="750"/> |
-| <img src="./Documentation/screens/ChampionsPage.PNG" height="750"/> | <img src="./Documentation/screens/ChampionPage.jpg" height="750"/> |
-| <img src="./Documentation/screens/SwipeView.PNG" height="750"/> | <img src="./Documentation/screens/SwipeView.jpg" height="750"/> |
-| <img src="./Documentation/screens/ChampionDetail1.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail1.jpg" height="750"/> |
-| <img src="./Documentation/screens/ChampionDetail2.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail2.jpg" height="750"/> |
-| <img src="./Documentation/screens/ChampionDetail3.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail3.jpg" height="750"/> |
-| <img src="./Documentation/screens/ChampionSkin.PNG" height="750"/> | <img src="./Documentation/screens/ChampionSkin.jpg" height="750"/> |
+| <img src="./Documentation/screens/HomePage.PNG" height="750"/> | <img src="./Documentation/screens/HomePageMine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionsPage.PNG" height="750"/> | <img src="./Documentation/screens/ChampionPageMine.png" height="750"/> |
+| <img src="./Documentation/screens/SwipeView.PNG" height="750"/> | <img src="./Documentation/screens/SwipeViewMine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail1.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail1Mine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail2.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail2Mine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionDetail3.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail3Mine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionSkin.PNG" height="750"/> | <img src="./Documentation/screens/ChampionSkinMine.png" height="750"/> |
 </details>
 
 <details><summary> Other Pages </summary>
 
 | OriginalApp | CloneApp |
 | --- | --- |
-| <img src="./Documentation/screens/AddChampion.PNG" height="750"/> | <img src="./Documentation/screens/AddChampion.jpg" height="750"/> |
-| <img src="./Documentation/screens/AddSkin.PNG" height="750"/> | <img src="./Documentation/screens/AddSkin.jpg" height="750"/> |
-| <img src="./Documentation/screens/EditChampion1.PNG" height="750"/> | <img src="./Documentation/screens/EditChampion1.jpg" height="750"/> |
-| <img src="./Documentation/screens/EditChampion2.PNG" height="750"/> | <img src="./Documentation/screens/EditChampion2.jpg" height="750"/> |
-| <img src="./Documentation/screens/NewSkill.PNG" height="750"/> | <img src="./Documentation/screens/NewSkill.jpg" height="750"/> |
+| <img src="./Documentation/screens/AddChampion.PNG" height="750"/> | <img src="./Documentation/screens/AddChampionMine.png" height="750"/> |
+| <img src="./Documentation/screens/AddSkin.PNG" height="750"/> | <img src="./Documentation/screens/AddSkinMine.png" height="750"/> |
+| <img src="./Documentation/screens/EditChampion1.PNG" height="750"/> | <img src="./Documentation/screens/EditChampion1Mine.png" height="750"/> |
+| <img src="./Documentation/screens/EditChampion2.PNG" height="750"/> | <img src="./Documentation/screens/EditChampion2Mine.png" height="750"/> |
+| <img src="./Documentation/screens/NewSkill.PNG" height="750"/> | <img src="./Documentation/screens/NewSkillMine.png" height="750"/> |
 </details>
 
 ## ⚙️ Architecture
