@@ -96,8 +96,8 @@ namespace VM
             champions.Clear();
             var c = await dataManager.ChampionsMgr.GetNbItems();
             NbPages = c % Count != 0 ? c / Count + 1 : c / Count;
-            var champs = await dataManager.ChampionsMgr.GetItems(Index, Count);
-            foreach(var champ in champs.OrderBy(c => c.Name))
+            var champs = await dataManager.ChampionsMgr.GetItems(Index, Count, "Name");
+            foreach(var champ in champs)
             {
                 champions.Add(new ChampionVM(champ));
             }

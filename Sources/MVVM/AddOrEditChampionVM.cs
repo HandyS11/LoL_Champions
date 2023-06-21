@@ -7,6 +7,7 @@ namespace VM
     public class AddOrEditChampionVM : ChampionVM
     {
         public ICommand AddStatEditCommand { get; private set; }
+        public ICommand DeleteStatEditCommand { get; private set; }
 
         public bool IsNewChamp
         {
@@ -67,13 +68,20 @@ namespace VM
         public AddOrEditChampionVM() : base(new Champion(""))
         {
             AddStatEditCommand = new Command(AddStatEdit);
+            DeleteStatEditCommand = new Command<string>(RemoveStatEdit);
         }
 
         private void AddStatEdit()
         {
             AddStat(Stat, StatValue);
+            LoadStats();
             Stat = "";
             StatValue = 0;
+        }
+
+        private void RemoveStatEdit(string key)
+        {
+            RemoveStat(key);
         }
     } 
 }

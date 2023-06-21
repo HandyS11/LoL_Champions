@@ -7,21 +7,21 @@
           x:DataType="vm:ChampionVM"
           x:Class="LoL_Champions.Views.Parts.ChampionItemList"
           x:Name="View">
- 
-    <SwipeView>
+
+    <!--<SwipeView>
         <SwipeView.Resources>
             <converters:Base64ToImageConverter x:Key="imageConverter"/>
         </SwipeView.Resources>
         <SwipeView.RightItems>
             <SwipeItems>
-                <!--<SwipeItem Text="Supprimer"
+                --><!--<SwipeItem Text="Supprimer"
                            BackgroundColor="Red"
                            Command="{Binding Source={x:Reference View}, Path=DeleteCommand}"
                            CommandParameter="{Binding .}"/>
                 <SwipeItem Text="Editer"
                            BackgroundColor="{StaticResource Gray500}"
                            Command="{Binding Source={x:Reference View}, Path=EditCommand}"
-                           CommandParameter="{Binding .}"/>-->
+                           CommandParameter="{Binding .}"/>--><!--
                 <SwipeItem Text="Supprimer"
                            BackgroundColor="Red"
                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=ChampionManagerVM.DeleteChampionCommand}"
@@ -46,5 +46,32 @@
                        TextColor="{StaticResource Gray400}"/>
             </VerticalStackLayout>
         </Grid>
-    </SwipeView>
+    </SwipeView>-->
+    <Grid ColumnSpacing="5"
+          ColumnDefinitions="Auto, *">
+        <Grid.Resources>
+            <converters:Base64ToImageConverter x:Key="imageConverter"/>
+        </Grid.Resources>
+        <Image HeightRequest="50"
+               WidthRequest="50"
+               Source="{Binding Icon, Converter={StaticResource imageConverter}}"/>
+        <VerticalStackLayout Grid.Column="1"
+                             Margin="5"
+                             VerticalOptions="Center">
+            <Label Text="{Binding Name}"
+                   FontSize="20"/>
+            <Label Text="{Binding Class}"
+                   TextColor="{StaticResource Gray400}"/>
+        </VerticalStackLayout>
+    </Grid>
+    <ViewCell.ContextActions>
+        <MenuItem Text="Supprimer"
+                  IsDestructive="True"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=ChampionManagerVM.DeleteChampionCommand}"
+                  CommandParameter="{Binding .}"/>
+        <MenuItem Text="Modifier"
+                  IsDestructive="True"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=GoToEditChampionCommand}"
+                  CommandParameter="{Binding .}"/>
+    </ViewCell.ContextActions>
 </ViewCell>

@@ -16,7 +16,7 @@ namespace VM
             get => editName;
             set => SetProperty(ref editName, value);
         }
-        private string editName;
+        private string editName ="Nom du skin";
 
         public SkinVM SkinVM => new(new Skin(EditName, Model.Champion, Price, Icon, Image, Description));
 

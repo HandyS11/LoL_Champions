@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LoL_Champions.Views.Parts.StatInLineItemView">
+<ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+          x:Class="LoL_Champions.Views.Parts.StatInLineItemView">
 
     <Border BackgroundColor="{StaticResource Primary}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="0,20,20,20"/>
         </Border.StrokeShape>
-        <FlexLayout AlignContent="SpaceBetween">
-            <Label Text="{Binding Key}"/>
-            <Label Text="{Binding Value}"/>
-        </FlexLayout>
+        <SwipeView>
+            <SwipeView.RightItems>
+                <SwipeItems>
+                    <!--<SwipeItem Text="Supprimer"
+                           BackgroundColor="Red"
+                           Command="{Binding Source={x:Reference View}, Path=DeleteCommand}"
+                           CommandParameter="{Binding .}"/>
+                <SwipeItem Text="Editer"
+                           BackgroundColor="{StaticResource Gray500}"
+                           Command="{Binding Source={x:Reference View}, Path=EditCommand}"
+                           CommandParameter="{Binding .}"/>-->
+                    <SwipeItem Text="Supprimer"
+                           BackgroundColor="Red"
+                           Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM}"
+                           CommandParameter="{Binding .}"/>
+                </SwipeItems>
+            </SwipeView.RightItems>
+            <FlexLayout AlignContent="SpaceBetween">
+                <Label Text="{Binding Key}"/>
+                <Label Text="{Binding Value}"/>
+            </FlexLayout>
+        </SwipeView>
     </Border>
-</ContentView>
+</ViewCell>
