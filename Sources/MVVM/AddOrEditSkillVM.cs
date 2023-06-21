@@ -17,7 +17,7 @@ namespace VM
             get => editName;
             set => SetProperty(ref editName, value);
         }
-        private string editName = "Nom de la compétence";
+        private string editName = "Compétence";
 
         public TypeSkill SkillPicker
         {
@@ -26,10 +26,17 @@ namespace VM
         }
         private TypeSkill skillPicker;
 
-        // idk how to do it properly
-        public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker.ToString()), Description));
+        public string EditDesc
+        {
+            get => editDesc;
+            set => SetProperty(ref editDesc, value);
+        }
+        private string editDesc;
 
-        public AddOrEditSkillVM() : base(new Skill("Nom de la compétence", SkillType.Unknown))
+        // idk how to do it properly
+        public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker.ToString()), EditDesc));
+
+        public AddOrEditSkillVM() : base(new Skill("Compétence", SkillType.Unknown))
         {
         }
     }

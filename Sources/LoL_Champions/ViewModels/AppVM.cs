@@ -143,6 +143,9 @@ namespace LoL_Champions.ViewModels
         private async Task GoToAddSkill()
         {
             AddOrEditSkillVM.IsNewSkill = true;
+            AddOrEditSkillVM.Model = null;
+            AddOrEditSkillVM.EditName = "Compétence";
+            AddOrEditSkillVM.SkillPicker = TypeSkill.Unknown;
             ChampionManagerVM.SelectedChampion.SelectedSkill = null;
             await Navigation.PushModalAsync(new AddOrEditSkillPage());
         }
@@ -152,6 +155,7 @@ namespace LoL_Champions.ViewModels
             AddOrEditSkillVM.IsNewSkill = false;
             AddOrEditSkillVM.Model = vm.Model;
             AddOrEditSkillVM.EditName = vm.Name;
+            AddOrEditSkillVM.EditDesc = vm.Description;
             AddOrEditSkillVM.SkillPicker = (TypeSkill)Enum.Parse(typeof(TypeSkill), vm.Type);
             ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
             await Navigation.PushModalAsync(new AddOrEditSkillPage());
@@ -160,12 +164,14 @@ namespace LoL_Champions.ViewModels
         private async Task AddChampion()
         {
             await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ToChampionVM());
+            ChampionManagerVM.SelectedChampion.LoadSkills();
             await NavigateBack();
         }
 
         private async Task EditChampion()
         {
             await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ToChampionVM());
+            ChampionManagerVM.SelectedChampion.LoadSkills();
             await NavigateBack();
         }
 
@@ -186,14 +192,18 @@ namespace LoL_Champions.ViewModels
         private async Task AddSkill(SkillVM vm)
         {
             if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
             ChampionManagerVM.SelectedChampion.AddSkill(vm.Model);
+            AddOrEditChampionVM.LoadSkills();
             await Navigation.PopModalAsync();
         }
 
         private async Task EditSkill(SkillVM vm)
         {
             if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
             ChampionManagerVM.SelectedChampion.UpdateSkill(vm.Model);
+            AddOrEditChampionVM.LoadSkills();
             await Navigation.PopModalAsync();
         }
 

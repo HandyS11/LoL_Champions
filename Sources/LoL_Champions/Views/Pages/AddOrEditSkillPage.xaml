@@ -58,6 +58,7 @@
                        Grid.Column="1">
                     <Picker Title="Type"
                             TitleColor="{StaticResource Black}"
+                            TextColor="{StaticResource Black}"
                             ItemsSource="{Binding Values, Source={StaticResource skillType}}"
                             SelectedItem="{Binding AddOrEditSkillVM.SkillPicker}"/>
                 </Frame>
@@ -65,8 +66,8 @@
                        Grid.Column="1"
                        CornerRadius="3">
                     <ScrollView>
-                        <Editor Text="{Binding AddOrEditSkillVM.Description}" 
-                                Placeholder="Lore.." 
+                        <Editor Text="{Binding AddOrEditSkillVM.EditDesc}" 
+                                Placeholder="Description" 
                                 TextColor="{StaticResource Black}"/>
                     </ScrollView>
                 </Frame>           
