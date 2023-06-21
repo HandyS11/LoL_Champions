@@ -42,7 +42,7 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 | OriginalApp | CloneApp |
 | --- | --- |
 | <img src="./Documentation/screens/HomePage.PNG" height="750"/> | <img src="./Documentation/screens/HomePageMine.png" height="750"/> |
-| <img src="./Documentation/screens/ChampionsPage.PNG" height="750"/> | <img src="./Documentation/screens/ChampionPageMine.png" height="750"/> |
+| <img src="./Documentation/screens/ChampionsPage.PNG" height="750"/> | <img src="./Documentation/screens/ChampionsPageMine.png" height="750"/> |
 | <img src="./Documentation/screens/SwipeView.PNG" height="750"/> | <img src="./Documentation/screens/SwipeViewMine.png" height="750"/> |
 | <img src="./Documentation/screens/ChampionDetail1.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail1Mine.png" height="750"/> |
 | <img src="./Documentation/screens/ChampionDetail2.PNG" height="750"/> | <img src="./Documentation/screens/ChampionDetail2Mine.png" height="750"/> |
