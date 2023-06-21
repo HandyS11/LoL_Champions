@@ -9,6 +9,8 @@ namespace VM
         public ICommand AddStatEditCommand { get; private set; }
         public ICommand DeleteStatEditCommand { get; private set; }
 
+        public ICommand AddSkillEditCommand { get; private set; }
+        public ICommand EditSkillEditCommand { get; private set; }
         public ICommand DeleteSkillEditCommand { get; private set; }
 
         public bool IsNewChamp
@@ -72,7 +74,9 @@ namespace VM
             AddStatEditCommand = new Command(AddStatEdit);
             DeleteStatEditCommand = new Command<string>(RemoveStatEdit);
 
-            DeleteSkillEditCommand = new Command<SkillVM>(DeleteSkillEdit);
+            AddSkillEditCommand = new Command(() => AddSkillEdit(SelectedSkill));
+            EditSkillEditCommand = new Command(() => EditSkillEdit(SelectedSkill));
+            DeleteSkillEditCommand = new Command<SkillVM>(RemoveSkillEdit);
         }
 
         private void AddStatEdit()
@@ -89,7 +93,19 @@ namespace VM
             LoadStats();
         }
 
-        private void DeleteSkillEdit(SkillVM vm)
+        private void AddSkillEdit(SkillVM vm)
+        {
+            AddSkill(vm.Model);
+            LoadSkills();
+        }
+
+        private void EditSkillEdit(SkillVM vm)
+        {
+            UpdateSkill(vm.Model);
+            LoadSkills();
+        }
+
+        private void RemoveSkillEdit(SkillVM vm)
         {
             RemoveSkill(vm.Model);
             LoadSkills();

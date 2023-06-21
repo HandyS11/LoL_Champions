@@ -26,6 +26,8 @@
                   IsDestructive="True"
                   Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM.DeleteSkillEditCommand}"
                   CommandParameter="{Binding .}"/>
-        <MenuItem Text="Modifier"/>
+        <MenuItem Text="Modifier"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=GoToEditSkillCommand}"
+                  CommandParameter="{Binding .}"/>
     </ViewCell.ContextActions>
 </ViewCell>

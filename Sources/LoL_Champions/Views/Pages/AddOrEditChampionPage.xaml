@@ -205,7 +205,8 @@
                     </Frame>
                     <Button Grid.Row="1"
                             Margin="25,5"
-                            Text="Ajouter une compétence"/>
+                            Text="Ajouter une compétence"
+                            Command="{Binding GoToAddSkillCommand}"/>
                 </Grid>
                 <Grid Grid.Row="8"
                       Grid.ColumnSpan="2"

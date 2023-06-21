@@ -24,6 +24,7 @@ namespace LoL_Champions
                             .AddSingleton<ChampionManagerVM>()
                             .AddSingleton<AddOrEditChampionVM>()
                             .AddSingleton<AddOrEditSkinVM>()
+                            .AddSingleton<AddOrEditSkillVM>()
                             .AddSingleton<AppVM>()
                             .AddSingleton<App>();
             

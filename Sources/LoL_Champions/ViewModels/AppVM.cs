@@ -11,8 +11,10 @@ namespace LoL_Champions.ViewModels
         public INavigation Navigation => Application.Current.MainPage.Navigation;
 
         public ChampionManagerVM ChampionManagerVM { get; private set; }
+
         public AddOrEditChampionVM AddOrEditChampionVM { get; private set; }
         public AddOrEditSkinVM AddOrEditSkinVM { get; private set; }
+        public AddOrEditSkillVM AddOrEditSkillVM { get; private set; }
 
         public ICommand NavigateBackCommand { get; private set; }
 
@@ -24,6 +26,9 @@ namespace LoL_Champions.ViewModels
 
         public ICommand GoToAddSkinCommand { get ; private set; }
         public ICommand GoToEditSkinCommand { get; private set; }
+
+        public ICommand GoToAddSkillCommand { get; private set; }
+        public ICommand GoToEditSkillCommand { get; private set; }
 
         public ICommand AddChampionCommand { get; private set; }
         public ICommand EditChampionCommand { get; private set; }
@@ -37,7 +42,7 @@ namespace LoL_Champions.ViewModels
         public ICommand ChooseSkinImageCommand { get; private set; }
         public ICommand ChooseSkinIconCommand { get; private set; }
 
-        public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM, AddOrEditSkinVM addOrEditSkinVM)
+        public AppVM(ChampionManagerVM championManagerVM, AddOrEditChampionVM addOrEditChampionVM, AddOrEditSkinVM addOrEditSkinVM, AddOrEditSkillVM addOrEditSkillVM)
         {
             NavigateBackCommand = new Command(async () => await NavigateBack());
 
@@ -49,6 +54,9 @@ namespace LoL_Champions.ViewModels
             
             GoToAddSkinCommand = new Command(async () => await GoToAddSkin());
             GoToEditSkinCommand = new Command<SkinVM>(async (vm) => await GoToEditSkin(vm));
+
+            GoToAddSkillCommand = new Command(async () => await GoToAddSkill());
+            GoToEditSkillCommand = new Command<SkillVM>(async (vm) => await GoToEditSkill(vm));
 
             AddChampionCommand = new Command(async () => await AddChampion());
             EditChampionCommand = new Command(async () => await EditChampion());
@@ -65,6 +73,7 @@ namespace LoL_Champions.ViewModels
             ChampionManagerVM = championManagerVM;
             AddOrEditChampionVM = addOrEditChampionVM;
             AddOrEditSkinVM = addOrEditSkinVM;
+            AddOrEditSkillVM = addOrEditSkillVM;
         }
 
         private async Task NavigateBack()
@@ -120,7 +129,24 @@ namespace LoL_Champions.ViewModels
             AddOrEditSkinVM.Model = vm.Model; 
             AddOrEditSkinVM.EditName = vm.Name;
             ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
-            await Navigation.PushAsync (new AddOrEditSkinPage());
+            await Navigation.PushAsync(new AddOrEditSkinPage());
+        }
+
+        private async Task GoToAddSkill()
+        {
+            AddOrEditSkillVM.IsNewSkill = true;
+            ChampionManagerVM.SelectedChampion.SelectedSkill = null;
+            await Navigation.PushModalAsync(new AddOrEditSkillPage());
+        }
+
+        private async Task GoToEditSkill(SkillVM vm)
+        {
+            AddOrEditSkillVM.IsNewSkill = false;
+            AddOrEditSkillVM.Model = vm.Model;
+            AddOrEditSkillVM.EditName = vm.Name;
+            AddOrEditSkillVM.SkillPicker = vm.Type;
+            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
+            await Navigation.PushModalAsync(new AddOrEditSkillPage());
         }
 
         private async Task AddChampion()

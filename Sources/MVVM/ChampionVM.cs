@@ -32,6 +32,13 @@ namespace VM
         }
         private SkinVM selectedSkin;
 
+        public SkillVM SelectedSkill
+        {
+            get => SelectedSkill;
+            set => SetProperty(ref selectedSkill, value);
+        }
+        private SkillVM selectedSkill;
+
         public string Name
         {
             get => model?.Name;
@@ -186,10 +193,18 @@ namespace VM
         public void RemoveSkill(Skill skill)
         {
             if (skill == null) return;
-            if(model.RemoveSkill(skill))
+            if (model.RemoveSkill(skill))
             {
                 LoadSkills();
             }
+        }
+
+        public void UpdateSkill(Skill skill)
+        {
+            if (skill == null) return;
+            SelectedSkill = new SkillVM(skill);
+            RemoveSkill(skill);
+            AddSkill(skill);
         }
     }
 }

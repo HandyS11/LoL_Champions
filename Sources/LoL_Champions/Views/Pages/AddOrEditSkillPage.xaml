@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+             x:DataType="vmlocal:AppVM"
+             x:Class="LoL_Champions.Views.Pages.AddOrEditSkillPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
+
+        <toolkit:BoolToObjectConverter x:Key="titleSkillText" 
+                                       TrueObject="Nouvelle Compétence" 
+                                       FalseObject="Modifier la Compétence"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, 75">
+        <ScrollView>
+            <Grid ColumnDefinitions="100, *"
+                  ColumnSpacing="5"
+                  RowDefinitions="Auto, Auto, Auto, 250"
+                  RowSpacing="10"
+                  Margin="10">
+
+                <Label Grid.ColumnSpan="2" 
+                       Text="{Binding AddOrEditSkillVM.IsNewSkill, Converter={StaticResource titleSkillText}}"
+                       TextColor="{StaticResource Tertiary}"
+                       HorizontalOptions="Center"
+                       FontSize="26"/>
+
+                <Label Grid.Row="1" 
+                       Text="Nom :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="2" 
+                       Text="Type :"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="3" 
+                       Text="Description :"
+                       Style="{StaticResource categLabel}"/>
+
+                <Frame Grid.Row="1" 
+                       Grid.Column="1">
+                    <Entry Text="{Binding AddOrEditSkillVM.EditName}" 
+                           IsReadOnly="{Binding AddOrEditSkillVM.IsNewSkill, Converter={StaticResource invertedBoolConverter}}"
+                           Placeholder="Nom de la compétence"
+                           TextColor="{StaticResource Gray600}"/>
+                </Frame>
+                <Frame Grid.Row="2"
+                       Grid.Column="1">
+                    <Picker Title="Type"
+                            TitleColor="{StaticResource Black}"
+                            SelectedItem="{Binding AddOrEditSkillVM.SkillPicker}"/>
+                </Frame>
+                <Frame Grid.Row="3"
+                       Grid.Column="1"
+                       CornerRadius="3">
+                    <ScrollView>
+                        <Editor Text="{Binding AddOrEditSkillVM.Description}" 
+                                Placeholder="Lore.." 
+                                TextColor="{StaticResource Black}"/>
+                    </ScrollView>
+                </Frame>           
+            </Grid>
+        </ScrollView>
+
+        <Grid Grid.Row="1" 
+              Margin="75,10,75,15"
+              ColumnDefinitions="*, *"
+              ColumnSpacing="50">
+            <Button Text="Ajouter"
+                    IsVisible="{Binding AddOrEditSkillVM.IsNewSkill}"
+                    Command="{Binding AddOrEditChampionVM.AddSkillEditCommand}"/>
+            <Button Text="Modifier"
+                    IsVisible="{Binding AddOrEditSkillVM.IsNewSkill, Converter={StaticResource invertedBoolConverter}}"
+                    Command="{Binding AddOrEditChampionVM.EditSkillEditCommand}"/>
+            <Button Grid.Column="1" 
+                    Text="Annuler"
+                    Command="{Binding NavigateBackCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
