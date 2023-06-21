@@ -142,6 +142,7 @@ namespace VM
         {
             if (await dataManager.ChampionsMgr.AddItem(vm.Model) != null)
             {
+                SelectedChampion = vm;
                 await LoadChampions();
             }     
         }
