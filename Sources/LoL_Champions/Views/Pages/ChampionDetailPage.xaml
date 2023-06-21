@@ -126,7 +126,8 @@
                         HorizontalOptions="End"
                         VerticalOptions="End"
                         Text="+"
-                        TextColor="{StaticResource Black}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="{StaticResource White}"
                         Command="{Binding GoToAddSkinCommand}"/>
             </Grid>
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding ChampionManagerVM.SelectedChampion.Skins}">

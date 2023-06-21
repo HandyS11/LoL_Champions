@@ -182,6 +182,7 @@
                                 CornerRadius="100"
                                 Text="+"
                                 TextColor="{StaticResource White}"
+                                BackgroundColor="{StaticResource Tertiary}"
                                 Command="{Binding AddOrEditChampionVM.AddStatEditCommand}"/>
                     </Grid>
                 </Grid>
