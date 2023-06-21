@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:vm="clr-namespace:VM;assembly=VM"
+          xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+          x:DataType="vm:SkillVM"
+          x:Class="LoL_Champions.Views.Parts.SkillInLineItemView">
+
+    <Border BackgroundColor="{StaticResource Primary}"
+            Margin="5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,20"/>
+        </Border.StrokeShape>
+        <Grid Margin="10,5">
+            <Label Text="{Binding Name}"
+                   Margin="5,0,0,0"
+                   FontSize="16"
+                   TextColor="{StaticResource Black}"/>
+            <Label HorizontalOptions="End"
+                   Text="{Binding Type}"
+                   TextColor="{StaticResource Black}"/>
+        </Grid>
+    </Border>
+    <ViewCell.ContextActions>
+        <MenuItem Text="Supprimer"
+                  IsDestructive="True"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM.DeleteSkillEditCommand}"
+                  CommandParameter="{Binding .}"/>
+        <MenuItem Text="Modifier"/>
+    </ViewCell.ContextActions>
+</ViewCell>
