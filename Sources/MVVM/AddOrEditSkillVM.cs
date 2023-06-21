@@ -1,6 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using Model;
+﻿using Model;
+using VM.Enums;
 
 namespace VM
 {
@@ -20,14 +19,15 @@ namespace VM
         }
         private string editName = "Nom de la compétence";
 
-        public string SkillPicker
+        public TypeSkill SkillPicker
         {
             get => skillPicker;
             set => SetProperty(ref skillPicker, value);
         }
-        private string skillPicker;
+        private TypeSkill skillPicker;
 
-        public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker), Description));
+        // idk how to do it properly
+        public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker.ToString()), Description));
 
         public AddOrEditSkillVM() : base(new Skill("Nom de la compétence", SkillType.Unknown))
         {

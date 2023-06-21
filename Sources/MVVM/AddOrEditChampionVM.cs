@@ -74,8 +74,6 @@ namespace VM
             AddStatEditCommand = new Command(AddStatEdit);
             DeleteStatEditCommand = new Command<string>(RemoveStatEdit);
 
-            AddSkillEditCommand = new Command(() => AddSkillEdit(SelectedSkill));
-            EditSkillEditCommand = new Command(() => EditSkillEdit(SelectedSkill));
             DeleteSkillEditCommand = new Command<SkillVM>(RemoveSkillEdit);
         }
 
@@ -93,13 +91,13 @@ namespace VM
             LoadStats();
         }
 
-        private void AddSkillEdit(SkillVM vm)
+        public void AddSkillEdit(SkillVM vm)
         {
             AddSkill(vm.Model);
             LoadSkills();
         }
 
-        private void EditSkillEdit(SkillVM vm)
+        public void EditSkillEdit(SkillVM vm)
         {
             UpdateSkill(vm.Model);
             LoadSkills();

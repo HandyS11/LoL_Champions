@@ -1,7 +1,9 @@
 ﻿using LoL_Champions.Utils;
 using LoL_Champions.Views.Pages;
+using Model;
 using System.Windows.Input;
 using VM;
+using VM.Enums;
 using VM.Utils;
 
 namespace LoL_Champions.ViewModels
@@ -36,6 +38,9 @@ namespace LoL_Champions.ViewModels
         public ICommand AddSkinCommand { get; private set; }
         public ICommand EditSkinCommand { get; private set; }
 
+        public ICommand AddSkillCommand { get; private set; }
+        public ICommand EditSkillCommand { get; private set; }
+
         public ICommand ChooseImageCommand { get; private set; }
         public ICommand ChooseIconCommand { get; private set; }
 
@@ -63,6 +68,9 @@ namespace LoL_Champions.ViewModels
 
             AddSkinCommand = new Command(async () => await AddSkin(AddOrEditSkinVM.SkinVM));
             EditSkinCommand = new Command(async () => await EditSkin(AddOrEditSkinVM.SkinVM));
+
+            AddSkillCommand = new Command(async () => await AddSkill(AddOrEditSkillVM.SkillVM));
+            EditSkillCommand = new Command(async () => await EditSkill(AddOrEditSkillVM.SkillVM));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -144,7 +152,7 @@ namespace LoL_Champions.ViewModels
             AddOrEditSkillVM.IsNewSkill = false;
             AddOrEditSkillVM.Model = vm.Model;
             AddOrEditSkillVM.EditName = vm.Name;
-            AddOrEditSkillVM.SkillPicker = vm.Type;
+            AddOrEditSkillVM.SkillPicker = (TypeSkill)Enum.Parse(typeof(TypeSkill), vm.Type);
             ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
             await Navigation.PushModalAsync(new AddOrEditSkillPage());
         }
@@ -173,6 +181,20 @@ namespace LoL_Champions.ViewModels
             if (vm == null) return;
             ChampionManagerVM.SelectedChampion.UpdateSkin(vm.Model);
             await NavigateBack();
+        }
+
+        private async Task AddSkill(SkillVM vm)
+        {
+            if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.AddSkill(vm.Model);
+            await Navigation.PopModalAsync();
+        }
+
+        private async Task EditSkill(SkillVM vm)
+        {
+            if (vm == null) return;
+            ChampionManagerVM.SelectedChampion.UpdateSkill(vm.Model);
+            await Navigation.PopModalAsync();
         }
 
         private async Task ChooseImage()

@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
+             xmlns:enums="clr-namespace:VM.Enums;assembly=VM"
+             xmlns:utils="clr-namespace:LoL_Champions.Utils"
              x:DataType="vmlocal:AppVM"
              x:Class="LoL_Champions.Views.Pages.AddOrEditSkillPage">
 
@@ -11,7 +13,9 @@
             <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
-        
+
+        <utils:EnumUtil x:TypeArguments="enums:TypeSkill" x:Key="skillType"/>
+
         <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
 
         <toolkit:BoolToObjectConverter x:Key="titleSkillText" 
@@ -54,6 +58,7 @@
                        Grid.Column="1">
                     <Picker Title="Type"
                             TitleColor="{StaticResource Black}"
+                            ItemsSource="{Binding Values, Source={StaticResource skillType}}"
                             SelectedItem="{Binding AddOrEditSkillVM.SkillPicker}"/>
                 </Frame>
                 <Frame Grid.Row="3"
@@ -74,10 +79,10 @@
               ColumnSpacing="50">
             <Button Text="Ajouter"
                     IsVisible="{Binding AddOrEditSkillVM.IsNewSkill}"
-                    Command="{Binding AddOrEditChampionVM.AddSkillEditCommand}"/>
+                    Command="{Binding AddSkillCommand}"/>
             <Button Text="Modifier"
                     IsVisible="{Binding AddOrEditSkillVM.IsNewSkill, Converter={StaticResource invertedBoolConverter}}"
-                    Command="{Binding AddOrEditChampionVM.EditSkillEditCommand}"/>
+                    Command="{Binding EditSkillCommand}"/>
             <Button Grid.Column="1" 
                     Text="Annuler"
                     Command="{Binding NavigateBackCommand}"/>
