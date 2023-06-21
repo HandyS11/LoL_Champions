@@ -2,8 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:parts="clr-namespace:LoL_Champions.Views.Parts"
-             xmlns:local="clr-namespace:LoL_Champions.Views.Pages"
-             xmlns:vm="clr-namespace:VM;assembly=VM"
              xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
              xmlns:converters="clr-namespace:LoL_Champions.Converters"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -29,12 +27,11 @@
                                        TrueObject="Nouveau Champion" 
                                        FalseObject="Modifier le Champion"/>
     </ContentPage.Resources>
-    
-    <Grid RowDefinitions="*, 75">
-        <ScrollView>
+
+    <ScrollView Margin="0,0,0,0">
             <Grid ColumnDefinitions="100, *"
                   ColumnSpacing="5"
-                  RowDefinitions="Auto, Auto, Auto, 150, 180, Auto, 250"
+                  RowDefinitions="Auto, Auto, Auto, 150, 180, Auto, 250, 250, 50"
                   RowSpacing="10"
                   Margin="10">
                 <Label Grid.ColumnSpan="2" 
@@ -60,6 +57,10 @@
                        Style="{StaticResource categLabel}"/>
                 <Label Grid.Row="6" 
                        Text="Caractéristiques :"
+                       LineBreakMode="TailTruncation"
+                       Style="{StaticResource categLabel}"/>
+                <Label Grid.Row="7" 
+                       Text="Skills :"
                        Style="{StaticResource categLabel}"/>
 
                 <Frame Grid.Row="1" 
@@ -187,33 +188,21 @@
                                 Command="{Binding AddOrEditChampionVM.AddStatEditCommand}"/>
                     </Grid>
                 </Grid>
-                <!--<CollectionView Grid.Row="6"
-                                Grid.Column="1"
-                                ItemsSource="{Binding AddOrEditChampionVM.Stats}"
-                                ItemsLayout="VerticalGrid, 3"
-                                MaximumHeightRequest="430">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <parts:StatItemView/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>-->
+                <Grid Grid.Row="8"
+                      Grid.ColumnSpan="2"
+                      HorizontalOptions="Center"
+                      ColumnDefinitions="*, *"
+                      ColumnSpacing="50">
+                    <Button Text="Ajouter"
+                            IsVisible="{Binding AddOrEditChampionVM.IsNewChamp}"
+                            Command="{Binding AddChampionCommand}"/>
+                    <Button Text="Modifier"
+                            IsVisible="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
+                            Command="{Binding EditChampionCommand}"/>
+                    <Button Grid.Column="1" 
+                            Text="Annuler"
+                            Command="{Binding NavigateBackCommand}"/>
+                </Grid>
             </Grid>
         </ScrollView>
-
-        <Grid Grid.Row="1" 
-              Margin="75,10,75,15"
-              ColumnDefinitions="*, *"
-              ColumnSpacing="50">
-            <Button Text="Ajouter"
-                    IsVisible="{Binding AddOrEditChampionVM.IsNewChamp}"
-                    Command="{Binding AddChampionCommand}"/>
-            <Button Text="Modifier"
-                    IsVisible="{Binding AddOrEditChampionVM.IsNewChamp, Converter={StaticResource invertedBoolConverter}}"
-                    Command="{Binding EditChampionCommand}"/>
-            <Button Grid.Column="1" 
-                    Text="Annuler"
-                    Command="{Binding NavigateBackCommand}"/>
-        </Grid>
-    </Grid>
 </ContentPage>

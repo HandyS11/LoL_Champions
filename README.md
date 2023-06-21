@@ -12,14 +12,15 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 **Done:**
 1. Champion list *+ navigation*
 2. Champion detail
-3. -/-
-4. Champion class
-5. Swipe view
+3. Caracteristics management
+4. Champion management
+5. Swipe view *(MenuItem because of Android problems)*
+6. -/-
+7. Skins management
 
 **GoingOn:**
-3. Caracteristics management
 6. Skills management
-7. Skins management
+
 
 ## 🛠 Languages & tools
 

@@ -48,7 +48,7 @@
     <ViewCell.ContextActions>
         <MenuItem Text="Supprimer"
                   IsDestructive="True"
-                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM}"
-                  CommandParameter="{Binding .}"/>  
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM.DeleteStatEditCommand}"
+                  CommandParameter="{Binding Key}"/>  
     </ViewCell.ContextActions>
 </ViewCell>
