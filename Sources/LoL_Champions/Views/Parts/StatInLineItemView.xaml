@@ -1,24 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           xmlns:vmlocal="clr-namespace:LoL_Champions.ViewModels"
           x:Class="LoL_Champions.Views.Parts.StatInLineItemView">
 
-    <Border BackgroundColor="{StaticResource Primary}">
+    <!--<Border BackgroundColor="{StaticResource Primary}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="0,20,20,20"/>
         </Border.StrokeShape>
         <SwipeView>
             <SwipeView.RightItems>
                 <SwipeItems>
-                    <!--<SwipeItem Text="Supprimer"
+                    --><!--<SwipeItem Text="Supprimer"
                            BackgroundColor="Red"
                            Command="{Binding Source={x:Reference View}, Path=DeleteCommand}"
                            CommandParameter="{Binding .}"/>
-                <SwipeItem Text="Editer"
+                    <SwipeItem Text="Editer"
                            BackgroundColor="{StaticResource Gray500}"
                            Command="{Binding Source={x:Reference View}, Path=EditCommand}"
-                           CommandParameter="{Binding .}"/>-->
+                           CommandParameter="{Binding .}"/>--><!--
                     <SwipeItem Text="Supprimer"
                            BackgroundColor="Red"
                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM}"
@@ -30,5 +30,25 @@
                 <Label Text="{Binding Value}"/>
             </FlexLayout>
         </SwipeView>
+    </Border>-->
+    <Border BackgroundColor="{StaticResource Primary}"
+            Margin="5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,20"/>
+        </Border.StrokeShape>
+        <Grid Margin="10,5">
+            <Label Text="{Binding Key}"
+                   Margin="5,0,0,0"
+                   TextColor="{StaticResource Black}"/>
+            <Label HorizontalOptions="End"
+                   Text="{Binding Value}"
+                   TextColor="{StaticResource Black}"/>
+        </Grid>
     </Border>
+    <ViewCell.ContextActions>
+        <MenuItem Text="Supprimer"
+                  IsDestructive="True"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=AddOrEditChampionVM}"
+                  CommandParameter="{Binding .}"/>  
+    </ViewCell.ContextActions>
 </ViewCell>

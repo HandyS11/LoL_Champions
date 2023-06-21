@@ -65,13 +65,13 @@
         </VerticalStackLayout>
     </Grid>
     <ViewCell.ContextActions>
-        <MenuItem Text="Supprimer"
-                  IsDestructive="True"
-                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=ChampionManagerVM.DeleteChampionCommand}"
-                  CommandParameter="{Binding .}"/>
         <MenuItem Text="Modifier"
                   IsDestructive="True"
                   Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=GoToEditChampionCommand}"
                   CommandParameter="{Binding .}"/>
+        <MenuItem Text="Supprimer"
+                  IsDestructive="True"
+                  Command="{Binding Source={x:RelativeSource AncestorType={x:Type vmlocal:AppVM}}, Path=ChampionManagerVM.DeleteChampionCommand}"
+                  CommandParameter="{Binding .}"/>       
     </ViewCell.ContextActions>
 </ViewCell>

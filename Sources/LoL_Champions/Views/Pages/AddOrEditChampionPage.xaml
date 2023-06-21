@@ -156,12 +156,13 @@
                     <Frame CornerRadius="0"
                            BorderColor="{StaticResource Primary}"
                            BackgroundColor="Transparent">
-                        <ListView ItemsSource="{Binding AddOrEditChampionVM.Stats}">
-                            <!--<ListView.ItemTemplate>
+                        <ListView ItemsSource="{Binding AddOrEditChampionVM.Stats}"
+                                  SelectionMode="None">
+                            <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <parts:StatInLineItemView/>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>-->
+                            </ListView.ItemTemplate>
                         </ListView>
                     </Frame>
                     <Grid Grid.Row="1"

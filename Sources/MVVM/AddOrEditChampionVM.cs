@@ -82,6 +82,7 @@ namespace VM
         private void RemoveStatEdit(string key)
         {
             RemoveStat(key);
+            LoadStats();
         }
     } 
 }
