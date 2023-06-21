@@ -66,11 +66,11 @@ namespace LoL_Champions.ViewModels
             AddChampionCommand = new Command(async () => await AddChampion());
             EditChampionCommand = new Command(async () => await EditChampion());
 
-            AddSkinCommand = new Command(async () => await AddSkin(AddOrEditSkinVM.SkinVM));
-            EditSkinCommand = new Command(async () => await EditSkin(AddOrEditSkinVM.SkinVM));
+            AddSkinCommand = new Command(async () => await AddSkin(AddOrEditSkinVM.SkinVM()));
+            EditSkinCommand = new Command(async () => await EditSkin(AddOrEditSkinVM.SkinVM()));
 
-            AddSkillCommand = new Command(async () => await AddSkill(AddOrEditSkillVM.SkillVM));
-            EditSkillCommand = new Command(async () => await EditSkill(AddOrEditSkillVM.SkillVM));
+            AddSkillCommand = new Command(async () => await AddSkill(AddOrEditSkillVM.SkillVM()));
+            EditSkillCommand = new Command(async () => await EditSkill(AddOrEditSkillVM.SkillVM()));
 
             ChooseIconCommand = new Command(async () => await ChooseIcon());
             ChooseImageCommand = new Command(async () => await ChooseImage());
@@ -97,24 +97,14 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToAddChampion()
         {
-            AddOrEditChampionVM.IsNewChamp = true;
-            AddOrEditChampionVM.Stat = "";
-            AddOrEditChampionVM.StatValue = 0;
-            ChampionManagerVM.SelectedChampion = null;
+            AddOrEditChampionVM.Clone(null);
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
         private async Task GoToEditChampion(ChampionVM vm)
         {
+            AddOrEditChampionVM.Clone(vm);
             ChampionManagerVM.SelectedChampion = vm;
-            AddOrEditChampionVM.IsNewChamp = false;
-            AddOrEditChampionVM.Stat = "";
-            AddOrEditChampionVM.StatValue = 0;
-            AddOrEditChampionVM.Model = vm.Model;
-            AddOrEditChampionVM.LoadStats();
-            AddOrEditChampionVM.LoadSkills();
-            AddOrEditChampionVM.LoadSkins();
-            AddOrEditChampionVM.EditName = vm.Name;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
@@ -126,38 +116,27 @@ namespace LoL_Champions.ViewModels
 
         private async Task GoToAddSkin()
         {
-            AddOrEditSkinVM.IsNewSkin = true;
-            ChampionManagerVM.SelectedChampion.SelectedSkin = null;
+            AddOrEditSkinVM.Clone(null);
             await Navigation.PushAsync(new AddOrEditSkinPage());
         }
 
         private async Task GoToEditSkin(SkinVM vm)
         {
-            AddOrEditSkinVM.IsNewSkin = false;
-            AddOrEditSkinVM.Model = vm.Model; 
-            AddOrEditSkinVM.EditName = vm.Name;
-            ChampionManagerVM.SelectedChampion.SelectedSkin = vm;
+            AddOrEditSkinVM.Clone(vm);
+            AddOrEditChampionVM.SelectedSkin = vm;
             await Navigation.PushAsync(new AddOrEditSkinPage());
         }
 
         private async Task GoToAddSkill()
         {
-            AddOrEditSkillVM.IsNewSkill = true;
-            AddOrEditSkillVM.Model = null;
-            AddOrEditSkillVM.EditName = "Compétence";
-            AddOrEditSkillVM.SkillPicker = TypeSkill.Unknown;
-            ChampionManagerVM.SelectedChampion.SelectedSkill = null;
+            AddOrEditSkillVM.Clone(null);
             await Navigation.PushModalAsync(new AddOrEditSkillPage());
         }
 
         private async Task GoToEditSkill(SkillVM vm)
         {
-            AddOrEditSkillVM.IsNewSkill = false;
-            AddOrEditSkillVM.Model = vm.Model;
-            AddOrEditSkillVM.EditName = vm.Name;
-            AddOrEditSkillVM.EditDesc = vm.Description;
-            AddOrEditSkillVM.SkillPicker = (TypeSkill)Enum.Parse(typeof(TypeSkill), vm.Type);
-            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
+            AddOrEditSkillVM.Clone(vm);
+            AddOrEditChampionVM.SelectedSkill = vm;
             await Navigation.PushModalAsync(new AddOrEditSkillPage());
         }
 
@@ -192,18 +171,14 @@ namespace LoL_Champions.ViewModels
         private async Task AddSkill(SkillVM vm)
         {
             if (vm == null) return;
-            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
-            ChampionManagerVM.SelectedChampion.AddSkill(vm.Model);
-            AddOrEditChampionVM.LoadSkills();
+            AddOrEditChampionVM.AddSkill(vm.Model);
             await Navigation.PopModalAsync();
         }
 
         private async Task EditSkill(SkillVM vm)
         {
             if (vm == null) return;
-            ChampionManagerVM.SelectedChampion.SelectedSkill = vm;
-            ChampionManagerVM.SelectedChampion.UpdateSkill(vm.Model);
-            AddOrEditChampionVM.LoadSkills();
+            AddOrEditChampionVM.UpdateSkill(vm.Model);
             await Navigation.PopModalAsync();
         }
 

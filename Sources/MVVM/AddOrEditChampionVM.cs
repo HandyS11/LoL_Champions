@@ -75,6 +75,31 @@ namespace VM
             DeleteSkillEditCommand = new Command<SkillVM>(RemoveSkillEdit);
         }
 
+        public void Clone(ChampionVM vm)
+        {
+            if (vm == null)
+            {
+                IsNewChamp = true;
+                Model = new Champion("");
+            }
+            else
+            {
+                IsNewChamp = false;
+                Model = vm.Model;
+                EditName = vm.Name;
+            }
+            ResetDatas();
+            LoadStats();
+            LoadSkills();
+            LoadSkins();
+        }
+
+        public void ResetDatas()
+        {
+            Stat = string.Empty;
+            StatValue = 0;
+        }
+
         private void AddStatEdit()
         {
             AddStat(Stat, StatValue);

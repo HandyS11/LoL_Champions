@@ -168,9 +168,10 @@ namespace VM
         public void UpdateSkin(Skin skin)
         {
             if (skin == null) return;
-            SelectedSkin = new SkinVM(skin);
-            RemoveSkin(skin);
+            Model.RemoveSkin(SelectedSkin.Model);
             AddSkin(skin);
+            SelectedSkin = new(skin);
+            OnPropertyChanged(nameof(SelectedSkin));
         }
 
         public void LoadSkills()
@@ -202,8 +203,7 @@ namespace VM
         public void UpdateSkill(Skill skill)
         {
             if (skill == null) return;
-            SelectedSkill = new SkillVM(skill);
-            RemoveSkill(skill);
+            RemoveSkill(SelectedSkill?.Model);
             AddSkill(skill);
         }
     }

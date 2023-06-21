@@ -15,7 +15,7 @@ namespace VM
             get => selectChampion;
             set => SetProperty(ref selectChampion, value);
         }
-        private ChampionVM selectChampion = null;
+        private ChampionVM selectChampion = new(new Champion(""));
 
         public IDataManager DataManager
         {
@@ -142,6 +142,7 @@ namespace VM
         {
             if (await dataManager.ChampionsMgr.AddItem(vm.Model) != null)
             {
+                SelectedChampion = vm;
                 await LoadChampions();
             }     
         }
