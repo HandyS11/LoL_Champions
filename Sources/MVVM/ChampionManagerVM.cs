@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ namespace VM
         private ObservableCollection<ChampionVM> champions { get; set; } = new ObservableCollection<ChampionVM>();
 
         [ObservableProperty]
-        private ChampionVM selectedChampion = null;
+        private ChampionVM selectedChampion = new(new Champion(""));
 
         [ObservableProperty]
         private IDataManager dataManager;
@@ -45,11 +46,6 @@ namespace VM
 
         public ICommand PreviousPageCommand { get; private set; }
         public ICommand NextPageCommand { get; private set; }
-        public ICommand LoadChampionsCommand { get; private set; }
-
-        public ICommand DeleteChampionCommand { get; private set; }
-        public ICommand EditChampionCommand { get; private set; }
-        public ICommand AddChampionCommand { get; private set; }
 
         public ChampionManagerVM(IDataManager dataManager)
         {
@@ -59,15 +55,10 @@ namespace VM
             PreviousPageCommand = new Command(async () => await LoadPage(false),
                                               () => !IsFirstPage);
             NextPageCommand = new Command(async () => await LoadPage(true),
-                                          () => !IsLastPage);            
-
-            LoadChampionsCommand = new Command(async () => await LoadChampions());
-
-            DeleteChampionCommand = new Command<ChampionVM>(async (vm) => await DeleteChampion(vm));
-            EditChampionCommand = new Command<ChampionVM>(async (vm) => await EditChampion(vm));
-            AddChampionCommand = new Command<ChampionVM>(async (vm) => await AddChampion(vm));
+                                          () => !IsLastPage);
         }
 
+        [RelayCommand]
         private async Task LoadChampions()
         {
             champions.Clear();
@@ -97,6 +88,7 @@ namespace VM
             await LoadChampions();
         }
 
+        [RelayCommand]
         public async Task DeleteChampion(ChampionVM vm)
         {
             if (await DataManager.ChampionsMgr.DeleteItem(vm.Model))
@@ -106,6 +98,7 @@ namespace VM
             } 
         }
 
+        [RelayCommand]
         public async Task EditChampion(ChampionVM vm)
         {
             if (await DataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model) != null)
@@ -115,10 +108,12 @@ namespace VM
             } 
         }
 
+        [RelayCommand]
         public async Task AddChampion(ChampionVM vm)
         {
             if (await DataManager.ChampionsMgr.AddItem(vm.Model) != null)
             {
+                SelectedChampion = vm;
                 await LoadChampions();
             }     
         }

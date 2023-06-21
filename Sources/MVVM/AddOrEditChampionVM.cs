@@ -1,20 +1,14 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Diagnostics;
 using Model;
 
 namespace VM
 {
     public partial class AddOrEditChampionVM : ChampionVM
     {
-        public ICommand AddStatEditCommand { get; private set; }
-        public ICommand DeleteStatEditCommand { get; private set; }
-
-        public ICommand DeleteSkillEditCommand { get; private set; }
-
         [ObservableProperty]
         private bool isNewChamp = false;
-
 
         [ObservableProperty]
         private string editName;
@@ -46,32 +40,50 @@ namespace VM
         [ObservableProperty]
         private int statValue = 0;
 
-        public AddOrEditChampionVM() : base(new Champion(""))
-        {
-            AddStatEditCommand = new Command(AddStatEdit);
-            DeleteStatEditCommand = new Command<string>(RemoveStatEdit);
+        public AddOrEditChampionVM() : base(new Champion("")) { }
 
-            DeleteSkillEditCommand = new Command<SkillVM>(RemoveSkillEdit);
+        public void Clone(ChampionVM vm)
+        {
+            if (vm == null)
+            {
+                IsNewChamp = true;
+                Model = new Champion("");
+            }
+            else
+            {
+                IsNewChamp = false;
+                Model = vm.Model;
+                EditName = vm.Name;
+            }
+            ResetDatas();
+            LoadStats();
+            LoadSkills();
+            LoadSkins();
         }
 
-        private void AddStatEdit()
+        public void ResetDatas()
         {
-            AddStat(Stat, StatValue);
-            LoadStats();
-            Stat = "";
+            Stat = string.Empty;
             StatValue = 0;
         }
 
-        private void RemoveStatEdit(string key)
+        [RelayCommand]
+        private void AddStatEdit()
         {
-            RemoveStat(key);
-            LoadStats();
+            AddStat(Stat, StatValue);
+            ResetDatas();
         }
 
-        private void RemoveSkillEdit(SkillVM vm)
+        [RelayCommand]
+        private void DeleteStatEdit(string key)
+        {
+            RemoveStat(key);
+        }
+
+        [RelayCommand]
+        private void DeleteSkillEdit(SkillVM vm)
         {
             RemoveSkill(vm.Model);
-            LoadSkills();
         }
     } 
 }

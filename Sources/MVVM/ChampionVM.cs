@@ -86,6 +86,12 @@ namespace VM
             OnPropertyChanged(nameof(Stats));
         }
 
+        protected void ClearStats()
+        {
+            stats.Clear();
+            OnPropertyChanged(nameof(Stats));
+        }
+
         public void AddStat(string key, int value)
         {
             if (stats == null) return;
@@ -93,6 +99,7 @@ namespace VM
             {
                 new Tuple<string, int>(key, value)
             });
+            LoadStats();
         }
 
         public void RemoveStat(string key)
@@ -111,6 +118,12 @@ namespace VM
             {
                 skins.Add(new SkinVM(skin));
             }
+            OnPropertyChanged(nameof(Skins));
+        }
+
+        protected void ClearSkins()
+        {
+            skins.Clear();
             OnPropertyChanged(nameof(Skins));
         }
 
@@ -133,9 +146,10 @@ namespace VM
         public void UpdateSkin(Skin skin)
         {
             if (skin == null) return;
-            SelectedSkin = new SkinVM(skin);
-            RemoveSkin(skin);
+            Model.RemoveSkin(SelectedSkin.Model);
             AddSkin(skin);
+            SelectedSkin = new(skin);
+            OnPropertyChanged(nameof(SelectedSkin));     
         }
 
         public void LoadSkills()
@@ -145,6 +159,12 @@ namespace VM
             {
                 skills.Add(new SkillVM(skill));
             }
+            OnPropertyChanged(nameof(Skills));
+        }
+
+        protected void ClearSkills()
+        {
+            skills.Clear();
             OnPropertyChanged(nameof(Skills));
         }
 
@@ -167,8 +187,7 @@ namespace VM
         public void UpdateSkill(Skill skill)
         {
             if (skill == null) return;
-            SelectedSkill = new SkillVM(skill);
-            RemoveSkill(skill);
+            RemoveSkill(SelectedSkill?.Model);
             AddSkill(skill);
         }
     }
