@@ -1,21 +1,14 @@
-﻿using Model;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
 
 namespace VM
 {
-    public class AddOrEditSkinVM : SkinVM
+    public partial class AddOrEditSkinVM : SkinVM
     {
-        public bool IsNewSkin
-        {
-            get => isNewSkin;
-            set => SetProperty(ref isNewSkin, value);
-        }
+        [ObservableProperty]
         private bool isNewSkin = false;
 
-        public string EditName
-        {
-            get => editName;
-            set => SetProperty(ref editName, value);
-        }
+        [ObservableProperty]
         private string editName ="Nom du skin";
 
         public SkinVM SkinVM => new(new Skin(EditName, Model.Champion, Price, Icon, Image, Description));

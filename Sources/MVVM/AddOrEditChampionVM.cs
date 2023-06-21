@@ -1,29 +1,22 @@
 ﻿using System.Diagnostics;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Model;
 
 namespace VM
 {
-    public class AddOrEditChampionVM : ChampionVM
+    public partial class AddOrEditChampionVM : ChampionVM
     {
         public ICommand AddStatEditCommand { get; private set; }
         public ICommand DeleteStatEditCommand { get; private set; }
 
         public ICommand DeleteSkillEditCommand { get; private set; }
 
-        public bool IsNewChamp
-        {
-            get => isNewChamp;
-            set => SetProperty(ref isNewChamp, value);
-        }
+        [ObservableProperty]
         private bool isNewChamp = false;
 
 
-        public string EditName
-        {
-            get => editName;
-            set => SetProperty(ref editName, value);
-        }
+        [ObservableProperty]
         private string editName;
 
         public string RadioButton
@@ -47,24 +40,10 @@ namespace VM
             }
         }
 
-        public string Stat
-        {
-            get => stat;
-            set
-            {
-                SetProperty(ref stat, value);
-            }
-        }
+        [ObservableProperty]
         private string stat;
 
-        public int StatValue
-        {
-            get => statValue;
-            set
-            {
-                SetProperty(ref statValue, value);
-            }
-        }
+        [ObservableProperty]
         private int statValue = 0;
 
         public AddOrEditChampionVM() : base(new Champion(""))

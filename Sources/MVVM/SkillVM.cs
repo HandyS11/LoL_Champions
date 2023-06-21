@@ -1,47 +1,35 @@
-﻿using Model;
-using VM.Utils;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
 
 namespace VM
 {
-    public class SkillVM : BaseViewModel
+    public partial class SkillVM : ObservableObject
     {
-        public Skill Model
-        {
-            get => model;
-            set
-            {
-                SetProperty(ref model, value);
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Description));
-                OnPropertyChanged(nameof(Type));
-            }
-        }
-        private Skill model;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(Name))]
+        [NotifyPropertyChangedFor(nameof(Description))]
+        [NotifyPropertyChangedFor(nameof(Type))]
+        private Skill model; 
 
         public string Name
         {
-            get => model?.Name;
+            get => Model?.Name;
         }
 
         public string Description
         {
-            get => model?.Description;
-            set
-            {
-                if (model?.Description == value || value == null) return;
-                Model.Description = value;
-                OnPropertyChanged();
-            }
+            get => Model?.Description;
+            set => SetProperty(Model.Description, value, Model, (m, d) => m.Description = d);
         }
 
         public string Type
         {
-            get => model?.Type.ToString();
+            get => Model?.Type.ToString();
         }
 
         public SkillVM(Skill model)
         {
-            this.model = model;
+            Model = model;
         }
     }
 }

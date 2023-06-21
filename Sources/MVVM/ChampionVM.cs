@@ -1,91 +1,56 @@
-﻿using Model;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
 using System.Collections.ObjectModel;
 using System.Data;
-using VM.Utils;
 
 namespace VM
 {
-    public class ChampionVM : BaseViewModel
+    public partial class ChampionVM : ObservableObject
     {
-        public Champion Model
-        {
-            get => model;
-            set
-            {
-                SetProperty(ref model, value);
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Bio));
-                OnPropertyChanged(nameof(Icon));
-                OnPropertyChanged(nameof(Image));
-                OnPropertyChanged(nameof(Class));
-                OnPropertyChanged(nameof(Stats));
-                OnPropertyChanged(nameof(Skills));
-                OnPropertyChanged(nameof(Skins));
-            }
-        }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(Name))]
+        [NotifyPropertyChangedFor(nameof(Bio))]
+        [NotifyPropertyChangedFor(nameof(Icon))]
+        [NotifyPropertyChangedFor(nameof(Image))]
+        [NotifyPropertyChangedFor(nameof(Class))]
+        [NotifyPropertyChangedFor(nameof(Stats))]
+        [NotifyPropertyChangedFor(nameof(Skills))]
+        [NotifyPropertyChangedFor(nameof(Skins))]
         private Champion model;
 
-        public SkinVM SelectedSkin
-        {
-            get => selectedSkin;
-            set => SetProperty(ref selectedSkin, value);
-        }
+        [ObservableProperty]
         private SkinVM selectedSkin;
 
-        public SkillVM SelectedSkill
-        {
-            get => SelectedSkill;
-            set => SetProperty(ref selectedSkill, value);
-        }
+        [ObservableProperty]
         private SkillVM selectedSkill;
 
         public string Name
         {
-            get => model?.Name;
+            get => Model?.Name;
         }
 
         public string Bio
         {
-            get => model?.Bio;
-            set
-            {
-                if (model.Bio == value || value == null) return;
-                Model.Bio = value;
-                OnPropertyChanged();
-            }
+            get => Model?.Bio;
+            set => SetProperty(Model.Bio, value, Model, (m, b) => m.Bio = b);
         }
 
         public string Icon
         {
-            get => model?.Icon;
-            set
-            {
-                if (model.Icon == value || value == null) return;
-                Model.Icon = value; 
-                OnPropertyChanged();
-            }
+            get => Model?.Icon;
+            set => SetProperty(Model.Icon, value, Model, (m, i) => m.Icon = i);
         }
 
         public string Image
         {
-            get => model?.Image.Base64;
-            set
-            {
-                if (model.Image.Base64 == value || value == null) return;
-                Model.Image.Base64 = value;
-                OnPropertyChanged();
-            }
+            get => Model?.Image.Base64;
+            set => SetProperty(Model.Image.Base64, value, Model, (m, i) => m.Image.Base64 = i);
         }
 
-        public ChampionClass? Class
+        public ChampionClass Class
         {
-            get => model?.Class;
-            set
-            {
-                if (model.Class == value || value == null) return;
-                Model.Class = (ChampionClass)value;
-                OnPropertyChanged();
-            }
+            get => Model.Class;
+            set => SetProperty(Model.Class, value, Model, (m, c) => m.Class = c);
         }
 
         public ReadOnlyObservableCollection<KeyValuePair<string, int>> Stats { get; private set; }
@@ -99,15 +64,15 @@ namespace VM
 
         public ChampionVM(Champion model)
         {
-            this.model = model;
+            Model = model;
 
-            stats = new ObservableCollection<KeyValuePair<string, int>>(model?.Characteristics);
+            stats = new ObservableCollection<KeyValuePair<string, int>>(Model?.Characteristics);
             Stats = new ReadOnlyObservableCollection<KeyValuePair<string, int>>(stats);
 
-            skins = new ObservableCollection<SkinVM>(model?.Skins.Select(a => new SkinVM(a)));
+            skins = new ObservableCollection<SkinVM>(Model?.Skins.Select(a => new SkinVM(a)));
             Skins = new ReadOnlyObservableCollection<SkinVM>(skins);
 
-            skills = new ObservableCollection<SkillVM>(model?.Skills.Select(a => new SkillVM(a)));
+            skills = new ObservableCollection<SkillVM>(Model?.Skills.Select(a => new SkillVM(a)));
             Skills = new ReadOnlyObservableCollection<SkillVM>(skills);
         }
 
@@ -124,7 +89,7 @@ namespace VM
         public void AddStat(string key, int value)
         {
             if (stats == null) return;
-            model.AddCharacteristics(new Tuple<string, int>[]
+            Model.AddCharacteristics(new Tuple<string, int>[]
             {
                 new Tuple<string, int>(key, value)
             });
@@ -133,7 +98,7 @@ namespace VM
         public void RemoveStat(string key)
         {
             if (key == "") return;
-            if (model.RemoveCharacteristics(key))
+            if (Model.RemoveCharacteristics(key))
             {
                 LoadStats();
             }
@@ -152,14 +117,14 @@ namespace VM
         public void AddSkin(Skin skin)
         {
             if (skin == null) return;
-            model.AddSkin(skin);
+            Model.AddSkin(skin);
             LoadSkins();
         }
 
         public void RemoveSkin(Skin skin)
         {
             if (skin == null) return;
-            if (model.RemoveSkin(skin))
+            if (Model.RemoveSkin(skin))
             {
                 LoadSkins();
             }
@@ -186,14 +151,14 @@ namespace VM
         public void AddSkill(Skill skill)
         {
             if (skill == null) return;
-            model.AddSkill(skill);
+            Model.AddSkill(skill);
             LoadSkills();
         }
 
         public void RemoveSkill(Skill skill)
         {
             if (skill == null) return;
-            if (model.RemoveSkill(skill))
+            if (Model.RemoveSkill(skill))
             {
                 LoadSkills();
             }

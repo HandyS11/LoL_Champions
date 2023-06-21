@@ -1,40 +1,25 @@
-﻿using Model;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using VM.Utils;
 
 namespace VM
 {
-    public class ChampionManagerVM : BaseViewModel
+    public partial class ChampionManagerVM : ObservableObject
     {
         public ReadOnlyObservableCollection<ChampionVM> Champions { get; private set; }
         private ObservableCollection<ChampionVM> champions { get; set; } = new ObservableCollection<ChampionVM>();
 
-        public ChampionVM SelectedChampion
-        {
-            get => selectChampion;
-            set => SetProperty(ref selectChampion, value);
-        }
-        private ChampionVM selectChampion = null;
+        [ObservableProperty]
+        private ChampionVM selectedChampion = null;
 
-        public IDataManager DataManager
-        {
-            get => dataManager;
-            set => SetProperty(ref dataManager, value);
-        }
+        [ObservableProperty]
         private IDataManager dataManager;
 
-        public int Index
-        {
-            get => index;
-            set
-            {
-                SetProperty(ref index, value);
-                OnPropertyChanged(nameof(HumanIndex));
-                OnPropertyChanged(nameof(IsFirstPage));
-                OnPropertyChanged(nameof(IsLastPage));
-            }
-        }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(HumanIndex))]
+        [NotifyPropertyChangedFor(nameof(IsFirstPage))]
+        [NotifyPropertyChangedFor(nameof(IsLastPage))]
         private int index = 0;
 
         public int HumanIndex
@@ -49,21 +34,13 @@ namespace VM
 
         public bool IsLastPage
         {
-            get => Index + 1 >= nbPages;
+            get => Index + 1 >= NbPages;
         }
 
-        public int Count
-        {
-            get => count;
-            set => SetProperty(ref count, value);
-        }
+        [ObservableProperty]
         private int count = 5;
 
-        public int NbPages
-        {
-            get => nbPages;
-            set => SetProperty(ref nbPages, value);
-        }
+        [ObservableProperty]
         private int nbPages = 99;
 
         public ICommand PreviousPageCommand { get; private set; }
@@ -94,9 +71,9 @@ namespace VM
         private async Task LoadChampions()
         {
             champions.Clear();
-            var c = await dataManager.ChampionsMgr.GetNbItems();
+            var c = await DataManager.ChampionsMgr.GetNbItems();
             NbPages = c % Count != 0 ? c / Count + 1 : c / Count;
-            var champs = await dataManager.ChampionsMgr.GetItems(Index, Count, "Name");
+            var champs = await DataManager.ChampionsMgr.GetItems(Index, Count, "Name");
             foreach(var champ in champs)
             {
                 champions.Add(new ChampionVM(champ));
@@ -122,7 +99,7 @@ namespace VM
 
         public async Task DeleteChampion(ChampionVM vm)
         {
-            if (await dataManager.ChampionsMgr.DeleteItem(vm.Model))
+            if (await DataManager.ChampionsMgr.DeleteItem(vm.Model))
             {
                 SelectedChampion = null;
                 await LoadChampions();
@@ -131,7 +108,7 @@ namespace VM
 
         public async Task EditChampion(ChampionVM vm)
         {
-            if (await dataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model) != null)
+            if (await DataManager.ChampionsMgr.UpdateItem(SelectedChampion.Model, vm.Model) != null)
             {
                 SelectedChampion = vm;
                 await LoadChampions();
@@ -140,7 +117,7 @@ namespace VM
 
         public async Task AddChampion(ChampionVM vm)
         {
-            if (await dataManager.ChampionsMgr.AddItem(vm.Model) != null)
+            if (await DataManager.ChampionsMgr.AddItem(vm.Model) != null)
             {
                 await LoadChampions();
             }     

@@ -1,44 +1,26 @@
-﻿using Model;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Model;
 using VM.Enums;
 
 namespace VM
 {
-    public class AddOrEditSkillVM : SkillVM
+    public partial class AddOrEditSkillVM : SkillVM
     {
-        public bool IsNewSkill
-        {
-            get => isNewSkill;
-            set => SetProperty(ref isNewSkill, value);
-        }
+        [ObservableProperty]
         private bool isNewSkill = false;
 
-        public string EditName
-        {
-            get => editName;
-            set => SetProperty(ref editName, value);
-        }
+        [ObservableProperty]
         private string editName = "Compétence";
 
-        public TypeSkill SkillPicker
-        {
-            get => skillPicker;
-            set => SetProperty(ref skillPicker, value);
-        }
+        [ObservableProperty]
         private TypeSkill skillPicker;
 
-        public string EditDesc
-        {
-            get => editDesc;
-            set => SetProperty(ref editDesc, value);
-        }
+        [ObservableProperty]
         private string editDesc;
 
-        // idk how to do it properly
         public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker.ToString()), EditDesc));
 
-        public AddOrEditSkillVM() : base(new Skill("Compétence", SkillType.Unknown))
-        {
-        }
+        public AddOrEditSkillVM() : base(new Skill("Compétence", SkillType.Unknown)) { }
     }
 }
 
