@@ -9,8 +9,6 @@ namespace VM
         public ICommand AddStatEditCommand { get; private set; }
         public ICommand DeleteStatEditCommand { get; private set; }
 
-        public ICommand AddSkillEditCommand { get; private set; }
-        public ICommand EditSkillEditCommand { get; private set; }
         public ICommand DeleteSkillEditCommand { get; private set; }
 
         public bool IsNewChamp
@@ -89,18 +87,6 @@ namespace VM
         {
             RemoveStat(key);
             LoadStats();
-        }
-
-        public void AddSkillEdit(SkillVM vm)
-        {
-            AddSkill(vm.Model);
-            LoadSkills();
-        }
-
-        public void EditSkillEdit(SkillVM vm)
-        {
-            UpdateSkill(vm.Model);
-            LoadSkills();
         }
 
         private void RemoveSkillEdit(SkillVM vm)

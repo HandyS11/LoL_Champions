@@ -1,6 +1,5 @@
 ﻿using LoL_Champions.Utils;
 using LoL_Champions.Views.Pages;
-using Model;
 using System.Windows.Input;
 using VM;
 using VM.Enums;
@@ -8,6 +7,7 @@ using VM.Utils;
 
 namespace LoL_Champions.ViewModels
 {
+    // I should maybe split this class
     public class AppVM
     {
         public INavigation Navigation => Application.Current.MainPage.Navigation;

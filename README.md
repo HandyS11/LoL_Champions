@@ -14,12 +14,13 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 2. Champion detail
 3. Caracteristics management
 4. Champion management
-5. Swipe view *(MenuItem because of Android problems)*
-6. -/-
+5. Swipe view *(\<MenuItem\> because of Android problems)*
+6. Skills management
 7. Skins management
 
-**GoingOn:**
-6. Skills management
+**NotDone:**
+- You can't remove a Skin
+- You can't edit a Caracteristic
 
 
 ## 🛠 Languages & tools
@@ -34,8 +35,7 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 
 ## 📍 Visuals
 
-> Please note that the screenshots from the original app were taken with an Iphone.
-> Thoses of the "Clone-app" were taken with an Android with a different resolution.
+> Please note that the screenshots from the original app were taken with a different phone of the CloneApp ones.
 
 <details><summary> Main Pages </summary>
 
@@ -120,9 +120,11 @@ class SkillType{
 Skill --> "1" SkillType : Type
 Champion --> "*" Skill
 ```
+</details>
 
 ---
-</details>
+
+> Every **VM** inherits from `BaseViewModel` which implements `INotifyPropertyChanged` and `SetProperty` to notify the view of any changes and setting properties.
 
 <details><summary> ViewModels </summary>
 
@@ -132,27 +134,48 @@ classDiagram
 class AppVM {
     +-/NavigateBackCommand : ICommand
     +-/GoToChampionDetailCommand : ICommand
+    +-/GoToChampionSkinCommand : ICommand
     +-/GoToAddChampionCommand : ICommand
     +-/GoToEditChampionCommand : ICommand
-    +-/GoToChampionSkinCommand : ICommand
+    +-/GoToAddSkinCommand : ICommand
+    +-/GoToEditSkinCommand : ICommand
+    +-/GoToAddSkillCommand : ICommand
+    +-/GoToEditSkillCommand : ICommand
     +-/DeleteChampionCommand : ICommand
     +-/AddChampionCommand : ICommand
     +-/EditChampionCommand : ICommand
+    +-/AddSkinCommand : ICommand
+    +-/EditSkinCommand : ICommand
+    +-/AddSkillCommand : ICommand
+    +-/EditSkillCommand : ICommand
     +-/ChooseImageCommand : ICommand
     +-/ChooseIconCommand : ICommand
+    +-/ChooseSkinImageCommand : ICommand
+    +-/ChooseSkinIconCommand : ICommand
     - NavigateBack() Task
     - GoToChampionDetail(ChampionVM vm) Task
+    - GoToChampionSkin(SkinVM vm) Task
     - GoToAddChampion() Task
     - GoToEditChampion(ChampionVM vm) Task
-    - GoToEditChampion(ChampionVM vm) Task
-    - DeleteChampion(ChampionVM vm) Task
-    - ChooseImage() Task
-    - ChooseIcon() Task
+    - GoToAddSkin() Task
+    - GoToEditSkin(SkinVM vm) Task
+    - GoToAddSkill() Task
+    - GoToEditSkill(SkillVM vm) Task
     - AddChampion(ChampionVM vm) Task
     - EditChampion(ChampionVM vm) Task
+    - AddSkin(SkinVM vm) Task
+    - EditSkin(SkinVM vm) Task
+    - AddSkill(SkillVM vm) Task
+    - EditSkill(SkillVM vm) Task
+    - ChooseImage() Task
+    - ChooseIcon() Task
+    - ChooseSkinImage() Task
+    - ChooseSkinIcon() Task
 }
 AppVM --> "1" ChampionManagerVM : ChampionManagerVM
 AppVM --> "1" AddOrEditChampionVM : AddOrEditChampionVM
+AppVM --> "1" AddOrEditSkillVM : AddOrEditSkillVM
+AppVM --> "1" AddOrEditSkinVM : AddOrEditSkinVM
 
 class ChampionManagerVM {
     +/Datamanager : IDataManager
@@ -184,19 +207,22 @@ class ChampionVM {
     +/Icon : string
     +/Image : string
     +/Class : ChampionClass?
-    - LoadStats()
-    - AddStat()
-    - RemoveStat()
-    - LoadSkins()
-    - AddSkin()
-    - RemoveSkin()
-    - LoadSkills()
-    - AddSkill()
-    - RemoveSkill()
+    + LoadStats()
+    + AddStat()
+    + RemoveStat()
+    + LoadSkins()
+    + AddSkin()
+    + RemoveSkin()
+    + UpdateSkin(Skin skin)
+    + LoadSkills()
+    + AddSkill()
+    + RemoveSkill()
+    + UpdateSkill(Skill skill)
 }
-ChampionVM --> "*" SkillVM : Skills
 ChampionVM --> "*" SkinVM : Skins
+ChampionVM --> "*" SkillVM : Skills
 ChampionVM --> "1" SkinVM : SelectedSkin
+ChampionVM --> "1" SkillVM : SelectedSkill
 
 class SkillVM {
     +/Model : Skill
@@ -215,12 +241,58 @@ class SkinVM {
 }
 
 class AddOrEditChampionVM {
+    +-/AddStatEditCommand : ICommand
+    +-/DeleteStatEditCommand : ICommand
+    +-/DeleteSkillEditCommand : ICommand
     +/IsNewChamp : bool
-    +/RadioCutton : string
+    +/EditName : string
+    +/RadioButton : string
+    +/Stat : String
+    +/StatValue : int
+    - AddStatEdit()
+    - RemoveStatEdit(string key)
+    - RemoveSkillEdit(SkillVM skill)
 }
 AddOrEditChampionVM ..|> ChampionVM
+
+class AddOrEditSkillVM {
+    +/IsNewSkill : bool
+    +/EditName : string
+    +/SkillPicker : TypePicker 
+    +/EditDesc : string
+    +_/SkillVM : SkillVM
+}
+AddOrEditSkillVM ..|> SkillVM
+
+class AddOrEditSkinVM {
+    +/IsNewSkin : bool
+    +/EditName : string
+    +_/SkinVM : SkinVM
+}
+AddOrEditSkinVM ..|> SkinVM
 ```
 </details>
+
+## ⚡️ Known limitations
+
+Due to its youngness *(and ~~maybe~~ certainly because of my lack of knowledge)* the **CollectionView**, **SwapView** and others seems to have been implemented differently through the platforms leading to some issues.
+
+> For exemple this code works on Android but got problems of height on iOS
+```xml
+<CollectionView ItemsSource="{Binding SomeCollection}"
+                SelectionMode="None">
+    <CollectionView.ItemsLayout>
+        <GridItemsLayout Orientation="Vertical" 
+                         Span="2" />
+    </CollectionView.ItemsLayout>
+                    
+    <CollectionView.ItemTemplate>
+        <DataTemplate>
+            <SomeComponent/>
+        </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>
+```
 
 ## ✍️ Credits 
 
