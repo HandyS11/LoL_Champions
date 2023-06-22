@@ -75,23 +75,35 @@ namespace VM
             DeleteSkillEditCommand = new Command<SkillVM>(RemoveSkillEdit);
         }
 
+        public ChampionVM ChampionVM()
+        {
+            Champion champ = new Champion(EditName, Class, Icon, Image, Bio);
+            Skills.ToList().ForEach(s => champ.AddSkill(s.Model));
+            Skins.ToList().ForEach(s => champ.AddSkin(s.Model));
+            Stats.ToList().ForEach(s => champ.AddCharacteristics(Tuple.Create<string, int>(s.Key, s.Value)));
+            return new(champ);
+        }
+
         public void Clone(ChampionVM vm)
         {
             if (vm == null)
             {
                 IsNewChamp = true;
                 Model = new Champion("");
+                ClearStats();
+                ClearSkills();
+                ClearSkins();
             }
             else
             {
                 IsNewChamp = false;
-                Model = vm.Model;
+                Model = new(vm.Name, vm.Class, vm.Icon, vm.Image, vm.Bio);
+                vm.Stats.ToList().ForEach(s => AddStat(s.Key, s.Value));
+                vm.Skills.ToList().ForEach(s => AddSkill(s.Model));
+                vm.Skins.ToList().ForEach(s => AddSkin(s.Model));
                 EditName = vm.Name;
             }
             ResetDatas();
-            LoadStats();
-            LoadSkills();
-            LoadSkins();
         }
 
         public void ResetDatas()

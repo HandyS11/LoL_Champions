@@ -50,7 +50,7 @@ namespace VM
             else
             {
                 IsNewSkill = false;
-                Model = vm.Model;
+                Model = new(vm.Name, (SkillType)Enum.Parse(typeof(SkillType), vm.Type), vm.Description);
                 EditName = vm.Name;
                 EditDesc = vm.Description;
                 SkillPicker = (TypeSkill)Enum.Parse(typeof(TypeSkill), vm.Type);

@@ -2,8 +2,6 @@
 using LoL_Champions.Views.Pages;
 using System.Windows.Input;
 using VM;
-using VM.Enums;
-using VM.Utils;
 
 namespace LoL_Champions.ViewModels
 {
@@ -142,14 +140,14 @@ namespace LoL_Champions.ViewModels
 
         private async Task AddChampion()
         {
-            await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ToChampionVM());
+            await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ChampionVM());
             ChampionManagerVM.SelectedChampion.LoadSkills();
             await NavigateBack();
         }
 
         private async Task EditChampion()
         {
-            await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ToChampionVM());
+            await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ChampionVM());
             ChampionManagerVM.SelectedChampion.LoadSkills();
             await NavigateBack();
         }

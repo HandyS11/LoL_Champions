@@ -77,13 +77,13 @@ namespace VM
             }
         }
 
-        public ChampionClass? Class
+        public ChampionClass Class
         {
-            get => model?.Class;
+            get => model.Class;
             set
             {
-                if (model.Class == value || value == null) return;
-                Model.Class = (ChampionClass)value;
+                if (model.Class == value) return;
+                Model.Class = value;
                 OnPropertyChanged();
             }
         }
@@ -118,7 +118,11 @@ namespace VM
             {
                 stats.Add(kvp);
             }
-            OnPropertyChanged(nameof(Stats));
+        }
+
+        protected void ClearStats()
+        {
+            stats.Clear();
         }
 
         public void AddStat(string key, int value)
@@ -128,6 +132,7 @@ namespace VM
             {
                 new Tuple<string, int>(key, value)
             });
+            LoadStats();
         }
 
         public void RemoveStat(string key)
@@ -146,7 +151,11 @@ namespace VM
             {
                 skins.Add(new SkinVM(skin));
             }
-            OnPropertyChanged(nameof(Skins));
+        }
+
+        protected void ClearSkins()
+        {
+            skins.Clear();
         }
 
         public void AddSkin(Skin skin)
@@ -181,7 +190,11 @@ namespace VM
             {
                 skills.Add(new SkillVM(skill));
             }
-            OnPropertyChanged(nameof(Skills));
+        }
+
+        protected void ClearSkills()
+        {
+            skills.Clear();
         }
 
         public void AddSkill(Skill skill)

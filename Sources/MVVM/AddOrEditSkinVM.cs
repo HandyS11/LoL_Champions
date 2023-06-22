@@ -33,7 +33,7 @@ namespace VM
             else
             {
                 IsNewSkin = false;
-                Model = vm.Model;
+                Model = new(vm.Name, new Champion(""), vm.Price, vm.Icon, vm.Image, vm.Description);
                 EditName = vm.Name;
             }
         }
