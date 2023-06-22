@@ -42,6 +42,15 @@ namespace VM
 
         public AddOrEditChampionVM() : base(new Champion("")) { }
 
+        public ChampionVM ChampionVM()
+        {
+            Champion champ = new Champion(EditName, Class, Icon, Image, Bio);
+            Skills.ToList().ForEach(s => champ.AddSkill(s.Model));
+            Skins.ToList().ForEach(s => champ.AddSkin(s.Model));
+            Stats.ToList().ForEach(s => champ.AddCharacteristics(Tuple.Create<string, int>(s.Key, s.Value)));
+            return new(champ);
+        }
+
         public void Clone(ChampionVM vm)
         {
             if (vm == null)

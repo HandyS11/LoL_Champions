@@ -2,7 +2,6 @@
 using LoL_Champions.Utils;
 using LoL_Champions.Views.Pages;
 using VM;
-using VM.Utils;
 
 namespace LoL_Champions.ViewModels
 {
@@ -50,7 +49,6 @@ namespace LoL_Champions.ViewModels
         private async Task GoToEditChampion(ChampionVM vm)
         {
             AddOrEditChampionVM.Clone(vm);
-            ChampionManagerVM.SelectedChampion = vm;
             await Navigation.PushAsync(new AddOrEditChampionPage());
         }
 
@@ -94,14 +92,14 @@ namespace LoL_Champions.ViewModels
         [RelayCommand]
         private async Task AddChampion()
         {
-            await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ToChampionVM());
+            await ChampionManagerVM.AddChampion(AddOrEditChampionVM.ChampionVM());
             await NavigateBack();
         }
 
         [RelayCommand]
         private async Task EditChampion()
         {
-            await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ToChampionVM());
+            await ChampionManagerVM.EditChampion(AddOrEditChampionVM.ChampionVM());
             await NavigateBack();
         }
 

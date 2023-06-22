@@ -11,8 +11,6 @@ namespace VM
         [ObservableProperty]
         private string editName;
 
-        //public SkinVM SkinVM => new(new Skin(EditName, Model.Champion, Price, Icon, Image, Description));
-
         public AddOrEditSkinVM() : base(new Skin("skin", new Champion(""))) { }
 
         public void Clone(SkinVM vm)

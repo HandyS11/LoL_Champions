@@ -18,8 +18,6 @@ namespace VM
         [ObservableProperty]
         private string editDesc;
 
-        //public SkillVM SkillVM => new(new Skill(EditName, (SkillType)Enum.Parse(typeof(SkillType), SkillPicker.ToString()), EditDesc));
-
         public AddOrEditSkillVM() : base(new Skill("Compétence", SkillType.Unknown)) { }
 
         public void Clone(SkillVM vm)
