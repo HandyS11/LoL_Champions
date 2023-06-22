@@ -83,13 +83,11 @@ namespace VM
             {
                 stats.Add(kvp);
             }
-            OnPropertyChanged(nameof(Stats));
         }
 
         protected void ClearStats()
         {
             stats.Clear();
-            OnPropertyChanged(nameof(Stats));
         }
 
         public void AddStat(string key, int value)
@@ -118,13 +116,11 @@ namespace VM
             {
                 skins.Add(new SkinVM(skin));
             }
-            OnPropertyChanged(nameof(Skins));
         }
 
         protected void ClearSkins()
         {
             skins.Clear();
-            OnPropertyChanged(nameof(Skins));
         }
 
         public void AddSkin(Skin skin)
@@ -159,13 +155,11 @@ namespace VM
             {
                 skills.Add(new SkillVM(skill));
             }
-            OnPropertyChanged(nameof(Skills));
         }
 
         protected void ClearSkills()
         {
             skills.Clear();
-            OnPropertyChanged(nameof(Skills));
         }
 
         public void AddSkill(Skill skill)

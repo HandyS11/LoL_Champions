@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using Model;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace VM
 {
@@ -44,7 +46,7 @@ namespace VM
 
         public ChampionVM ChampionVM()
         {
-            Champion champ = new Champion(EditName, Class, Icon, Image, Bio);
+            Champion champ = new(EditName, Class, Icon, Image, Bio);
             Skills.ToList().ForEach(s => champ.AddSkill(s.Model));
             Skins.ToList().ForEach(s => champ.AddSkin(s.Model));
             Stats.ToList().ForEach(s => champ.AddCharacteristics(Tuple.Create<string, int>(s.Key, s.Value)));
@@ -57,17 +59,20 @@ namespace VM
             {
                 IsNewChamp = true;
                 Model = new Champion("");
+                ClearStats();
+                ClearSkills();
+                ClearSkins();
             }
             else
             {
                 IsNewChamp = false;
-                Model = vm.Model;
+                Model = new(vm.Name, vm.Class, vm.Icon, vm.Image, vm.Bio);
+                vm.Stats.ToList().ForEach(s => AddStat(s.Key, s.Value));
+                vm.Skills.ToList().ForEach(s => AddSkill(s.Model));
+                vm.Skins.ToList().ForEach(s => AddSkin(s.Model));
                 EditName = vm.Name;
             }
-            ResetDatas();
-            LoadStats();
-            LoadSkills();
-            LoadSkins();
+            ResetDatas();          
         }
 
         public void ResetDatas()
