@@ -22,7 +22,7 @@ Create a [**MAUI**](https://learn.microsoft.com/en-us/dotnet/maui/) application 
 - You can't remove a Skin
 - You can't edit a Caracteristic
 
-**V2**: [MVVM_Toolkit](https://codefirst.iut.uca.fr/git/valentin.clergue/LoL_Champions/src/branch/mvvm_toolkit)
+**V2**: [MVVM_Toolkit](https://github.com/HandyS11/LoL_Champions/tree/mvvm_toolkit)
 
 ## 🛠 Languages & tools
 
